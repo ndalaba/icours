@@ -35,7 +35,7 @@
  "scripts": {
     "build": "npx tsc ",
     "dev": "nodemon --exec ts-node src/server.ts",
-    "typeorm": "typeorm-ts-node-commonjs -d './build/src/ormconfig.js'",
+    "typeorm": "typeorm-ts-node-commonjs -d './build/ormconfig.js'",
     "migration:generate": "npm run build && npm run typeorm migration:generate ./src/migrations/migration_table  ",
     "migration:run": "npm run build && npm run typeorm migration:run",
     "migration:revert": "npm run build && npm run typeorm migration:revert"

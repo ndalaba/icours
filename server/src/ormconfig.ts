@@ -1,17 +1,21 @@
 import "reflect-metadata"
-import {DataSource, DataSourceOptions} from "typeorm"
-import User, {Token} from "./app/user/user.entity";
+import { DataSource, DataSourceOptions } from "typeorm"
+import User, { Token } from "./app/user/user.entity";
+import { Course, Chapter } from './app/course/course.entity';
+import { Subject } from './app/subject/subject.entity';
 import * as dotenv from "dotenv"
 
 dotenv.config()
+
+const MODELS = [User, Token, Subject, Course, Chapter]
 
 const sqliteOption: DataSourceOptions = {
     type: "sqlite",
     database: "db.sqlite",
     synchronize: true,
     logging: false,
-    entities: [User, Token],
-    migrations: ['./build/src/migrations/*js'],
+    entities: MODELS,
+    migrations: ['./build/migrations/*js'],
 };
 
 const mysqlOption: DataSourceOptions = {
@@ -23,8 +27,8 @@ const mysqlOption: DataSourceOptions = {
     database: process.env.DB_NAME,
     //synchronize: true,
     logging: process.env.NODE_ENV === "dev",
-    entities: [User, Token],
-    migrations: ['./build/src/migrations/*js'],
+    entities: MODELS,
+    migrations: ['./build/migrations/*js'],
     subscribers: [],
 };
 
