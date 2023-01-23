@@ -6,12 +6,19 @@ import * as bodyParser from "body-parser"
 import autRoutes from "./routes/auth.route"
 import userRoutes from "./routes/user.route"
 import homeRouter from "./routes/home.route"
+import * as cors from "cors"
 
 dotenv.config()
 
 const app = express()
 
-app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json())
+
+app.use(cors({
+     credentials: true,
+     origin: process.env.CLIENT_PATH
+ }))
 
 app.use('/static', express.static(path.join(__dirname, 'static')))
 

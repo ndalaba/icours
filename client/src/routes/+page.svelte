@@ -1,4 +1,4 @@
-<section class="py-4 py-md-13 position-relative">
+<section class="py-1 py-md-8 position-relative">
 	<!-- Cursor position parallax -->
 	<div class="position-absolute right-0 left-0 top-0 bottom-0">
 		<div class="cs-parallax">

@@ -102,21 +102,17 @@
 
 			<!-- Navigation -->
 			<ul class="navbar-nav ms-auto">
-				
-				
-
-				
-
-				
-
+				<li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
+				<li class="nav-item"><a href="/" class="nav-link">Corrigés</a></li>
+				<li class="nav-item"><a href="/" class="nav-link">Actu scolaires</a></li>
+				<li class="nav-item"><a href="/" class="nav-link">Études</a></li>
+				<li class="nav-item"><a href="/" class="nav-link">Qui sommes nous?</a></li>
+			
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="navbarShop" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
-						Shop
+						Tableau de bord
 					</a>
 					<ul class="dropdown-menu border-xl shadow-none" aria-labelledby="navbarShop">
-						
-						
-						
 						
 						<li class="dropdown-item">
 							<a class="dropdown-link" href="./shop-order-completed.html">
@@ -124,46 +120,6 @@
 							</a>
 						</li>
 					</ul>
-				</li>
-
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" id="navbarDocumentation" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
-						Documentation
-					</a>
-					<div class="dropdown-menu border-xl shadow-none dropdown-menu-md" aria-labelledby="navbarDocumentation">
-						<div class="list-group list-group-flush">
-							
-							
-							<a class="list-group-item" href="./docs/changelog.html">
-
-								<!-- Icon -->
-								<div class="display-4 text-primary">
-									<i class="fas fa-file-alt"></i>
-								</div>
-
-								<!-- Content -->
-								<div class="ms-4">
-
-									<!-- Heading -->
-									<h5 class="text-primary mb-n1">
-										Changelog
-									</h5>
-
-									<!-- Text -->
-									<p class="font-size-sm text-gray-700 mb-0">
-										Keep track of changes
-									</p>
-
-								</div>
-
-								<!-- Badge -->
-								<span class="badge badge-pill badge-primary-soft ms-auto">
-									1.0
-								</span>
-
-							</a>
-						</div>
-					</div>
 				</li>
 			</ul>
 		</div>
@@ -177,7 +133,6 @@
 						<path d="M8.80758 0C3.95121 0 0 3.95121 0 8.80758C0 13.6642 3.95121 17.6152 8.80758 17.6152C13.6642 17.6152 17.6152 13.6642 17.6152 8.80758C17.6152 3.95121 13.6642 0 8.80758 0ZM8.80758 15.9892C4.8477 15.9892 1.62602 12.7675 1.62602 8.80762C1.62602 4.84773 4.8477 1.62602 8.80758 1.62602C12.7675 1.62602 15.9891 4.8477 15.9891 8.80758C15.9891 12.7675 12.7675 15.9892 8.80758 15.9892Z" fill="currentColor"></path>
 						<path d="M19.762 18.6121L15.1007 13.9509C14.7831 13.6332 14.2687 13.6332 13.9511 13.9509C13.6335 14.2682 13.6335 14.7831 13.9511 15.1005L18.6124 19.7617C18.7712 19.9205 18.9791 19.9999 19.1872 19.9999C19.395 19.9999 19.6032 19.9205 19.762 19.7617C20.0796 19.4444 20.0796 18.9295 19.762 18.6121Z" fill="currentColor"></path>
 					</svg>
-
 
 					<!-- Icon -->
 					<svg width="16" height="17" viewBox="0 0 16 17" xmlns="http://www.w3.org/2000/svg">
@@ -219,18 +174,6 @@
 
 				</a>
 			</li>
-
-			<li class="nav-item border-0 px-0">
-				<!-- Button trigger cart modal -->
-				<a href="#" class="nav-link d-flex px-3 px-md-4 position-relative text-secondary icon-xs" data-bs-toggle="modal" data-bs-target="#cartModal">
-					<span class="badge badge-primary rounded-circle fw-bold badge-float mt-n1 ms-n2 px-0 w-16" style="font-size: 8px;">2</span>
-					<!-- Icon -->
-					<svg width="13" height="15" viewBox="0 0 13 15" xmlns="http://www.w3.org/2000/svg">
-						<path d="M12.2422 3.51562H10.4567C10.2239 1.53873 8.53839 0 6.5 0C4.46161 0 2.7761 1.53873 2.54334 3.51562H0.757812C0.434199 3.51562 0.171875 3.77795 0.171875 4.10156V14.4141C0.171875 14.7377 0.434199 15 0.757812 15H12.2422C12.5658 15 12.8281 14.7377 12.8281 14.4141V4.10156C12.8281 3.77795 12.5658 3.51562 12.2422 3.51562ZM6.5 1.17188C7.89113 1.17188 9.04939 2.18716 9.27321 3.51562H3.72679C3.95062 2.18716 5.10887 1.17188 6.5 1.17188ZM11.6562 13.8281H1.34375V4.6875H2.51562V6.44531C2.51562 6.76893 2.77795 7.03125 3.10156 7.03125C3.42518 7.03125 3.6875 6.76893 3.6875 6.44531V4.6875H9.3125V6.44531C9.3125 6.76893 9.57482 7.03125 9.89844 7.03125C10.2221 7.03125 10.4844 6.76893 10.4844 6.44531V4.6875H11.6562V13.8281Z" fill="currentColor"></path>
-					</svg>
-
-				</a>
-			</li>
 		</ul>
 
 		<!-- Toggler -->
@@ -241,7 +184,6 @@
 				<rect y="8" width="15" height="1" fill="currentColor"></rect>
 				<rect y="16" width="20" height="1" fill="currentColor"></rect>
 			</svg>
-
 		</button>
 	</div>
 </header>

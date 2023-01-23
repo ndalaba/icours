@@ -6,6 +6,7 @@ import {errorResponse, successResponse} from "../helpers/response";
 import {render} from "../helpers/string";
 import User, {Token} from "../app/user/user.entity";
 import {register, resendToken, verifyToken} from "../app/auth/registration.service";
+import logger from "../helpers/logger";
 
 const router = new Router()
 
