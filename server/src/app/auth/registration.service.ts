@@ -11,7 +11,7 @@ import * as bcrypt from "bcrypt"
 const isPhoneValid = async (phone: string, response: Response): Promise<boolean> => {
     const user = await User.findOneBy({ phone })
     if (user) {
-        response.addError("phone", "User phone is already used.")
+        response.addError("phone", "Téléphone déjà utilisé.")
         return false
     }
     return true
@@ -19,7 +19,7 @@ const isPhoneValid = async (phone: string, response: Response): Promise<boolean>
 const isEmailValid = async (email: string, response: Response): Promise<boolean> => {
     const user = await User.findOneBy({ email })
     if (user) {
-        response.addError("email", "User email is already used.")
+        response.addError("email", "Email déjà utilisé.")
         return false
     }
     return true
@@ -51,11 +51,10 @@ export const verifyToken = async (value: string): Promise<Response> => {
     const token = await DataSource.getRepository(Token).findOneBy({ token: value })
     const response = new Response()
     if (token === null) {
-        response.addError('token', "Invalid token provided.")
-        return response
+        return response.addError('token', "Invalid token provided.")
     }
     if (token.expireDate < new Date()) {
-        response.addError("token", "Provided token is expired.")
+        return response.addError("token", "Provided token is expired.")
     }
     const user = token.user
     user.active = true
@@ -65,11 +64,11 @@ export const verifyToken = async (value: string): Promise<Response> => {
 
 export const resendToken = async (email: string): Promise<Response> => {
     logger.info(`Request to resend new token for email : ${email}`)
-    const user = await User.findOneBy({ email })
+    const user: User = await User.findOneBy({ email })
     const response = new Response()
     if (user === null)
         return response.addError("email", "Email address not found.")
-    const token = user.token
+    const token = await DataSource.getRepository(Token).findOneBy({ user: user.id })
     token.token = generateUid()
     token.expireDate = dayjs().add(24, "hour").toDate()
     await token.save()

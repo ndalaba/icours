@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { APP_NAME } from '$lib/helper/Constants';
-	import { validationError } from '$lib/helper/Errors';
+	import { showValidationErrors } from '$lib/helper/Errors';
 	import { post } from '$lib/helper/Request';
 	import Notification from '$lib/components/layouts/Notification.svelte';
 
@@ -8,13 +8,14 @@
 	let showNotification = false;
 
 	async function handleSubmit(event: SubmitEvent) {
-		const data = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries());
+		const target = event.target as HTMLFormElement;
+		const data = Object.fromEntries(new FormData(target).entries());
 		const response = await post('/auth/register', data);
 		if (!response.success) {
-			return validationError(response.error);
+			return showValidationErrors(response.error);
 		}
         showNotification=true
-        event.target?.reset()
+        target?.reset()
 	}
 </script>
 

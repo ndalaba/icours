@@ -1,12 +1,13 @@
-import {Request, Response, Router} from "express";
-import {CreateUserDto} from "../app/user/user.dto";
+import { Request, Response, Router } from "express";
+import { CreateUserDto, LoginDto } from "../app/user/user.dto";
 import sendEmail from "../helpers/email";
 import HttpStatusCode from "../helpers/httpStatusCode";
-import {errorResponse, successResponse} from "../helpers/response";
-import {render} from "../helpers/string";
-import User, {Token} from "../app/user/user.entity";
-import {register, resendToken, verifyToken} from "../app/auth/registration.service";
-import logger from "../helpers/logger";
+import { errorResponse, successResponse } from "../helpers/response";
+import { render } from "../helpers/string";
+import User, { Token } from "../app/user/user.entity";
+import { register, resendToken, verifyToken } from "../app/auth/registration.service";
+import { login } from "../app/auth/login.service";
+
 
 const router = new Router()
 
@@ -43,5 +44,12 @@ router.post('/resend-token', async (req: Request, res: Response) => {
     return successResponse(res, [], "New validation token send", HttpStatusCode.OK)
 })
 
+
+router.post('/login', async (req: Request, res: Response) => {
+    const response = await login(new LoginDto(req.body))
+    if (response.hasError)
+        return errorResponse(res, response.jsonErrors())
+    return successResponse(res, response.getAllData())
+})
 
 export default router;

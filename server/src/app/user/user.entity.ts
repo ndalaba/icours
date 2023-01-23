@@ -1,5 +1,5 @@
 import BaseEntity from "../shared/BaseEntity";
-import {BaseEntity as TOEntity, BeforeInsert, Column, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity as TOEntity, Column, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 import {Exclude} from "class-transformer"
 
 export class Role {

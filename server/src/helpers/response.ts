@@ -1,6 +1,6 @@
 import Errors from "./errors";
 import HttpStatusCode from "./httpStatusCode";
-import {Response as ExpressResponse} from "express";
+import { Response as ExpressResponse } from "express";
 
 export default class Response extends Errors {
 
@@ -18,6 +18,9 @@ export default class Response extends Errors {
         return this.data.get(name)
     }
 
+    getAllData(): Map<string, any> {
+        return this.data;
+    }
 }
 
 export const errorResponse = (res: ExpressResponse, data: any, message: string = "Validation errors", code: number = HttpStatusCode.BAD_REQUEST, status: boolean = false) => {

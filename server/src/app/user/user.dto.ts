@@ -1,5 +1,5 @@
-import User, {Gender} from "./user.entity";
-import {IsEmail, IsInstance, IsNotEmpty, validate} from "class-validator";
+import User, { Gender } from "./user.entity";
+import { IsEmail, IsInstance, IsNotEmpty, validate } from "class-validator";
 import Errors from "../../helpers/errors";
 
 
@@ -29,7 +29,7 @@ export class UpdateUserDto {
 
     private static MINIMUM_USER_AGE = 16
 
-    @IsNotEmpty({message: "First name is required"})
+    @IsNotEmpty({ message: "First name is required" })
     firstName: string
 
     @IsNotEmpty()
@@ -51,7 +51,7 @@ export class UpdateUserDto {
     }
 
     async validate() {
-        const errors =  new Errors().mapValidationErrors(await validate(this))
+        const errors = new Errors().mapValidationErrors(await validate(this))
         if (this.birthDay && this.birthMonth && this.birthYear) {
             const birth = new Date(this.birthYear, this.birthMonth, this.birthDay)
             const now = new Date()
@@ -65,7 +65,7 @@ export class UpdateUserDto {
 }
 
 export class CreateUserDto {
-    @IsNotEmpty({message: "First name is required"})
+    @IsNotEmpty({ message: "First name is required" })
     firstName: string
 
     @IsNotEmpty()
@@ -85,6 +85,22 @@ export class CreateUserDto {
         Object.assign(this, obj)
     }
 
+    async validate() {
+        return new Errors().mapValidationErrors(await validate(this))
+    }
+}
+
+export class LoginDto {
+    @IsNotEmpty()
+    @IsEmail()
+    email: string
+
+    @IsNotEmpty()
+    password: string
+
+    constructor(obj) {
+        Object.assign(this, obj)
+    }
     async validate() {
         return new Errors().mapValidationErrors(await validate(this))
     }
