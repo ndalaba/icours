@@ -2,15 +2,19 @@
 	import { APP_NAME } from '$lib/helper/Constants';
 	import { validationError } from '$lib/helper/Errors';
 	import { post } from '$lib/helper/Request';
+	import Notification from '$lib/components/layouts/Notification.svelte';
 
 	let showPassword = false;
+	let showNotification = false;
 
 	async function handleSubmit(event: SubmitEvent) {
 		const data = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries());
 		const response = await post('/auth/register', data);
 		if (!response.success) {
-			validationError(response.error);
+			return validationError(response.error);
 		}
+        showNotification=true
+        event.target?.reset()
 	}
 </script>
 
@@ -33,6 +37,8 @@
 	</div>
 
 	<div class="modal-body">
+        <Notification message="Pour finaliser votre inscription veuillez consulter le message qui vient de vous être envoyé dans votre boite mail." show={showNotification}/>
+
 		<form class="mb-5" on:submit|preventDefault={handleSubmit} method="post">
 			<div class="form-group mb-5">
 				<label for="firstName">Prénom</label>

@@ -1,6 +1,5 @@
 import BaseEntity from "../shared/BaseEntity";
 import {BaseEntity as TOEntity, BeforeInsert, Column, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
-import * as bcrypt from "bcrypt"
 import {Exclude} from "class-transformer"
 
 export class Role {
@@ -121,10 +120,5 @@ export default class User extends BaseEntity {
 
     canManage(user: User): boolean {
         return this.is(user) || user.hasAnyRole([Role.ROLE_ADMIN, Role.ROLE_SUPER_ADMIN])
-    }
-
-    @BeforeInsert()
-    async hashPassword() {
-        this.password = await bcrypt.hash(this.password, 6)
     }
 }

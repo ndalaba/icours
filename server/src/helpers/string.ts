@@ -2,6 +2,8 @@ import * as Twig from "twig"
 import * as path from "path";
 import logger from "./logger";
 
+import * as crypto from "crypto"
+
 export function render(filePath: string, data: any, callable: Function) {
     Twig.renderFile(path.join(__dirname, '../views/' + filePath), data, (err, html) => {
         if (err)
@@ -12,16 +14,7 @@ export function render(filePath: string, data: any, callable: Function) {
 }
 
 export function generateUid(length: number = 30): string {
-    let result = ''
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    const charactersLength = characters.length
-    for (let i = 0; i < length; i++) {
-        if (i % 4 === 0)
-            result += "-"
-        else
-            result += characters.charAt(Math.floor(Math.random() * charactersLength))
-    }
-    return result.substring(1)
+    return crypto.randomUUID()
 }
 
 export function slugify(str: string): string {

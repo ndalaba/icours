@@ -5,6 +5,8 @@ import * as dayjs from "dayjs"
 import User, { Token } from "../user/user.entity";
 import { CreateUserDto } from "../user/user.dto";
 import DataSource from "../../ormconfig"
+import * as bcrypt from "bcrypt"
+
 
 const isPhoneValid = async (phone: string, response: Response): Promise<boolean> => {
     const user = await User.findOneBy({ phone })
@@ -35,6 +37,7 @@ export const register = async (createUserDto: CreateUserDto): Promise<Response> 
 
     if (valid && emailIsValid && phoneIsValid) {
         const user = new User(createUserDto)
+        user.password = await bcrypt.hash(user.password, 6)
         await user.save()
         const token = new Token({ token: generateUid(), user, expireDate: dayjs().add(24, "hour").toDate() })
         await token.save()
