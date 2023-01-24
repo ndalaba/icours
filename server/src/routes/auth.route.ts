@@ -14,17 +14,15 @@ const router = new Router()
 const sendToken = (user: User, token: Token) => {
     render("email/email_validation.twig", {
         subject: "Email validation",
-        url: `${process.env.APP_URL}/auth/email-validation?token=${token.token}`
+        url: `${process.env.APP_URL}/api/auth/email-validation?token=${token.token}`
     }, (html: string) => {
         sendEmail(user.email, "Validation email", html)
     })
 }
 
-router.get("/verify-token/:token", async (req: Request, res: Response) => {
+router.get("/email-validation", async (req: Request, res: Response) => {
     const response = await verifyToken(req.params.token)
-    if (response.hasError())
-        return errorResponse(res, response.jsonErrors())
-    return successResponse(res, [], "Token validated", HttpStatusCode.OK)
+    return res.render('email_validation.twig', { hasError: response.hasError(), errors: response.jsonErrors() })
 })
 
 

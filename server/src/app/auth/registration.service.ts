@@ -6,6 +6,10 @@ import User, { Token } from "../user/user.entity";
 import { CreateUserDto } from "../user/user.dto";
 import DataSource from "../../ormconfig"
 import * as bcrypt from "bcrypt"
+import { TokenRepository } from "../user/user.repository";
+
+
+const tokenRepository = new TokenRepository()
 
 
 const isPhoneValid = async (phone: string, response: Response): Promise<boolean> => {
@@ -48,13 +52,13 @@ export const register = async (createUserDto: CreateUserDto): Promise<Response> 
 
 export const verifyToken = async (value: string): Promise<Response> => {
     logger.info(`Request to verify token ${value}`)
-    const token = await DataSource.getRepository(Token).findOneBy({ token: value })
+    const token = await tokenRepository.findOneBy('token', value)
     const response = new Response()
     if (token === null) {
-        return response.addError('token', "Invalid token provided.")
+        return response.addError('token', "Token invalide.")
     }
     if (token.expireDate < new Date()) {
-        return response.addError("token", "Provided token is expired.")
+        return response.addError("token", "Votre token de validation expiré.")
     }
     const user = token.user
     user.active = true
@@ -68,7 +72,7 @@ export const resendToken = async (email: string): Promise<Response> => {
     const response = new Response()
     if (user === null)
         return response.addError("email", "Email address not found.")
-    const token = await DataSource.getRepository(Token).findOneBy({ user: user.id })
+    const token = await tokenRepository.findOneBy('user',user.id)
     token.token = generateUid()
     token.expireDate = dayjs().add(24, "hour").toDate()
     await token.save()

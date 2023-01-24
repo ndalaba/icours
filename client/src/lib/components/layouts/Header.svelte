@@ -1,91 +1,13 @@
-<header class="navbar navbar-expand-xl navbar-light bg-white border-bottom border-xl-0 py-1 py-xl-1">
-	<div class="container-fluid">
+<header class="navbar navbar-expand-xl navbar-light">
+	<div class="container container-wd">
 
 		<!-- Brand -->
-		<a class="navbar-brand me-0" href="./index.html">
+		<a class="navbar-brand ms-0" href="/">
 			<img src="/img/logo.png" class="navbar-brand-img" alt="ICOURS">
 		</a>
 
 		<!-- Vertical Menu -->
-		<ul class="navbar-nav navbar-vertical ms-xl-4 d-none d-xl-flex">
-			<li class="nav-item dropdown">
-				<a class="nav-link pb-4 mb-n4 px-0 pt-0" id="navbarVerticalMenu" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
-					<div class="bg-primary rounded py-3 px-5 d-flex align-items-center">
-						<div class="me-3 ms-1 d-flex text-white">
-							<!-- Icon -->
-							<svg width="25" height="17" viewBox="0 0 25 17" xmlns="http://www.w3.org/2000/svg">
-								<rect width="25" height="1" fill="currentColor"></rect>
-								<rect y="8" width="15" height="1" fill="currentColor"></rect>
-								<rect y="16" width="20" height="1" fill="currentColor"></rect>
-							</svg>
-
-						</div>
-						<span class="text-white fw-medium me-1">Courses</span>
-					</div>
-				</a>
-
-				<ul class="dropdown-menu dropdown-menu-md bg-primary rounded py-4 mt-4" aria-labelledby="navbarVerticalMenu">
-					
-
-					
-
-					
-
-					
-
-					
-
-					
-
-					
-
-					<li class="dropdown-item dropright">
-						<a class="dropdown-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
-							<div class="me-4 d-flex text-white icon-xs">
-								<!-- Icon -->
-								<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M18.0833 1.80566H4.08796C3.03241 1.81029 2.17593 2.66678 2.17593 3.72696V3.75011H1.91667C0.861111 3.75011 0.00462963 4.60196 0 5.65752V16.2733C0.00462963 17.3288 0.856482 18.1899 1.91667 18.1946H15.912C16.9676 18.1899 17.8241 17.3334 17.8241 16.2733V16.2501H18.0833C19.1389 16.2501 19.9954 15.3983 20 14.3427V3.72696C19.9954 2.66678 19.1435 1.81029 18.0833 1.80566ZM15.912 17.2686H1.91667C1.37037 17.264 0.930556 16.8196 0.925926 16.2733V5.65752C0.930556 5.11585 1.37037 4.67603 1.91667 4.67603H15.912C16.4537 4.67603 16.8981 5.11122 16.8981 5.65752V8.30566C16.8148 8.32418 16.7315 8.33344 16.6528 8.33344H13.9815C12.5278 8.33344 11.3472 9.514 11.3472 10.9677C11.3472 12.4214 12.5278 13.602 13.9815 13.6066H16.6481C16.7315 13.602 16.8148 13.5927 16.8935 13.5834L16.8981 16.2733C16.8981 16.8196 16.4583 17.264 15.912 17.2686ZM19.0741 14.3427C19.0694 14.8844 18.6296 15.3242 18.0833 15.3242H17.8241V13.2501C18.0231 13.1159 18.2037 12.9492 18.3565 12.764L19.0741 11.8381V14.3427ZM17.625 12.2038C17.3935 12.5047 17.0324 12.6807 16.6528 12.6853H13.9815C13.037 12.6807 12.2731 11.9168 12.2731 10.9723C12.2731 10.0279 13.037 9.264 13.9815 9.25937H16.6481C16.9676 9.25937 17.2824 9.18992 17.5694 9.05103C17.875 8.90752 18.1435 8.68992 18.3519 8.4214L19.0694 7.49548L19.0741 10.3242L17.625 12.2038ZM19.0741 5.98159L17.8241 7.5927V5.65752C17.8241 4.60196 16.9676 3.75011 15.912 3.75011H3.10185V3.72696C3.10185 3.18066 3.54167 2.73622 4.08796 2.73159H18.0833C18.6296 2.73622 19.0694 3.18066 19.0741 3.72696V5.98159Z" fill="currentColor"></path>
-									<path d="M15.0185 10.5093H13.9074C13.6528 10.5093 13.4445 10.7176 13.4445 10.9722C13.4445 11.2269 13.6528 11.4352 13.9074 11.4352H15.0185C15.2732 11.4352 15.4815 11.2269 15.4815 10.9722C15.4815 10.7176 15.2732 10.5093 15.0185 10.5093Z" fill="currentColor"></path>
-								</svg>
-
-							</div>
-							Finance &amp; Accounting
-						</a>
-
-						<div class="dropdown-menu ps-3 top-0 pe-0 py-0 shadow-none bg-transparent">
-							<div class="dropdown-menu-md bg-primary rounded dropdown-menu-inner">
-								
-								
-								
-								
-								
-								
-								<a class="dropdown-item" href="./course-single-v2.html">
-									Operations
-								</a>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</li>
-		</ul>
-
-		<!-- Search -->
-		<form class="d-none d-wd-flex ms-5 w-xl-450p">
-			<div class="input-group border rounded">
-				<div class="input-group-prepend">
-					<button class="btn btn-sm my-2 my-sm-0 text-secondary icon-xs d-flex align-items-center" type="submit">
-						<!-- Icon -->
-						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M8.80758 0C3.95121 0 0 3.95121 0 8.80758C0 13.6642 3.95121 17.6152 8.80758 17.6152C13.6642 17.6152 17.6152 13.6642 17.6152 8.80758C17.6152 3.95121 13.6642 0 8.80758 0ZM8.80758 15.9892C4.8477 15.9892 1.62602 12.7675 1.62602 8.80762C1.62602 4.84773 4.8477 1.62602 8.80758 1.62602C12.7675 1.62602 15.9891 4.8477 15.9891 8.80758C15.9891 12.7675 12.7675 15.9892 8.80758 15.9892Z" fill="currentColor"></path>
-							<path d="M19.762 18.6121L15.1007 13.9509C14.7831 13.6332 14.2687 13.6332 13.9511 13.9509C13.6335 14.2682 13.6335 14.7831 13.9511 15.1005L18.6124 19.7617C18.7712 19.9205 18.9791 19.9999 19.1872 19.9999C19.395 19.9999 19.6032 19.9205 19.762 19.7617C20.0796 19.4444 20.0796 18.9295 19.762 18.6121Z" fill="currentColor"></path>
-						</svg>
-
-					</button>
-				</div>
-				<input class="form-control form-control-sm border-0 ps-0" type="search" placeholder="What do you want to learn ?" aria-label="Search">
-			</div>
-		</form>
+		
 
 		<!-- Collapse -->
 		<div class="collapse navbar-collapse z-index-lg" id="navbarCollapse">
@@ -101,38 +23,30 @@
 			</button>
 
 			<!-- Navigation -->
-			<ul class="navbar-nav ms-auto">
-				<li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
+			
+			<ul class="navbar-nav ms-5">
+
+					<li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
 				<li class="nav-item"><a href="/" class="nav-link">Corrigés</a></li>
 				<li class="nav-item"><a href="/" class="nav-link">Actu scolaires</a></li>
 				<li class="nav-item"><a href="/" class="nav-link">Études</a></li>
 				<li class="nav-item"><a href="/" class="nav-link">Qui sommes nous?</a></li>
-			
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" id="navbarShop" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
-						Tableau de bord
-					</a>
-					<ul class="dropdown-menu border-xl shadow-none" aria-labelledby="navbarShop">
-						
-						<li class="dropdown-item">
-							<a class="dropdown-link" href="./shop-order-completed.html">
-								Shop Order Completed
-							</a>
-						</li>
-					</ul>
-				</li>
 			</ul>
 		</div>
+
+		<!-- Search -->
+		
 
 		<!-- Search, Account & Cart -->
 		<ul class="navbar-nav flex-row ms-auto ms-xl-0 me-n2 me-md-n4">
 			<li class="nav-item border-0 px-0 d-none d-370-block d-xl-none">
-				<a class="nav-link d-flex px-3 px-md-4 search-mobile text-secondary icon-xs" data-bs-toggle="collapse" href="#collapseSearchMobile" role="button" aria-expanded="false" aria-controls="collapseSearchMobile">
+				<a class="nav-link d-flex px-3 px-md-4 search-mobile text-secondary" data-bs-toggle="collapse" href="#collapseSearchMobile" role="button" aria-expanded="false" aria-controls="collapseSearchMobile">
 					<!-- Icon -->
 					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M8.80758 0C3.95121 0 0 3.95121 0 8.80758C0 13.6642 3.95121 17.6152 8.80758 17.6152C13.6642 17.6152 17.6152 13.6642 17.6152 8.80758C17.6152 3.95121 13.6642 0 8.80758 0ZM8.80758 15.9892C4.8477 15.9892 1.62602 12.7675 1.62602 8.80762C1.62602 4.84773 4.8477 1.62602 8.80758 1.62602C12.7675 1.62602 15.9891 4.8477 15.9891 8.80758C15.9891 12.7675 12.7675 15.9892 8.80758 15.9892Z" fill="currentColor"></path>
 						<path d="M19.762 18.6121L15.1007 13.9509C14.7831 13.6332 14.2687 13.6332 13.9511 13.9509C13.6335 14.2682 13.6335 14.7831 13.9511 15.1005L18.6124 19.7617C18.7712 19.9205 18.9791 19.9999 19.1872 19.9999C19.395 19.9999 19.6032 19.9205 19.762 19.7617C20.0796 19.4444 20.0796 18.9295 19.762 18.6121Z" fill="currentColor"></path>
 					</svg>
+
 
 					<!-- Icon -->
 					<svg width="16" height="17" viewBox="0 0 16 17" xmlns="http://www.w3.org/2000/svg">
@@ -174,6 +88,8 @@
 
 				</a>
 			</li>
+
+			
 		</ul>
 
 		<!-- Toggler -->
@@ -184,6 +100,7 @@
 				<rect y="8" width="15" height="1" fill="currentColor"></rect>
 				<rect y="16" width="20" height="1" fill="currentColor"></rect>
 			</svg>
+
 		</button>
 	</div>
 </header>
