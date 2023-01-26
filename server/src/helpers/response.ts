@@ -21,6 +21,10 @@ export default class Response extends Errors {
     getAllData(): Map<string, any> {
         return this.data;
     }
+
+    getJsonData(){
+        return Object.fromEntries(this.data)
+    }
 }
 
 export const errorResponse = (res: ExpressResponse, data: any, message: string = "Validation errors", code: number = HttpStatusCode.BAD_REQUEST, status: boolean = false) => {

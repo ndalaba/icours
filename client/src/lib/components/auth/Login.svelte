@@ -3,12 +3,13 @@
 	import { hasValidationError, showValidationErrors } from '$lib/helper/Errors';
 	import { post } from '$lib/helper/Request';
 	import Notification from '../layouts/Notification.svelte';
+	import CloseBtn from './CloseBtn.svelte';
 
 	let showPassword = false;
 	let showNotification = false;
 	let showResendEmailButton = false;
 	let notificationMessage = '';
-    let notificationType="success"
+	let notificationType = 'success';
 
 	async function handleSubmit(event: SubmitEvent) {
 		showNotification = false;
@@ -21,79 +22,67 @@
 				showResendEmailButton = true;
 				notificationMessage = message;
 			}
-			return showValidationErrors(response.error);
+			return showValidationErrors(response.error, 'login');
 		}
 		showNotification = true;
 		target?.reset();
 	}
 
 	async function sendValidationEmail() {
-        showNotification = false;
-        showResendEmailButton = false;
+		showNotification = false;
+		showResendEmailButton = false;
 		const response = await post('/auth/resend-token', {
 			email: document.querySelector<HTMLInputElement>('#email')?.value
 		});
-        if(!response.success){
-            return showValidationErrors(response.error)
-        }
-        showNotification = true
-        notificationMessage="Un mail vient de vous être envoyé."
+		if (!response.success) {
+			return showValidationErrors(response.error, 'login');
+		}
+		showNotification = true;
+		notificationMessage = 'Un mail vient de vous être envoyé.';
 	}
 </script>
 
 <div class="collapse" id="collapseSignin" data-bs-parent="#accountModal">
 	<div class="modal-header">
 		<h5 class="modal-title">Se connecter à votre compte {APP_NAME}</h5>
-		<button type="button" class="close text-primary" data-bs-dismiss="modal" aria-label="Close">
-			<!-- Icon -->
-			<svg width="16" height="17" viewBox="0 0 16 17" xmlns="http://www.w3.org/2000/svg">
-				<path
-					d="M0.142135 2.00015L1.55635 0.585938L15.6985 14.7281L14.2843 16.1423L0.142135 2.00015Z"
-					fill="currentColor"
-				/>
-				<path
-					d="M14.1421 1.0001L15.5563 2.41431L1.41421 16.5564L0 15.1422L14.1421 1.0001Z"
-					fill="currentColor"
-				/>
-			</svg>
-		</button>
+		<CloseBtn />
 	</div>
 
 	<div class="modal-body">
-        <Notification message={notificationMessage} show={showNotification} notificationType={notificationType}/>
-		
-        {#if showResendEmailButton}
+		<Notification message={notificationMessage} show={showNotification} {notificationType} />
+
+		{#if showResendEmailButton}
 			<p>
 				<button class="btn btn-danger" on:click={sendValidationEmail}
-					>{notificationMessage} Renvoyer un mail de confirmation</button
+					>{notificationMessage} Renvoyer un mail de confirmation?</button
 				>
 			</p>
 		{/if}
 
-		<form class="mb-5" on:submit|preventDefault={handleSubmit}>
+		<form class="mb-5" id="login" on:submit|preventDefault={handleSubmit}>
 			<!-- Email -->
 			<div class="form-group mb-5">
-				<label for="email">Email</label>
+				<label for="login-email">Email</label>
 				<input
 					type="email"
 					class="form-control"
-					id="email"
+					id="login-email"
 					name="email"
 					placeholder="jon@doe.com"
 					required
 				/>
-				<div class="invalid-feedback" id="email-feedback" />
+				<div class="invalid-feedback" id="login-email-feedback" />
 			</div>
 
 			<!-- Password -->
 			<div class="form-group mb-5">
-				<label for="password">Mot de passe</label>
+				<label for="login-password">Mot de passe</label>
 				<div class="input-group input-group-flat">
 					<input
 						type={showPassword ? 'text' : 'password'}
 						class="form-control"
 						name="password"
-						id="password"
+						id="login-password"
 						placeholder="**********"
 						required
 						autocomplete="off"
@@ -106,7 +95,7 @@
 							>{showPassword ? 'Masquer' : 'Afficher'}</a
 						>
 					</span>
-					<div class="invalid-feedback" id="password-feedback" />
+					<div class="invalid-feedback" id="login-password-feedback" />
 				</div>
 			</div>
 			<div class="d-flex align-items-center mb-5 font-size-sm">

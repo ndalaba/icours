@@ -1,36 +1,54 @@
+<script lang="ts">
+	import { showValidationErrors } from '$lib/helper/Errors';
+	import { post } from '$lib/helper/Request';
+	import Notification from '$lib/components/layouts/Notification.svelte';
+	import CloseBtn from './CloseBtn.svelte';
+
+	let showNotification = false;
+
+	async function handleSubmit(event: SubmitEvent) {
+		const target = event.target as HTMLFormElement;
+		const data = Object.fromEntries(new FormData(target).entries());
+		const response = await post('/password/recover-password', data);
+		if (!response.success) {
+			return showValidationErrors(response.error,'reset-password');
+		}
+		showNotification = true;
+	}
+</script>
+
 <div class="collapse" id="collapseForgotPassword" data-bs-parent="#accountModal">
-    <div class="modal-header">
-        <h5 class="modal-title">Recover password!</h5>
-        <button type="button" class="close text-primary" data-bs-dismiss="modal" aria-label="Close">
-            <!-- Icon -->
-            <svg width="16" height="17" viewBox="0 0 16 17" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0.142135 2.00015L1.55635 0.585938L15.6985 14.7281L14.2843 16.1423L0.142135 2.00015Z" fill="currentColor"></path>
-                <path d="M14.1421 1.0001L15.5563 2.41431L1.41421 16.5564L0 15.1422L14.1421 1.0001Z" fill="currentColor"></path>
-            </svg>
+	<div class="modal-header">
+		<h5 class="modal-title">Réinitialiser mot de passe!</h5>
+		<CloseBtn/>
+	</div>
 
-        </button>
-    </div>
+	<div class="modal-body">
+		<Notification 
+			message="Pour finaliser votre opération veuillez consulter le message qui vient de vous être envoyé dans votre boite mail."
+			show={showNotification}
+		/>
 
-    <div class="modal-body">
-        <!-- Form Recover Password -->
-        <form class="mb-5">
-            <!-- Email -->
-            <div class="form-group">
-                <label for="modalForgotpasswordEmail">
-                    Email
-                </label>
-                <input type="email" class="form-control" id="modalForgotpasswordEmail" placeholder="johndoe@creativelayers.com">
-            </div>
+		<form class="mb-5" id="reset-password" on:submit|preventDefault={handleSubmit}>
+			<div class="form-group">
+				<label for="reset-password-email">Email</label>
+				<input type="email" class="form-control" name="email" id="reset-password-email" placeholder="johndoe@icours.com" />
+				<div class="invalid-feedback" id="reset-password-email-feedback">Email non reconnu</div>
+			</div>
 
-            <!-- Submit -->
-            <button class="btn btn-block btn-primary" type="submit">
-                RECOVER PASSWORD
-            </button>
-        </form>
+			<button class="btn btn-block btn-primary" type="submit"> RÉCUPÉRER MOT DE PASSE </button>
+		</form>
 
-        <!-- Text -->
-        <p class="mb-0 font-size-sm text-center">
-            Remember your password? <a class="text-underline collapsed" data-bs-toggle="collapse" href="#collapseSignin" role="button" aria-expanded="false" aria-controls="collapseSignin">Log In</a>
-        </p>
-    </div>
+		<p class="mb-0 font-size-sm text-center">
+			Vous vous souvenez de votre mot de passe 
+            <a
+				class="text-underline collapsed"
+				data-bs-toggle="collapse"
+				href="#collapseSignin"
+				role="button"
+				aria-expanded="false"
+				aria-controls="collapseSignin">Se connecter</a
+			>
+		</p>
+	</div>
 </div>

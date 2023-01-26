@@ -1,9 +1,9 @@
-export function showValidationErrors(errors: { [s: string]: unknown; } | ArrayLike<unknown>) {
+export function showValidationErrors(errors: { [s: string]: unknown; } | ArrayLike<unknown>, formId: string) {
     document.querySelectorAll<HTMLInputElement>('input').forEach((elt) => elt.classList.remove('is_invalid'));
     document.querySelectorAll<HTMLDivElement>('.invalid-feedback').forEach((elt) => (elt.style.display = 'none'));
     for (const [key, value] of Object.entries(errors)) {
-        document.querySelector(`#${key}`)?.classList.add('is_invalid');
-        const feedback = document.querySelector<HTMLDivElement>(`#${key}-feedback`);
+        document.querySelector(`#${formId + '-' + key}`)?.classList.add('is_invalid');
+        const feedback = document.querySelector<HTMLDivElement>(`#${formId + '-' + key}-feedback`);
         if (feedback !== undefined && feedback !== null) {
             feedback.style.display = 'block';
             feedback.innerText = value as string;
