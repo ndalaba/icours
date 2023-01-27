@@ -1,20 +1,8 @@
-<!doctype html>
+{% extends "layout.twig" %}
 
-<html lang="fr">
-	<head>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-		<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-		<title>I-Cours validation email</title>
-		<link rel="icon" href="./favicon.ico" type="image/x-icon"/>
-		<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
-		<meta name="description" content="Icours validation email"/>
-		<link href="http://localhost:5173/css/theme.min.css" rel="stylesheet"/>
+{% block body %}
 
-	</head>
-	<body class="bg-white" data-aos-easing="ease-out-quad" data-aos-duration="700" data-aos-delay="0">
-
-		<header class="py-6 py-md-6" style="background-image: none;">
+	<header class="py-6 py-md-6" style="background-image: none;">
 			<div class="container text-center py-xl-2">
 				<h1 class="display-4 fw-semi-bold mb-0">ICOURS</h1>
 				<nav aria-label="breadcrumb">
@@ -53,5 +41,4 @@
 			</div>
 		</div>
 
-	</body>
-</html>
+{% endblock %}

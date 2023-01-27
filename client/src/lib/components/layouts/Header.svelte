@@ -31,6 +31,7 @@
 				<li class="nav-item"><a href="/" class="nav-link">Actu scolaires</a></li>
 				<li class="nav-item"><a href="/" class="nav-link">Études</a></li>
 				<li class="nav-item"><a href="/" class="nav-link">Qui sommes nous?</a></li>
+				<li class="nav-item"><a href="/inscription" class="nav-link">Inscription</a></li>
 			</ul>
 		</div>
 
