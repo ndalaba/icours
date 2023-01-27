@@ -3,6 +3,8 @@
 	import { showValidationErrors } from '$lib/helper/Errors';
 	import { post } from '$lib/helper/Request';
 	import Notification from '$lib/components/layouts/Notification.svelte';
+	import EyeOff from '$lib/components/icons/EyeOff.svelte';
+	import Eye from '$lib/components/icons/Eye.svelte';
 
 	let showPassword = false;
 	let showNotification = false;
@@ -106,7 +108,13 @@
                                 href="#"
                                 class="input-group-link"
                                 on:click|preventDefault={() => (showPassword = !showPassword)}
-                                >{showPassword ? 'Masquer' : 'Afficher'}</a
+                                >
+                                {#if showPassword}
+									<EyeOff />
+								{:else}
+									<Eye />
+								{/if}
+                                </a
                             >
                         </span>
                     </div>
