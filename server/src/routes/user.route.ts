@@ -2,6 +2,7 @@ import {find, findAll, remove} from "../app/user/user.service";
 import {Request, Response, Router} from "express";
 import User from "../app/user/user.entity";
 import {successResponse} from "../helpers/response";
+import auth from "../middleware/auth";
 
 const router = Router()
 
@@ -15,7 +16,7 @@ router.get('/:uid', async (req: Request, res: Response) => {
     return successResponse(res, response.getData("user"))
 })
 
-router.get('/', async (_: Request, res: Response) => {
+router.get('/',auth, async (_: Request, res: Response) => {
     const response = await findAll()
     return successResponse(res, response.getData("users"))
 })

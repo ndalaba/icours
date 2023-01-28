@@ -1,10 +1,12 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import Eye from '$lib/components/icons/Eye.svelte';
 	import EyeOff from '$lib/components/icons/EyeOff.svelte';
 	import Notification from '$lib/components/layouts/Notification.svelte';
 	import { APP_NAME } from '$lib/helper/Constants';
 	import { hasValidationError, showValidationErrors } from '$lib/helper/Errors';
-	import { post } from '$lib/helper/Request';
+	import { postRequest } from '$lib/helper/Request';
+	import { authStore } from '$lib/store';
 
 	let showPassword = false;
 	let showNotification = false;
@@ -16,7 +18,7 @@
 		showNotification = false;
 		const target = event.target as HTMLFormElement;
 		const data = Object.fromEntries(new FormData(target).entries());
-		const response = await post('/auth/login', data);
+		const response = await postRequest('/auth/login', data);
 		if (!response.success) {
 			const { hasError, message } = hasValidationError('emailNotValidated', response.error);
 			if (hasError) {
@@ -25,14 +27,16 @@
 			}
 			return showValidationErrors(response.error, 'login');
 		}
-		showNotification = true;
+		showNotification = false;
 		target?.reset();
+		authStore.set({ auth: response.success, user: response.data });
+		goto("/")
 	}
 
 	async function sendValidationEmail() {
 		showNotification = false;
 		showResendEmailButton = false;
-		const response = await post('/auth/resend-token', {
+		const response = await postRequest('/auth/resend-token', {
 			email: document.querySelector<HTMLInputElement>('#email')?.value
 		});
 		if (!response.success) {
@@ -117,8 +121,13 @@
 				</div>
 				<div class="d-flex align-items-center mb-5 font-size-sm">
 					<div class="form-check">
-						<input class="form-check-input text-gray-800" type="checkbox" id="autoSizingCheck" />
-						<label class="form-check-label text-gray-800" for="autoSizingCheck">
+						<input
+							class="form-check-input text-gray-800"
+							type="checkbox"
+							id="remember_me"
+							name="remember_me"
+						/>
+						<label class="form-check-label text-gray-800" for="remember_me">
 							Rester connecté
 						</label>
 					</div>

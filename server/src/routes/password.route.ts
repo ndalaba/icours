@@ -9,7 +9,7 @@ import { errorResponse, successResponse } from "../helpers/response";
 import { render } from "../helpers/string";
 
 
-const router = new Router()
+const router = Router()
 
 const sendResetPasswordToken = (user: User, token: Token) => {
     render("email/recover_password.twig", {
@@ -30,7 +30,7 @@ router.post('/update-password', async (req: Request, res: Response) => {
 })
 
 router.get('/verify-password-token', async (req: Request, res: Response) => {
-    const response = await verifyPasswordToken(req.query.token)
+    const response = await verifyPasswordToken(req.query.token as string)
     if (!response.hasError())
         return res.render('recover_password.twig', { token: response.getData('token') })
     return res.render('notification.twig', { title: "Token invalide", message: "Votre token est invalide ou a expiré." })

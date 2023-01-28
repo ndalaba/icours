@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { APP_NAME } from '$lib/helper/Constants';
 	import { showValidationErrors } from '$lib/helper/Errors';
-	import { post } from '$lib/helper/Request';
+	import { postRequest } from '$lib/helper/Request';
 	import Notification from '$lib/components/layouts/Notification.svelte';
 	import EyeOff from '$lib/components/icons/EyeOff.svelte';
 	import Eye from '$lib/components/icons/Eye.svelte';
@@ -12,7 +12,7 @@
 	async function handleSubmit(event: SubmitEvent) {
 		const target = event.target as HTMLFormElement;
 		const data = Object.fromEntries(new FormData(target).entries());
-		const response = await post('/auth/register', data);
+		const response = await postRequest('/auth/register', data);
 		if (!response.success) {
 			return showValidationErrors(response.error,'register');
 		}
@@ -31,7 +31,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-scroll justify-content-center">
                 <li class="breadcrumb-item">
-                    <a class="text-gray-800" href="/">Accueil                    </a>
+                    <a class="text-gray-800" href="/">Accueil</a>
                 </li>
                 <li class="breadcrumb-item text-gray-800 active" aria-current="page">
                     Inscription

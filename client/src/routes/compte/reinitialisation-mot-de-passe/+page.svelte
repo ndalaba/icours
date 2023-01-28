@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { showValidationErrors } from '$lib/helper/Errors';
-	import { post } from '$lib/helper/Request';
+	import { postRequest } from '$lib/helper/Request';
 	import Notification from '$lib/components/layouts/Notification.svelte';
 
 	let showNotification = false;
@@ -8,7 +8,7 @@
 	async function handleSubmit(event: SubmitEvent) {
 		const target = event.target as HTMLFormElement;
 		const data = Object.fromEntries(new FormData(target).entries());
-		const response = await post('/password/recover-password', data);
+		const response = await postRequest('/password/recover-password', data);
 		if (!response.success) {
 			return showValidationErrors(response.error, 'reset-password');
 		}

@@ -10,7 +10,7 @@ import { verifyToken } from "../app/auth/verifyToken";
 import { resendToken } from "../app/auth/resendToken";
 
 
-const router = new Router()
+const router =  Router()
 
 const sendEmailValidationToken = (user: User, token: Token) => {
     render("email/email_validation.twig", {
@@ -22,7 +22,7 @@ const sendEmailValidationToken = (user: User, token: Token) => {
 }
 
 router.get("/email-validation", async (req: Request, res: Response) => {
-    const response = await verifyToken(req.query.token)
+    const response = await verifyToken(req.query.token as string)
     return res.render('email_validation.twig', { hasError: response.hasError(), errors: response.jsonErrors() })
 })
 
