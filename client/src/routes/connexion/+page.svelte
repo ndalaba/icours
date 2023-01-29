@@ -1,8 +1,9 @@
 <script lang="ts">
+    import '../theme.min.css'
     import {goto} from '$app/navigation';
     import Eye from '$lib/components/icons/Eye.svelte';
     import EyeOff from '$lib/components/icons/EyeOff.svelte';
-    import Notification from '$lib/components/layouts/Notification.svelte';
+    import Notification from '$lib/components/layouts/front/Notification.svelte';
     import {APP_NAME} from '$lib/helper/Constants';
     import {hasValidationError, showValidationErrors} from '$lib/helper/Errors';
     import {postRequest} from '$lib/helper/Request';

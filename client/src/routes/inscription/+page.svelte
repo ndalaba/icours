@@ -1,8 +1,10 @@
 <script lang="ts">
+
+    import '../theme.min.css'
 	import { APP_NAME } from '$lib/helper/Constants';
 	import { showValidationErrors } from '$lib/helper/Errors';
 	import { postRequest } from '$lib/helper/Request';
-	import Notification from '$lib/components/layouts/Notification.svelte';
+	import Notification from '$lib/components/layouts/front/Notification.svelte';
 	import EyeOff from '$lib/components/icons/EyeOff.svelte';
 	import Eye from '$lib/components/icons/Eye.svelte';
 

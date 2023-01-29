@@ -8,7 +8,7 @@
 <header class="navbar navbar-expand-xl navbar-light">
 	<div class="container container-wd">
 		<!-- Brand -->
-		<a class="navbar-brand ms-0" href="/">
+		<a class="navbar-brand ms-0" href="/client/static">
 			<img src="/img/logo.png" class="navbar-brand-img" alt="ICOURS" />
 		</a>
 
@@ -42,15 +42,15 @@
 			<!-- Navigation -->
 
 			<ul class="navbar-nav ms-5">
-				<li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
-				<li class="nav-item"><a href="/" class="nav-link">Corrigés</a></li>
-				<li class="nav-item"><a href="/" class="nav-link">Actu scolaires</a></li>
-				<li class="nav-item"><a href="/" class="nav-link">Études</a></li>
-				<li class="nav-item"><a href="/" class="nav-link">Qui sommes nous?</a></li>
+				<li class="nav-item"><a href="/client/static" class="nav-link">Accueil</a></li>
+				<li class="nav-item"><a href="/client/static" class="nav-link">Corrigés</a></li>
+				<li class="nav-item"><a href="/client/static" class="nav-link">Actu scolaires</a></li>
+				<li class="nav-item"><a href="/client/static" class="nav-link">Études</a></li>
+				<li class="nav-item"><a href="/client/static" class="nav-link">Qui sommes nous?</a></li>
 				
 				{#if !user.loading}
 					{#if user.authenticated}
-						<li class="nav-item"><a href="/" class="nav-link">{user?.user?.firstName}</a></li>
+						<li class="nav-item"><a href="/dashboard" class="nav-link">{user?.user?.firstName}</a></li>
 					{:else}
 						<li class="nav-item"><a href="/connexion" class="nav-link">Connexion</a></li>
 					{/if}

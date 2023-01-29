@@ -1,7 +1,8 @@
 <script lang="ts">
+	import '../theme.min.css'
 	import { showValidationErrors } from '$lib/helper/Errors';
 	import { postRequest } from '$lib/helper/Request';
-	import Notification from '$lib/components/layouts/Notification.svelte';
+	import Notification from '$lib/components/layouts/front/Notification.svelte';
 
 	let showNotification = false;
 
