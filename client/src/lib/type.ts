@@ -6,7 +6,8 @@ export type User = {
     phone: string,
 }
 
-export type AuthStoreType = {
-    auth: boolean,
-    user?: User 
+export type UserStoreType = {
+    authenticated: boolean,
+    user: User | undefined,
+    loading: boolean
 }

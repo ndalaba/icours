@@ -1,151 +1,149 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import Eye from '$lib/components/icons/Eye.svelte';
-	import EyeOff from '$lib/components/icons/EyeOff.svelte';
-	import Notification from '$lib/components/layouts/Notification.svelte';
-	import { APP_NAME } from '$lib/helper/Constants';
-	import { hasValidationError, showValidationErrors } from '$lib/helper/Errors';
-	import { postRequest } from '$lib/helper/Request';
-	import { authStore } from '$lib/store';
+    import {goto} from '$app/navigation';
+    import Eye from '$lib/components/icons/Eye.svelte';
+    import EyeOff from '$lib/components/icons/EyeOff.svelte';
+    import Notification from '$lib/components/layouts/Notification.svelte';
+    import {APP_NAME} from '$lib/helper/Constants';
+    import {hasValidationError, showValidationErrors} from '$lib/helper/Errors';
+    import {postRequest} from '$lib/helper/Request';
+    import {userStore} from '$lib/store';
+    import type {UserStoreType} from '$lib/type';
 
-	let showPassword = false;
-	let showNotification = false;
-	let showResendEmailButton = false;
-	let notificationMessage = '';
-	let notificationType = 'success';
+    let user: UserStoreType = {authenticated: false, user: undefined, loading: true};
 
-	async function handleSubmit(event: SubmitEvent) {
-		showNotification = false;
-		const target = event.target as HTMLFormElement;
-		const data = Object.fromEntries(new FormData(target).entries());
-		const response = await postRequest('/auth/login', data);
-		if (!response.success) {
-			const { hasError, message } = hasValidationError('emailNotValidated', response.error);
-			if (hasError) {
-				showResendEmailButton = true;
-				notificationMessage = message;
-			}
-			return showValidationErrors(response.error, 'login');
-		}
-		showNotification = false;
-		target?.reset();
-		authStore.set({ auth: response.success, user: response.data });
-		goto("/")
-	}
+    userStore.subscribe((value) => {
+        user = value;
+        if (value.authenticated) goto('/');
+    });
 
-	async function sendValidationEmail() {
-		showNotification = false;
-		showResendEmailButton = false;
-		const response = await postRequest('/auth/resend-token', {
-			email: document.querySelector<HTMLInputElement>('#email')?.value
-		});
-		if (!response.success) {
-			return showValidationErrors(response.error, 'login');
-		}
-		showNotification = true;
-		notificationMessage = 'Un mail vient de vous être envoyé.';
-	}
+    let showPassword = false;
+    let showNotification = false;
+    let showResendEmailButton = false;
+    let notificationMessage = '';
+    let notificationType = 'success';
+
+    async function handleSubmit(event: SubmitEvent) {
+        showNotification = false;
+        const target = event.target as HTMLFormElement;
+        const data = Object.fromEntries(new FormData(target).entries());
+        const response = await postRequest('/auth/login', data);
+        if (!response.success) {
+            const {hasError, message} = hasValidationError('emailNotValidated', response.error);
+            if (hasError) {
+                showResendEmailButton = true;
+                notificationMessage = message;
+            }
+            return showValidationErrors(response.error, 'login');
+        }
+        showNotification = false;
+        target?.reset();
+        userStore.set({authenticated: response.success, user: response.data, loading: false});
+        await goto('/');
+    }
+
+    async function sendValidationEmail() {
+        showNotification = false;
+        showResendEmailButton = false;
+        const response = await postRequest('/auth/resend-token', {
+            email: document.querySelector<HTMLInputElement>('#email')?.value
+        });
+        if (!response.success) {
+            return showValidationErrors(response.error, 'login');
+        }
+        showNotification = true;
+        notificationMessage = 'Un mail vient de vous être envoyé.';
+    }
 </script>
 
 <svelte:head>
-	<title>Connexion à {APP_NAME}</title>
+    <title>Connexion à {APP_NAME}</title>
 </svelte:head>
 
 <header class="py-8 py-md-8" style="background-image: none;">
-	<div class="container text-center py-xl-2">
-		<h1 class="display-4 fw-semi-bold mb-0">Connexion à {APP_NAME}</h1>
-		<nav aria-label="breadcrumb">
-			<ol class="breadcrumb breadcrumb-scroll justify-content-center">
-				<li class="breadcrumb-item">
-					<a class="text-gray-800" href="/">Accueil </a>
-				</li>
-				<li class="breadcrumb-item text-gray-800 active" aria-current="page">Connexion</li>
-			</ol>
-		</nav>
-	</div>
+    <div class="container text-center py-xl-2">
+        <h1 class="display-4 fw-semi-bold mb-0">Connexion à {APP_NAME}</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-scroll justify-content-center">
+                <li class="breadcrumb-item">
+                    <a class="text-gray-800" href="/">Accueil </a>
+                </li>
+                <li aria-current="page" class="breadcrumb-item text-gray-800 active">Connexion</li>
+            </ol>
+        </nav>
+    </div>
 </header>
 
 <div class="container mb-11">
-	<div class="row gx-0">
-		<div class="col-md-7 col-xl-4 mx-auto">
-			<Notification message={notificationMessage} show={showNotification} {notificationType} />
-			{#if showResendEmailButton}
-				<p>
-					<button class="btn btn-danger" on:click={sendValidationEmail}
-						>{notificationMessage} Renvoyer un mail de confirmation?</button
-					>
-				</p>
-			{/if}
-			<!-- Form Register -->
-			<form class="mb-5" id="login" on:submit|preventDefault={handleSubmit}>
-				<!-- Email -->
-				<div class="form-group mb-5">
-					<input
-						type="email"
-						class="form-control"
-						id="login-email"
-						name="email"
-						placeholder="Adresse email"
-						required
-					/>
-					<div class="invalid-feedback" id="login-email-feedback" />
-				</div>
-
-				<!-- Password -->
-				<div class="form-group mb-5">
-					<div class="input-group input-group-flat">
-						<input
-							type={showPassword ? 'text' : 'password'}
-							class="form-control"
-							name="password"
-							id="login-password"
-							placeholder="**********"
-							required
-							autocomplete="off"
-						/>
-						<span class="input-group-text">
+    <div class="row gx-0">
+        <div class="col-md-7 col-xl-4 mx-auto">
+            <Notification message={notificationMessage} {notificationType} show={showNotification}/>
+            {#if showResendEmailButton}
+                <p>
+                    <button class="btn btn-danger" on:click={sendValidationEmail}>
+                        {notificationMessage} Renvoyer un mail de confirmation?
+                    </button>
+                </p>
+            {/if}
+            <form class="mb-5" id="login" on:submit|preventDefault={handleSubmit}>
+                <div class="form-group mb-5">
+                    <input
+                            class="form-control"
+                            id="login-email"
+                            name="email"
+                            placeholder="Adresse email"
+                            required
+                            type="email"
+                    />
+                    <div class="invalid-feedback" id="login-email-feedback"/>
+                </div>
+                <div class="form-group mb-5">
+                    <div class="input-group input-group-flat">
+                        <input
+                                autocomplete="off"
+                                class="form-control"
+                                id="login-password"
+                                name="password"
+                                placeholder="**********"
+                                required
+                                type={showPassword ? 'text' : 'password'}
+                        />
+                        <span class="input-group-text">
 							<a
-								href="#"
-								class="input-group-link"
-								on:click|preventDefault={() => (showPassword = !showPassword)}
-							>
+                                    class="input-group-link"
+                                    href="#"
+                                    on:click|preventDefault={() => (showPassword = !showPassword)}
+                            >
 								{#if showPassword}
-									<EyeOff />
+									<EyeOff/>
 								{:else}
-									<Eye />
+									<Eye/>
 								{/if}
 							</a>
 						</span>
-						<div class="invalid-feedback" id="login-password-feedback" />
-					</div>
-				</div>
-				<div class="d-flex align-items-center mb-5 font-size-sm">
-					<div class="form-check">
-						<input
-							class="form-check-input text-gray-800"
-							type="checkbox"
-							id="remember_me"
-							name="remember_me"
-						/>
-						<label class="form-check-label text-gray-800" for="remember_me">
-							Rester connecté
-						</label>
-					</div>
+                        <div class="invalid-feedback" id="login-password-feedback"/>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mb-5 font-size-sm">
+                    <div class="form-check">
+                        <input
+                                class="form-check-input text-gray-800"
+                                id="remember_me"
+                                name="remember_me"
+                                type="checkbox"
+                        />
+                        <label class="form-check-label text-gray-800" for="remember_me">Rester connecté</label>
+                    </div>
 
-					<div class="ms-auto">
-						<a class="text-gray-800 collapsed" href="/compte/reinitialisation-mot-de-passe"
-							>Mot de passe oublié</a
-						>
-					</div>
-				</div>
+                    <div class="ms-auto">
+                        <a class="text-gray-800 collapsed" href="/compte/reinitialisation-mot-de-passe">Mot de passe oublié?</a>
+                    </div>
+                </div>
 
-				<button class="btn btn-block btn-primary" type="submit"> ENVOYER </button>
-			</form>
-
-			<!-- Text -->
-			<p class="mb-0 font-size-sm text-center">
-				Vous n'avez pas de compte <a class="text-underline" href="/inscription">S'inscrire</a>
-			</p>
-		</div>
-	</div>
+                <button class="btn btn-block btn-primary" type="submit"> ENVOYER</button>
+            </form>
+            <p class="mb-0 font-size-sm text-center">
+                Vous n'avez pas de compte <a class="text-underline" href="/inscription">S'inscrire</a>
+            </p>
+        </div>
+    </div>
 </div>

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { authStore } from '$lib/store';
-	import type { AuthStoreType } from '$lib/type';
-	let auth: AuthStoreType = { auth: false };
-	authStore.subscribe((value) => (auth = value));
+	import { userStore } from '$lib/store';
+	import type { UserStoreType } from '$lib/type';
+	let user: UserStoreType = { authenticated: false, user: undefined, loading: true };
+	userStore.subscribe((value) => (user = value));
 </script>
 
 <header class="navbar navbar-expand-xl navbar-light">
@@ -47,10 +47,13 @@
 				<li class="nav-item"><a href="/" class="nav-link">Actu scolaires</a></li>
 				<li class="nav-item"><a href="/" class="nav-link">Études</a></li>
 				<li class="nav-item"><a href="/" class="nav-link">Qui sommes nous?</a></li>
-				{#if auth.auth}
-					<li class="nav-item"><a href="/" class="nav-link">{auth.user.firstName}</a></li>
-				{:else}
-					<li class="nav-item"><a href="/connexion" class="nav-link">Connexion</a></li>
+				
+				{#if !user.loading}
+					{#if user.authenticated}
+						<li class="nav-item"><a href="/" class="nav-link">{user?.user?.firstName}</a></li>
+					{:else}
+						<li class="nav-item"><a href="/connexion" class="nav-link">Connexion</a></li>
+					{/if}
 				{/if}
 			</ul>
 		</div>
