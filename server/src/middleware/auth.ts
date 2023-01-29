@@ -6,6 +6,7 @@ import { UserRepository } from "../app/user/user.repository";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+        console.log("auth")
         const token = req.cookies.token
 
         if (!token) return next()

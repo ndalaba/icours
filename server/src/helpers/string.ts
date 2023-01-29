@@ -34,5 +34,5 @@ export function slugify(str: string): string {
         .replace(/-+/g, '-') // collapse dashes
         .replace(/^-+/, '') // trim - from start of text
         .replace(/-+$/, '') // trim - from end of text
-        .replace(/-/g, '_')
+        .replace(/-/g, '-')
 }

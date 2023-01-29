@@ -2,7 +2,7 @@ import "reflect-metadata"
 import { DataSource, DataSourceOptions } from "typeorm"
 import User, { Token } from "./app/user/user.entity";
 import { Course, Chapter } from './app/course/course.entity';
-import { Subject } from './app/subject/subject.entity';
+import Subject  from './app/subject/subject.entity';
 import * as dotenv from "dotenv"
 
 dotenv.config()

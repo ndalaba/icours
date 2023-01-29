@@ -1,21 +1,21 @@
-import { Column, OneToMany,Entity } from "typeorm";
-import { Course } from "../course/course.entity";
+import {Column, Entity, OneToMany} from "typeorm";
+import {Course} from "../course/course.entity";
 import BaseEntity from "../shared/BaseEntity";
 
 
 @Entity('subjects')
-export class Subject extends BaseEntity {
+export default class Subject extends BaseEntity {
 
-    @Column({ type: "varchar", nullable: false })
+    @Column({type: "varchar", nullable: false})
     subject: string
 
-    @Column({ type: "varchar", nullable: false })
+    @Column({type: "varchar", nullable: false})
     slug: string
 
-    @Column({ type: "varchar", nullable: true })
+    @Column({type: "varchar", nullable: true})
     image: string
 
-    @Column({ type: "text", nullable: true })
+    @Column({type: "text", nullable: true})
     description: string
 
     @OneToMany(() => Course, (course) => course.subject)
@@ -25,5 +25,4 @@ export class Subject extends BaseEntity {
         super()
         Object.assign(this, subject)
     }
-
 }

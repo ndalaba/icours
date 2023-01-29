@@ -21,12 +21,12 @@ export const login = async (loginDto: LoginDto, userRepository = new UserReposit
         return response.addError('email', "Email ou mot de passe incorrect.")
 
     if (!user.active)
-        return response.addError('emailNotValidated', "Adresse email non confirmé.")
+        return response.addError('emailNotValidated', "Adresse email non confirmée.")
 
     const token = jwt.sign(user.email, process.env.SECRET_KEY)
 
     user.lastLogin = new Date()
-    userRepository.save(user)
+    await userRepository.save(user)
     
     response.addData('token', token)
     response.addData('user', user)
