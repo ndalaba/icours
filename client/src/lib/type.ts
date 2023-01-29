@@ -3,9 +3,9 @@ export type User = {
     lastName: string,
     email: string,
     phone: string,
-    active:boolean,
-    address:string,
-    role:number
+    active: boolean,
+    address: string,
+    role: number
 }
 
 export type UserStoreType = {
@@ -14,11 +14,11 @@ export type UserStoreType = {
     loading: boolean
 }
 
-export type SubjectType={
-    id:number,
-    subject:string,
-    description:string,
-    image?:string
+export type SubjectType = {
+    id: number,
+    subject: string,
+    description: string,
+    image?: string
 }
 
 

@@ -30,13 +30,27 @@ a {
 }
 
 .markdown > table thead th, .table thead th {
-    font-size: 0.8rem
+    font-size: 0.8rem;
+    line-height: 1.5rem;
 }
 
 .card {
-    box-shadow: 0 3px 20px #0000000b;
+    /*box-shadow: 0 3px 20px #0000000b;*/
+}
+
+.breadcrumb-current {
+    display: inline;
+    font-size: 1rem;
+    line-height: 0;
+    font-weight: 500;
 }
 
 .navbar-dark .navbar-nav .nav-link, .dropdown-item {
     font-size: 1rem
+}
+
+@media (min-width: 1400px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1400px;
+    }
 }
