@@ -3,38 +3,61 @@
     import Trash from "$lib/components/icons/Trash.svelte";
     import Edit from "$lib/components/icons/Edit.svelte";
     import ListPlaceholder from "$lib/components/layouts/dashboard/ListPlaceholder.svelte";
+    import Plus from "$lib/components/icons/Plus.svelte";
+    import {deleteRequest} from "$lib/helper/Request";
+    import {createEventDispatcher} from "svelte";
+    import {SERVER_UPLOAD_PATH} from "$lib/helper/Constants.js";
 
+    const dispatch = createEventDispatcher()
     export let subjects: SubjectType[] = []
+    export let loading: boolean = true
+
+    let filteredSubjects: SubjectType[] = subjects
+    let search: string = ""
+
+    $:{
+        filteredSubjects = subjects.filter(subject => subject.subject.toLowerCase().includes(search.toLowerCase()))
+    }
+
+    function deleteSubject(uid: string) {
+        deleteRequest('/subjects/' + uid).then(_ => dispatch('subject-updated'))
+    }
+
+    function updateSubject(subject: SubjectType) {
+        dispatch('subject-update-request', {data:subject})
+    }
+
 </script>
 <div class="card mb-2">
     <div class="card-body">
         <div class="row justify-content-between">
             <div class="col-auto">
                 <form class="mb-2 mb-sm-0">
-                    <label class="visually-hidden" for="inputPassword2">Search</label>
-                    <input class="form-control" id="inputPassword2" placeholder="Search..." type="search">
+                    <label class="visually-hidden" for="search">Search</label>
+                    <input bind:value={search} class="form-control" id="search" placeholder="Rechercher..." type="search">
                 </form>
             </div>
             <div class="col-sm-3">
                 <div class="text-sm-end">
-                    <button class="btn btn-secondary" type="button">
-                        <i class="fa fa-plus-circle"></i> Add New
+                    <button class="btn btn-ghost-primary" type="button">
+                        <Plus/>
+                        Ajouter
                     </button>
                 </div>
             </div><!-- end col-->
         </div>
     </div> <!-- end card-body-->
 </div>
-{#if !subjects.length}
+{#if loading}
     <ListPlaceholder/>
 {:else}
-    {#each subjects as subject }
+    {#each filteredSubjects as subject }
         <div class="card mb-2">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-sm-4">
                         <div class="d-flex align-items-start">
-                            <img alt="Generic placeholder image" class="d-flex align-self-center me-3 rounded-4" height="64" src="https://preview.tabler.io/static/avatars/000m.jpg">
+                            <img alt={subject.subject} class="d-flex align-self-center me-3 rounded-4" height="64" src={SERVER_UPLOAD_PATH + subject.image}>
                             <div class="w-100">
                                 <h4 class="mt-0 mt-3 font-16">{subject.subject}</h4>
                             </div>
@@ -48,10 +71,10 @@
 
                     <div class="col-sm-2">
                         <div class="text-sm-end">
-                            <a>
+                            <a class="m-lg-2" on:click|preventDefault={()=>updateSubject(subject)}>
                                 <Edit/>
                             </a>
-                            <a>
+                            <a class="m-lg-2" on:click|preventDefault={()=>deleteSubject(subject.uid)}>
                                 <Trash/>
                             </a>
                         </div>

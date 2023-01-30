@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../theme.min.css'
-	import { showValidationErrors } from '$lib/helper/Errors';
-	import { postRequest } from '$lib/helper/Request';
+	import {showValidationErrors} from '$lib/helper/Errors';
+	import {PostContentType, postRequest} from '$lib/helper/Request';
 	import Notification from '$lib/components/layouts/front/Notification.svelte';
 
 	let showNotification = false;
@@ -9,7 +9,7 @@
 	async function handleSubmit(event: SubmitEvent) {
 		const target = event.target as HTMLFormElement;
 		const data = Object.fromEntries(new FormData(target).entries());
-		const response = await postRequest('/password/recover-password', data);
+		const response = await postRequest('/password/recover-password', data,PostContentType.JSON);
 		if (!response.success) {
 			return showValidationErrors(response.error, 'reset-password');
 		}

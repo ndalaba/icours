@@ -6,7 +6,7 @@
     import Notification from '$lib/components/layouts/front/Notification.svelte';
     import {APP_NAME} from '$lib/helper/Constants';
     import {hasValidationError, showValidationErrors} from '$lib/helper/Errors';
-    import {postRequest} from '$lib/helper/Request';
+    import {PostContentType, postRequest} from '$lib/helper/Request';
     import {userStore} from '$lib/store';
     import type {UserStoreType} from '$lib/type';
 
@@ -27,7 +27,7 @@
         showNotification = false;
         const target = event.target as HTMLFormElement;
         const data = Object.fromEntries(new FormData(target).entries());
-        const response = await postRequest('/auth/login', data);
+        const response = await postRequest('/auth/login', data, PostContentType.JSON);
         if (!response.success) {
             const {hasError, message} = hasValidationError('emailNotValidated', response.error);
             if (hasError) {
@@ -47,7 +47,7 @@
         showResendEmailButton = false;
         const response = await postRequest('/auth/resend-token', {
             email: document.querySelector<HTMLInputElement>('#email')?.value
-        });
+        },PostContentType.JSON);
         if (!response.success) {
             return showValidationErrors(response.error, 'login');
         }
@@ -85,7 +85,7 @@
                     </button>
                 </p>
             {/if}
-            <form class="mb-5" id="login" on:submit|preventDefault={handleSubmit}>
+            <form class="mb-5" enctype="multipart/form-data" id="login" on:submit|preventDefault={handleSubmit}>
                 <div class="form-group mb-5">
                     <input
                             class="form-control"

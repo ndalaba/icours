@@ -1,40 +1,40 @@
 <script lang="ts">
-   import {showValidationErrors} from "$lib/helper/Errors.js";
-   import type {SubjectType} from "$lib/type";
-   import {postRequest} from "$lib/helper/Request";
-   import {createEventDispatcher} from "svelte";
+    import {hideValidationErrors, showValidationErrors} from "$lib/helper/Errors.js";
+    import type {SubjectType} from "$lib/type";
+    import {postRequest} from "$lib/helper/Request";
+    import {createEventDispatcher} from "svelte";
 
-   const dispatch = createEventDispatcher()
+    const dispatch = createEventDispatcher()
 
-   let formTitle = "Ajouter un matière"
-   let formData: SubjectType;
-   async function handleSubmit(event: SubmitEvent) {
-      const target = event.target as HTMLFormElement
-      const data = Object.fromEntries(new FormData(target).entries());
-      const response = await postRequest("/subjects", data);
-      if (!response.success) {
-         return showValidationErrors(response.error, 'subject');
-      }
-      target.reset()
-       dispatch('subjectSaved')
-      //await getSubjects()
-   }
+    let formTitle = "Ajouter un matière"
+    export let formData: SubjectType;
+
+    async function handleSubmit(event: SubmitEvent) {
+        hideValidationErrors()
+        const target = event.target as HTMLFormElement
+        const response = await postRequest("/subjects", new FormData(target));
+        if (!response.success) {
+            return showValidationErrors(response.error, 'subject');
+        }
+        target.reset()
+        dispatch('subject-updated')
+    }
 </script>
 
-<form class="card" id="subject" on:submit|preventDefault={handleSubmit}>
+<form class="card" id="subject" on:submit|preventDefault={handleSubmit} enctype="multipart/form-data">
     <div class="card-header">
         <h3 class="card-title">{formTitle}</h3>
     </div>
     <div class="card-body">
-        <input name="id" type="hidden" value="0">
+        <input name="id" type="hidden" value={formData.id}>
         <div class="mb-3">
             <label class="form-label" for="subject-subject">Matières</label>
-            <input class="form-control" id="subject-subject" name="subject" placeholder="" required>
-            <div class="invalid-feedback" id="subject-subject-feedback">Email déjà utilisé</div>
+            <input class="form-control" id="subject-subject" name="subject" value={formData.subject} required>
+            <div class="invalid-feedback" id="subject-subject-feedback">Matière déjà enregistrée</div>
         </div>
         <div class="mb-3">
             <label class="form-label" for="subject-description">Description</label>
-            <textarea class="form-control" id="subject-description" name="description" required rows="3"></textarea>
+            <textarea class="form-control" id="subject-description" name="description" value={formData.description} required rows="3"></textarea>
         </div>
         <div class="mb-3">
             <div class="form-label">Image matière</div>

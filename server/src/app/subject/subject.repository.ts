@@ -33,4 +33,12 @@ export default class SubjectRepository {
             }
         })
     }
+
+    async findOrFail(uid: string): Promise<Subject> {
+        return this.getRepository().findOneByOrFail({uid})
+    }
+
+    async remove(subject: Subject) {
+        return this.getRepository().remove(subject)
+    }
 }

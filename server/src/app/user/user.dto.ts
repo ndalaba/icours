@@ -1,5 +1,5 @@
-import User, { Gender } from "./user.entity";
-import { IsEmail, IsInstance, IsNotEmpty, validate } from "class-validator";
+import User, {Gender} from "./user.entity";
+import {IsEmail, IsInstance, IsNotEmpty, validate} from "class-validator";
 import Errors from "../../helpers/errors";
 
 
@@ -29,7 +29,7 @@ export class UpdateUserDto {
 
     private static MINIMUM_USER_AGE = 16
 
-    @IsNotEmpty({ message: "First name is required" })
+    @IsNotEmpty({message: "First name is required"})
     firstName: string
 
     @IsNotEmpty()
@@ -65,7 +65,7 @@ export class UpdateUserDto {
 }
 
 export class CreateUserDto {
-    @IsNotEmpty({ message: "First name is required" })
+    @IsNotEmpty({message: "First name is required"})
     firstName: string
 
     @IsNotEmpty()
@@ -91,16 +91,17 @@ export class CreateUserDto {
 }
 
 export class LoginDto {
-    @IsNotEmpty()
-    @IsEmail()
+    @IsNotEmpty({message: "L'adresse email doit être renseigné"})
+    @IsEmail({},{message: "L'adresse email doit être valide"})
     email: string
 
-    @IsNotEmpty()
+    @IsNotEmpty({message: "Le mot de passe est obligatoire"})
     password: string
 
     constructor(obj) {
         Object.assign(this, obj)
     }
+
     async validate() {
         return new Errors().mapValidationErrors(await validate(this))
     }

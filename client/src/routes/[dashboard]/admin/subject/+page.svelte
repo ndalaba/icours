@@ -6,6 +6,8 @@
     import SubjectList from "./SubjectList.svelte";
 
     let subjects: SubjectType[] = []
+    let currentSubject: SubjectType = {subject: '', id: 0, description: '', image: ''};
+    let loading: boolean = true
 
     onMount(() => {
         getSubjects()
@@ -14,10 +16,13 @@
     async function getSubjects() {
         const response = await getRequest("/subjects")
         subjects = response.data
+        loading = false
     }
 
+    function setCurrentSubject(event) {
+        currentSubject = event.detail.data
+    }
 </script>
-
 
 <svelte:head>
     <title>I-Cours - Matières</title>
@@ -41,10 +46,10 @@
     <div class="container-xl">
         <div class="row g-4">
             <div class="col-md-6">
-                <SubjectList subjects={subjects}/>
+                <SubjectList loading={loading} on:subject-update-request={setCurrentSubject} on:subject-updated={getSubjects} subjects={subjects}/>
             </div>
             <div class="col-md-6">
-                <SubjectForm on:subjectSaved={getSubjects}/>
+                <SubjectForm formData={currentSubject} on:subject-updated={getSubjects}/>
             </div>
         </div>
     </div>
