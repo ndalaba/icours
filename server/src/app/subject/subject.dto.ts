@@ -5,6 +5,8 @@ import Errors from "../../helpers/errors";
 export class SubjectDto {
     id: number = 0
 
+    uid:string
+
     @IsNotEmpty()
     subject: string
 

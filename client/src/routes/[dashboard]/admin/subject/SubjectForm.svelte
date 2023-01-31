@@ -1,18 +1,24 @@
 <script lang="ts">
     import {hideValidationErrors, showValidationErrors} from "$lib/helper/Errors.js";
     import type {SubjectType} from "$lib/type";
-    import {postRequest} from "$lib/helper/Request";
+    import {postRequest, putRequest} from "$lib/helper/Request";
     import {createEventDispatcher} from "svelte";
 
     const dispatch = createEventDispatcher()
 
     let formTitle = "Ajouter un matière"
     export let formData: SubjectType;
+    $:{
+        if (formData?.uid) {
+            formTitle = "Modifier la matière " + formData?.subject
+        }
+    }
 
     async function handleSubmit(event: SubmitEvent) {
         hideValidationErrors()
         const target = event.target as HTMLFormElement
-        const response = await postRequest("/subjects", new FormData(target));
+        const data = new FormData(target)
+        const response = +data.get('id')==0? await postRequest("/subjects", data): await putRequest("/subjects", data);
         if (!response.success) {
             return showValidationErrors(response.error, 'subject');
         }
@@ -21,20 +27,21 @@
     }
 </script>
 
-<form class="card" id="subject" on:submit|preventDefault={handleSubmit} enctype="multipart/form-data">
+<form class="card" enctype="multipart/form-data" id="subject" on:submit|preventDefault={handleSubmit}>
     <div class="card-header">
         <h3 class="card-title">{formTitle}</h3>
     </div>
     <div class="card-body">
-        <input name="id" type="hidden" value={formData.id}>
+        <input name="id" type="number" class="d-none" value={formData.id}>
+        <input name="uid" class="d-none" value={formData.uid}>
         <div class="mb-3">
             <label class="form-label" for="subject-subject">Matières</label>
-            <input class="form-control" id="subject-subject" name="subject" value={formData.subject} required>
+            <input class="form-control" id="subject-subject" name="subject" required value={formData.subject}>
             <div class="invalid-feedback" id="subject-subject-feedback">Matière déjà enregistrée</div>
         </div>
         <div class="mb-3">
             <label class="form-label" for="subject-description">Description</label>
-            <textarea class="form-control" id="subject-description" name="description" value={formData.description} required rows="3"></textarea>
+            <textarea class="form-control" id="subject-description" name="description" required rows="3" value={formData.description}></textarea>
         </div>
         <div class="mb-3">
             <div class="form-label">Image matière</div>

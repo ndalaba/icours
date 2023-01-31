@@ -1,5 +1,5 @@
 import {Request, Response, Router} from "express";
-import {createSubject, deleteSubject, getSubjects} from "../app/subject/subject.service";
+import {createSubject, deleteSubject, getSubjects, updateSubject} from "../app/subject/subject.service";
 import {SubjectDto} from "../app/subject/subject.dto";
 import {errorResponse, successResponse} from "../helpers/response";
 import HttpStatusCode from "../helpers/httpStatusCode";
@@ -13,6 +13,14 @@ router.post('/', upload("subjects").single('image'), async (req: Request, res: R
     if (response.hasError())
         return errorResponse(res, response.jsonErrors())
     return successResponse(res, response.getData("subject"), "Subject created", HttpStatusCode.CREATED)
+})
+
+router.put('/', upload("subjects").single('image'), async (req: Request, res: Response) => {
+    const body = req.file !== undefined ? {...req.body, image: "subjects/" + req.file?.filename} : req.body
+    const response = await updateSubject(new SubjectDto(body))
+    if (response.hasError())
+        return errorResponse(res, response.jsonErrors())
+    return successResponse(res, response.getData("subject"), "Subject updated", HttpStatusCode.OK)
 })
 
 router.get("/", async (_: Request, res: Response) => {

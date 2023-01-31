@@ -20,11 +20,12 @@
     }
 
     function deleteSubject(uid: string) {
-        deleteRequest('/subjects/' + uid).then(_ => dispatch('subject-updated'))
+        if (confirm("Supprimer cet élément?"))
+            deleteRequest('/subjects/' + uid).then(_ => dispatch('subject-updated'))
     }
 
     function updateSubject(subject: SubjectType) {
-        dispatch('subject-update-request', {data:subject})
+        dispatch('subject-update-request', {data: subject})
     }
 
 </script>

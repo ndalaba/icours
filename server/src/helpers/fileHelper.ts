@@ -5,7 +5,7 @@ import * as fs from "fs";
 
 
 export const remove = (file: string) => {
-    if (!file.length)
+    if (file == null || !file.length)
         return
     const filePath = __dirname + `/../static/upload/${file}`
     fs.open(filePath, 'r', (err, fd) => {

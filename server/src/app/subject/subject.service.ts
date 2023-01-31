@@ -1,17 +1,16 @@
 import Response from "../../helpers/response";
 import {SubjectDto} from "./subject.dto";
 import logger from "../../helpers/logger";
-import {slugify} from "../../helpers/string";
+import {generateUid, slugify} from "../../helpers/string";
 import SubjectRepository from "./subject.repository";
 import Subject from "./subject.entity";
-import * as fs from "fs";
 import {remove} from "../../helpers/fileHelper";
 
 const subjectRepository = new SubjectRepository()
 
-const isSubjectValid = async (subject: string, response: Response): Promise<boolean> => {
-    const existingSubject = await subjectRepository.findOneBySubject(subject)
-    if (existingSubject) {
+const isSubjectValid = async (subjectDto: SubjectDto, response: Response): Promise<boolean> => {
+    const existingSubject = await subjectRepository.findOneBySubject(subjectDto.subject)
+    if (existingSubject && existingSubject.id != subjectDto.id) {
         response.addError("subject", "Matière déjà enregistrée.")
         return false
     }
@@ -24,10 +23,12 @@ export const createSubject = async (subjectDto: SubjectDto): Promise<Response> =
         const response = new Response(new Map<string, any>(), validation.getErrors())
 
         const valid = !validation.hasError()
-        const subjectIsValid = await isSubjectValid(subjectDto.subject, response)
+        const subjectIsValid = await isSubjectValid(subjectDto, response)
 
         if (valid && subjectIsValid) {
             let subject = new Subject(subjectDto)
+            subject.id = 0
+            subject.uid = generateUid()
             subject.slug = slugify(subject.subject)
             subject.image = subjectDto.image
             subject = await subjectRepository.save(subject)
@@ -35,7 +36,30 @@ export const createSubject = async (subjectDto: SubjectDto): Promise<Response> =
         }
         return response
     } catch (e) {
-        logger.error(`Create new Subject : ${subjectDto.subject} failed:` + e)
+        logger.error(`Create new Subject : "${subjectDto.subject}" failed:` + e)
+    }
+}
+
+export const updateSubject = async (subjectDto: SubjectDto): Promise<Response> => {
+    try {
+        const validation = await subjectDto.validate()
+        const response = new Response(new Map<string, any>(), validation.getErrors())
+
+        const valid = !validation.hasError()
+        const subjectIsValid = await isSubjectValid(subjectDto, response)
+
+        if (valid && subjectIsValid) {
+            let subject = await subjectRepository.findOrFail(subjectDto.uid)
+            subject.slug = slugify(subjectDto.subject)
+            subject.subject = subjectDto.subject
+            subject.description = subjectDto.description
+            subject.image = subjectDto.image !== undefined ? subjectDto.image : subject.image
+            subject = await subjectRepository.save(subject)
+            response.addData("subject", subject)
+        }
+        return response
+    } catch (e) {
+        logger.error(`Updating a Subject "${subjectDto.subject}" failed:` + e)
     }
 }
 
@@ -52,6 +76,6 @@ export const deleteSubject = async (uid: string): Promise<Response> => {
         await subjectRepository.remove(subject)
         return new Response()
     } catch (e) {
-        logger.error(`Delete subject ${uid} failed: ${e}`)
+        logger.error(`Delete subject "${uid}" failed: ${e}`)
     }
 }

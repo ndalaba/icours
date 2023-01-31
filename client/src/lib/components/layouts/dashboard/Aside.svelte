@@ -18,7 +18,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <h1 class="navbar-brand navbar-brand-autodark">
-            <a href=".">
+            <a data-sveltekit-reload href="/">
                 <img alt="Tabler" class="navbar-brand-image" height="32" src="https://preview.tabler.io/static/logo-white.svg" width="110">
             </a>
         </h1>

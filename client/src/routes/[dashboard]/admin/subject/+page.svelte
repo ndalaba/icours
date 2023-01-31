@@ -6,7 +6,7 @@
     import SubjectList from "./SubjectList.svelte";
 
     let subjects: SubjectType[] = []
-    let currentSubject: SubjectType = {subject: '', id: 0, description: '', image: ''};
+    let currentSubject: SubjectType = {subject: '', id: 0, description: '', image: '', uid: ''};
     let loading: boolean = true
 
     onMount(() => {

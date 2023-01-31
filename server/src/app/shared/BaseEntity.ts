@@ -3,7 +3,7 @@ import {generateUid} from "../../helpers/string";
 import {Exclude, instanceToPlain} from "class-transformer";
 
 export default abstract class BaseEntity extends Entity {
-    @Exclude()
+
     @PrimaryGeneratedColumn()
     id: number
 

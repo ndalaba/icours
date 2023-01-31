@@ -15,7 +15,8 @@ export type UserStoreType = {
 }
 
 export type SubjectType = {
-    id: number,
+    uid: string,
+    id:number,
     subject: string,
     description: string,
     image?: string

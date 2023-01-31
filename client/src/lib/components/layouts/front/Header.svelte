@@ -50,7 +50,7 @@
 				
 				{#if !user.loading}
 					{#if user.authenticated}
-						<li class="nav-item"><a href="/dashboard" class="nav-link">{user?.user?.firstName}</a></li>
+						<li class="nav-item"><a data-sveltekit-reload href="/dashboard" class="nav-link">{user?.user?.firstName}</a></li>
 					{:else}
 						<li class="nav-item"><a href="/connexion" class="nav-link">Connexion</a></li>
 					{/if}
