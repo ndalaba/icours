@@ -33,7 +33,12 @@ export const createSubject = async (subjectDto: SubjectDto): Promise<Response> =
             subject.image = subjectDto.image
             subject = await subjectRepository.save(subject)
             response.addData("subject", subject)
+        }else{
+            if (subjectDto.image !== undefined) {
+                remove(subjectDto.image)
+            }
         }
+
         return response
     } catch (e) {
         logger.error(`Create new Subject : "${subjectDto.subject}" failed:` + e)
@@ -53,10 +58,18 @@ export const updateSubject = async (subjectDto: SubjectDto): Promise<Response> =
             subject.slug = slugify(subjectDto.subject)
             subject.subject = subjectDto.subject
             subject.description = subjectDto.description
-            subject.image = subjectDto.image !== undefined ? subjectDto.image : subject.image
+            if (subjectDto.image !== undefined) {
+                remove(subject.image)
+                subject.image = subjectDto.image
+            }
             subject = await subjectRepository.save(subject)
             response.addData("subject", subject)
+        }else{
+            if (subjectDto.image !== undefined) {
+                remove(subjectDto.image)
+            }
         }
+
         return response
     } catch (e) {
         logger.error(`Updating a Subject "${subjectDto.subject}" failed:` + e)
