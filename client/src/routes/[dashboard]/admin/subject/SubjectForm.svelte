@@ -3,26 +3,25 @@
     import type {SubjectType} from "$lib/type";
     import {postRequest, putRequest} from "$lib/helper/Request";
     import {createEventDispatcher} from "svelte";
+    import {success} from "$lib/helper/Toaster";
 
     const dispatch = createEventDispatcher()
 
     let formTitle = "Ajouter un matière"
     export let formData: SubjectType;
-    $:{
-        if (formData?.uid) {
-            formTitle = "Modifier la matière " + formData?.subject
-        }
-    }
+    $: if (formData?.uid) formTitle = "Modifier la matière " + formData?.subject
+
 
     async function handleSubmit(event: SubmitEvent) {
         hideValidationErrors()
         const target = event.target as HTMLFormElement
         const data = new FormData(target)
-        const response = +data.get('id')==0? await postRequest("/subjects", data): await putRequest("/subjects", data);
+        const response = +data.get('id') == 0 ? await postRequest("/subjects", data) : await putRequest("/subjects", data);
         if (!response.success) {
             return showValidationErrors(response.error, 'subject');
         }
         target.reset()
+        success(+data.get('id') == 0 ? 'Matière ajoutée' : 'Matière modifiée.')
         dispatch('subject-updated')
     }
 </script>
@@ -32,8 +31,8 @@
         <h3 class="card-title">{formTitle}</h3>
     </div>
     <div class="card-body">
-        <input name="id" type="number" class="d-none" value={formData.id}>
-        <input name="uid" class="d-none" value={formData.uid}>
+        <input class="d-none" name="id" type="number" value={formData.id}>
+        <input class="d-none" name="uid" value={formData.uid}>
         <div class="mb-3">
             <label class="form-label" for="subject-subject">Matières</label>
             <input class="form-control" id="subject-subject" name="subject" required value={formData.subject}>

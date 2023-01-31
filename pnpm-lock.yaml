@@ -11,6 +11,7 @@ importers:
       '@types/cookie': ^0.5.1
       '@typescript-eslint/eslint-plugin': ^5.45.0
       '@typescript-eslint/parser': ^5.45.0
+      '@zerodevx/svelte-toast': 1.0.0-rc.1
       eslint: ^8.28.0
       eslint-config-prettier: ^8.5.0
       eslint-plugin-svelte3: ^4.0.0
@@ -21,6 +22,8 @@ importers:
       tslib: ^2.4.1
       typescript: ^4.9.3
       vite: ^4.0.0
+    dependencies:
+      '@zerodevx/svelte-toast': 1.0.0-rc.1
     devDependencies:
       '@fontsource/fira-mono': 4.5.10
       '@neoconfetti/svelte': 1.0.0
@@ -847,6 +850,10 @@ packages:
       '@typescript-eslint/types': 5.48.1
       eslint-visitor-keys: 3.3.0
     dev: true
+
+  /@zerodevx/svelte-toast/1.0.0-rc.1:
+    resolution: {integrity: sha512-KEZUWeFg1MLlHVssx94ZWWKDBOlQUznTH7xsfZ3uPSYbD5NMO8jDEUGiDNiJ3aKpwiabGvZgG7NKJLFK0q/KYg==}
+    dev: false
 
   /abbrev/1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}

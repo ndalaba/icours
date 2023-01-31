@@ -7,21 +7,28 @@
     import {deleteRequest} from "$lib/helper/Request";
     import {createEventDispatcher} from "svelte";
     import {SERVER_UPLOAD_PATH} from "$lib/helper/Constants.js";
+    import Alert from "$lib/components/layouts/dashboard/Alert.svelte";
+    import {success} from "$lib/helper/Toaster";
 
     const dispatch = createEventDispatcher()
     export let subjects: SubjectType[] = []
     export let loading: boolean = true
+    export let showAlert: boolean = false
+
 
     let filteredSubjects: SubjectType[] = subjects
     let search: string = ""
+    let currentSubject: SubjectType;
 
-    $:{
-        filteredSubjects = subjects.filter(subject => subject.subject.toLowerCase().includes(search.toLowerCase()))
-    }
+    $: filteredSubjects = subjects.filter(subject => subject.subject.toLowerCase().includes(search.toLowerCase()))
 
-    function deleteSubject(uid: string) {
-        if (confirm("Supprimer cet élément?"))
-            deleteRequest('/subjects/' + uid).then(_ => dispatch('subject-updated'))
+
+    function deleteSubject() {
+        deleteRequest('/subjects/' + currentSubject?.uid).then(_ => {
+            dispatch('subject-updated')
+            success(`Matière supprimée.`)
+        })
+        showAlert = false
     }
 
     function updateSubject(subject: SubjectType) {
@@ -29,6 +36,9 @@
     }
 
 </script>
+{#if showAlert}
+    <Alert description="Supprimer cet élement" title="Suppression" on:close={_=>showAlert=false} on:validate={deleteSubject}/>
+{/if}
 <div class="card mb-2">
     <div class="card-body">
         <div class="row justify-content-between">
@@ -75,7 +85,7 @@
                             <a class="m-lg-2" on:click|preventDefault={()=>updateSubject(subject)}>
                                 <Edit/>
                             </a>
-                            <a class="m-lg-2" on:click|preventDefault={()=>deleteSubject(subject.uid)}>
+                            <a class="m-lg-2" on:click|preventDefault={()=>{currentSubject=subject;showAlert=true}}>
                                 <Trash/>
                             </a>
                         </div>
