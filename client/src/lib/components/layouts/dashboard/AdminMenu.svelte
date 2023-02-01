@@ -8,22 +8,9 @@
     <div class="dropdown-menu show" data-bs-popper="static">
         <div class="dropdown-menu-columns">
             <div class="dropdown-menu-column">
-
-                <a class="dropdown-item" href="/">Buttons </a>
-                <div class="dropend">
-                    <a aria-expanded="false" class="dropdown-item dropdown-toggle" data-bs-auto-close="false" data-bs-toggle="dropdown" href="#sidebar-cards" role="button">
-                        COURS
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/dashboard/admin/subject">
-                           Matières
-                        </a>
-                    </div>
-                </div>
-
-
+                <a class="dropdown-item" href="/dashboard/admin/subject">MATIÈRES </a>
+                <a class="dropdown-item" href="/dashboard/admin/classes">CLASSES </a>
             </div>
-
         </div>
     </div>
 </li>

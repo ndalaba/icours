@@ -1,31 +1,31 @@
 <script lang="ts">
     import {getRequest} from "$lib/helper/Request";
-    import type {SubjectType} from "$lib/type";
+    import type {ClasseType} from "$lib/type";
     import {onMount} from "svelte";
-    import SubjectForm from "./SubjectForm.svelte";
-    import SubjectList from "./SubjectList.svelte";
+    import ClasseForm from "./ClasseForm.svelte";
+    import ClasseList from "./ClasseList.svelte";
 
-    let subjects: SubjectType[] = []
-    let currentSubject: SubjectType = {name: '', id: 0, description: '', image: '', uid: ''};
+    let classes: ClasseType[] = []
+    let currentClasse: ClasseType = {name: '', id: 0, description: '', uid: ''};
     let loading: boolean = true
 
     onMount(() => {
-        getSubjects()
+        getClasses()
     })
 
-    async function getSubjects() {
-        const response = await getRequest("/subjects")
-        subjects = response.data
+    async function getClasses() {
+        const response = await getRequest("/classes")
+        classes = response.data
         loading = false
     }
 
-    function setCurrentSubject(event) {
-        currentSubject = event.detail.data
+    function setCurrentClasse(event) {
+        currentClasse = event.detail.data
     }
 </script>
 
 <svelte:head>
-    <title>I-Cours - Matières</title>
+    <title>I-Cours - Classes</title>
 </svelte:head>
 
 <div class="page-header d-print-none">
@@ -35,7 +35,7 @@
                 <ol aria-label="breadcrumbs" class="breadcrumb breadcrumb-arrows">
                     <li class="breadcrumb-item"><a href="/dashboard/admin">Tableau de bord</a></li>
                     <li aria-current="page" class="breadcrumb-item active">
-                        <h2 class="breadcrumb-current"><a href="/">Liste matières</a></h2>
+                        <h2 class="breadcrumb-current"><a href="/">Liste classes</a></h2>
                     </li>
                 </ol>
             </div>
@@ -46,10 +46,10 @@
     <div class="container-xl">
         <div class="row g-4">
             <div class="col-md-6">
-                <SubjectList loading={loading} on:subject-update-request={setCurrentSubject} on:subject-updated={getSubjects} subjects={subjects}/>
+                <ClasseList loading={loading} on:classe-update-request={setCurrentClasse} on:classe-updated={getClasses} classes={classes}/>
             </div>
             <div class="col-md-6">
-                <SubjectForm formData={currentSubject} on:subject-updated={getSubjects}/>
+                <ClasseForm formData={currentClasse} on:classe-updated={getClasses}/>
             </div>
         </div>
     </div>

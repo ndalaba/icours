@@ -2,7 +2,7 @@ import {IsNotEmpty, validate} from "class-validator";
 import Errors from "../../helpers/errors";
 
 
-export class SubjectDto {
+export class ClasseDto {
     id: number = 0
 
     uid:string
@@ -11,8 +11,6 @@ export class SubjectDto {
     name: string
 
     description: string
-
-    image: any
 
     constructor(obj) {
         Object.assign(this, obj)

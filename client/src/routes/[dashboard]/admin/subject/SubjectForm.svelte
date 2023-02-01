@@ -9,7 +9,7 @@
 
     let formTitle = "Ajouter un matière"
     export let formData: SubjectType;
-    $: if (formData?.uid) formTitle = "Modifier la matière " + formData?.subject
+    $: if (formData?.uid) formTitle = "Modifier la matière " + formData?.name
 
 
     async function handleSubmit(event: SubmitEvent) {
@@ -35,12 +35,12 @@
         <input class="d-none" name="uid" value={formData.uid}>
         <div class="mb-3">
             <label class="form-label" for="subject-subject">Matières</label>
-            <input class="form-control" id="subject-subject" name="subject" required value={formData.subject}>
+            <input class="form-control" id="subject-subject" name="name" required value={formData.name}>
             <div class="invalid-feedback" id="subject-subject-feedback">Matière déjà enregistrée</div>
         </div>
         <div class="mb-3">
             <label class="form-label" for="subject-description">Description</label>
-            <textarea class="form-control" id="subject-description" name="description" required rows="3" value={formData.description}></textarea>
+            <textarea class="form-control" id="subject-description" name="description" rows="3" value={formData.description}></textarea>
         </div>
         <div class="mb-3">
             <div class="form-label">Image matière</div>

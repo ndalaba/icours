@@ -17,9 +17,16 @@ export type UserStoreType = {
 export type SubjectType = {
     uid: string,
     id:number,
-    subject: string,
+    name: string,
     description: string,
     image?: string
+}
+
+export type ClasseType = {
+    uid: string,
+    id:number,
+    name: string,
+    description: string,
 }
 
 

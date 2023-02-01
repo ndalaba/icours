@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {SubjectType} from "$lib/type";
+    import type {ClasseType} from "$lib/type";
     import Trash from "$lib/components/icons/Trash.svelte";
     import Edit from "$lib/components/icons/Edit.svelte";
     import ListPlaceholder from "$lib/components/layouts/dashboard/ListPlaceholder.svelte";
@@ -11,31 +11,31 @@
     import {alert} from "$lib/helper/alert";
 
     const dispatch = createEventDispatcher()
-    export let subjects: SubjectType[] = []
+    export let classes: ClasseType[] = []
     export let loading: boolean = true
 
-    let filteredSubjects: SubjectType[]
+    let filteredClasses: ClasseType[]
     let search: string = ""
 
-    $: filteredSubjects = subjects.filter(subject => subject.name.toLowerCase().includes(search.toLowerCase()))
+    $: filteredClasses = classes.filter(classe => classe.name.toLowerCase().includes(search.toLowerCase()))
 
-    function deleteSubject(uid: string) {
+    function deleteClasse(uid: string) {
         alert({
             actionLabel: "Envoyer",
             show: false,
             title: "Suppression",
             description: "Supprimer cet élément",
             callable: function () {
-                deleteRequest('/subjects/' + uid).then(_ => {
-                    dispatch('subject-updated')
-                    success(`Matière supprimée.`)
+                deleteRequest('/classes/' + uid).then(_ => {
+                    dispatch('classe-updated')
+                    success(`Classe supprimée.`)
                 })
             }
         })
     }
 
-    function updateSubject(subject: SubjectType) {
-        dispatch('subject-update-request', {data: subject})
+    function updateClasse(classe: ClasseType) {
+        dispatch('classe-update-request', {data: classe})
     }
 
 </script>
@@ -63,30 +63,29 @@
 {#if loading}
     <ListPlaceholder/>
 {:else}
-    {#each filteredSubjects as subject }
+    {#each filteredClasses as classe }
         <div class="card mb-2">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-sm-4">
                         <div class="d-flex align-items-start">
-                            <img alt={subject.name} class="d-flex align-self-center me-3 rounded-4" height="64" src={SERVER_UPLOAD_PATH + subject.image}>
                             <div class="w-100">
-                                <h4 class="mt-0 mt-3 font-16">{subject.name}</h4>
+                                <h4 class="mt-0 mt-3 font-16">{classe.name}</h4>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <p class="mb-1 mt-3 mt-sm-0">
-                            {subject.description}
+                            {classe.description}
                         </p>
                     </div>
 
                     <div class="col-sm-2">
                         <div class="text-sm-end">
-                            <a class="m-lg-2" on:click|preventDefault={()=>updateSubject(subject)}>
+                            <a class="m-lg-2" on:click|preventDefault={()=>updateClasse(classe)}>
                                 <Edit/>
                             </a>
-                            <a class="m-lg-2" on:click|preventDefault={()=>deleteSubject(subject.uid)}>
+                            <a class="m-lg-2" on:click|preventDefault={()=>deleteClasse(classe.uid)}>
                                 <Trash/>
                             </a>
                         </div>

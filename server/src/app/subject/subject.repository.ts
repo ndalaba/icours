@@ -17,8 +17,8 @@ export default class SubjectRepository {
         return await this.getRepository().findOne({where: {[key]: value}})
     }
 
-    async findOneBySubject(subject: string): Promise<Subject> {
-        return this.findOneBy("subject", subject)
+    async findOneByName(name: string): Promise<Subject> {
+        return this.findOneBy("name", name)
     }
 
     async findOneBySlug(slug: string): Promise<Subject> {
@@ -28,7 +28,7 @@ export default class SubjectRepository {
     async findAll(): Promise<Subject[]> {
         return this.getRepository().find({
             order: {
-                subject: "asc",
+                name: "asc",
                 id: "desc"
             }
         })

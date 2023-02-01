@@ -7,7 +7,7 @@ import BaseEntity from "../shared/BaseEntity";
 export default class Subject extends BaseEntity {
 
     @Column({type: "varchar", nullable: false})
-    subject: string
+    name: string
 
     @Column({type: "varchar", nullable: false})
     slug: string

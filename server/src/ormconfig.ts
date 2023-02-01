@@ -1,13 +1,14 @@
 import "reflect-metadata"
-import { DataSource, DataSourceOptions } from "typeorm"
-import User, { Token } from "./app/user/user.entity";
-import { Course, Chapter } from './app/course/course.entity';
-import Subject  from './app/subject/subject.entity';
+import {DataSource, DataSourceOptions} from "typeorm"
+import User, {Token} from "./app/user/user.entity";
+import {Chapter, Course} from './app/course/course.entity';
+import Subject from './app/subject/subject.entity';
 import * as dotenv from "dotenv"
+import Classe from "./app/classes/classe.entity";
 
 dotenv.config()
 
-const MODELS = [User, Token, Subject, Course, Chapter]
+const MODELS = [User, Token, Subject, Course, Chapter, Classe]
 
 const sqliteOption: DataSourceOptions = {
     type: "sqlite",

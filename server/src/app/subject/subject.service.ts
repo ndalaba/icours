@@ -9,7 +9,7 @@ import {remove} from "../../helpers/fileHelper";
 const subjectRepository = new SubjectRepository()
 
 const isSubjectValid = async (subjectDto: SubjectDto, response: Response): Promise<boolean> => {
-    const existingSubject = await subjectRepository.findOneBySubject(subjectDto.subject)
+    const existingSubject = await subjectRepository.findOneByName(subjectDto.name)
     if (existingSubject && existingSubject.id != subjectDto.id) {
         response.addError("subject", "Matière déjà enregistrée.")
         return false
@@ -29,7 +29,7 @@ export const createSubject = async (subjectDto: SubjectDto): Promise<Response> =
             let subject = new Subject(subjectDto)
             subject.id = 0
             subject.uid = generateUid()
-            subject.slug = slugify(subject.subject)
+            subject.slug = slugify(subject.name)
             subject.image = subjectDto.image
             subject = await subjectRepository.save(subject)
             response.addData("subject", subject)
@@ -41,7 +41,7 @@ export const createSubject = async (subjectDto: SubjectDto): Promise<Response> =
 
         return response
     } catch (e) {
-        logger.error(`Create new Subject : "${subjectDto.subject}" failed:` + e)
+        logger.error(`Create new Subject : "${subjectDto.name}" failed:` + e)
     }
 }
 
@@ -55,8 +55,8 @@ export const updateSubject = async (subjectDto: SubjectDto): Promise<Response> =
 
         if (valid && subjectIsValid) {
             let subject = await subjectRepository.findOrFail(subjectDto.uid)
-            subject.slug = slugify(subjectDto.subject)
-            subject.subject = subjectDto.subject
+            subject.slug = slugify(subjectDto.name)
+            subject.name = subjectDto.name
             subject.description = subjectDto.description
             if (subjectDto.image !== undefined) {
                 remove(subject.image)
@@ -72,7 +72,7 @@ export const updateSubject = async (subjectDto: SubjectDto): Promise<Response> =
 
         return response
     } catch (e) {
-        logger.error(`Updating a Subject "${subjectDto.subject}" failed:` + e)
+        logger.error(`Updating a Subject "${subjectDto.name}" failed:` + e)
     }
 }
 
