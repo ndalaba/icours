@@ -20,8 +20,8 @@ router.put('/', async (req: Request, res: Response) => {
     return successResponse(res, response.getData("course"), "Course updated", HttpStatusCode.OK)
 })
 
-router.get("/", async (_: Request, res: Response) => {
-    const response = await getCourses()
+router.get("/", async (req: Request, res: Response) => {
+    const response = await getCourses(req.query.subject, req.query.classe, req.query.published)
     return successResponse(res, response.getData('courses'))
 })
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-    import type {CourseType, SubjectType} from "$lib/type";
-    import {deleteRequest} from "$lib/helper/Request";
+    import type {ClasseType, CourseType, SubjectType} from "$lib/type";
+    import {deleteRequest, getRequest} from "$lib/helper/Request";
     import {createEventDispatcher} from "svelte";
     import {success} from "$lib/helper/Toaster";
     import {alert} from "$lib/helper/alert";
@@ -10,6 +10,7 @@
     const dispatch = createEventDispatcher()
     export let courses: CourseType[] = []
     export let subjects: SubjectType[] = []
+    export let classes: ClasseType[]
     export let loading: boolean = true
 
     let filteredCourses: CourseType[]
@@ -37,29 +38,57 @@
         dispatch('course-update-request', {data: course})
     }
 
+    function findCourses(event: SubmitEvent) {
+        const data = new FormData(event.target as HTMLFormElement)
+        getRequest(`/courses?subject=${data.get('subject')}&classe=${data.get('classe')}&published=${data.get('published')}`).then(response => filteredCourses = response.data)
+    }
+
 </script>
 <div class="row mb-3">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <div class="row justify-content-between">
-                    <div class="col-md-8">
-                        <form class="d-flex flex-wrap align-items-center">
-                            <label class="visually-hidden" for="inputPassword2">Search</label>
-                            <div class="me-3">
-                                <input class="form-control my-1 my-md-0" id="inputPassword2" placeholder="Search..." type="search">
+                    <div class="col-md-9">
+                        <form class="d-flex flex-wrap align-items-center" on:submit|preventDefault={findCourses}>
+                            <div class="me-3 w-50">
+                                <input bind:value={search} class="form-control my-1 my-md-0" id="search" placeholder="Rechercher..." type="search">
                             </div>
-                            <label class="me-2" for="status-select">Sort By</label>
                             <div class="me-sm-3">
-                                <select class="form-select my-1 my-md-0" id="status-select">
-                                    <option>Select</option>
+                                <select class="form-select my-1 my-md-0" name="subject">
+                                    <option value="0" selected>Matière</option>
+                                    {#each subjects as subject}
+                                        <option value={subject.id}>{subject.name}</option>
+                                    {/each}
                                 </select>
+                            </div>
+                            <div class="me-sm-3">
+                                <select class="form-select my-1 my-md-0" name="classe">
+                                    <option value="0" selected>Classe</option>
+                                    {#each classes as classe}
+                                        <option value={classe.id}>{classe.name}</option>
+                                    {/each}
+                                </select>
+                            </div>
+                            <div class="me-sm-3">
+                                <select class="form-select my-1 my-md-0" name="published">
+                                    <option value="2" selected>État</option>
+                                    <option value="1">Publié</option>
+                                    <option value="0">Brouillon</option>
+                                </select>
+                            </div>
+                            <div class="me-sm-3">
+                                <div class="col-auto">
+                                    <button class="btn btn-icon" aria-label="Button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg>
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="text-md-end mt-3 mt-md-0">
-                            <a aria-controls="offcanvasEnd" class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasEnd" id="open_canvas" role="button">
+                            <a aria-controls="offcanvasEnd" class="btn btn-dark" data-bs-toggle="offcanvas" href="#offcanvasEnd" id="open_canvas" role="button">
                                 <Edit/>
                                 Ajouter un cours
                             </a>
@@ -76,7 +105,7 @@
         <ListPlaceholder/>
     {:else}
         {#each filteredCourses as course }
-            <div class="col-lg-3">
+            <div class="col-lg-3 mb-3">
                 <div class="card project-box">
                     <div class="card-body" style="padding: 15px;background-image: url('/img/bg.svg')">
                         <div class="dropdown float-end">
@@ -88,12 +117,15 @@
                                 <a class="dropdown-item text-danger" on:click|preventDefault={()=>deleteCourse(course.uid)}>Supprimer</a>
                             </div>
                         </div>
-                        <h2 class="mt-0" style="height: 85px"><a class="text-dark">{course.title}</a></h2>
+                        <h2 class="mt-0" style="height: 85px"><a class="text-black">{course.title}</a></h2>
                         <p class="text-muted text-uppercase">
                             <i class="mdi mdi-account-circle"></i>
-                            <small>{course.subject?.name}</small>
+                            <strong>{course.subject?.name}</strong>
+                            <span style="float: right" class={`badge ${course.published ? 'bg-teal' : 'bg-danger'}`}>{course.published ? 'Publié' : 'Brouillon'}</span>
                         </p>
-                        <span class={`badge ${course.published ? 'bg-teal' : 'bg-danger'}`}>{course.published ? 'Publié' : 'Brouillon'}</span>
+                        {#each course.classes as classe}
+                            <span class="badge bg-blue-lt m-1">{classe.name}</span>
+                        {/each}
                     </div>
                 </div> <!-- end card box-->
             </div><!-- end col-->

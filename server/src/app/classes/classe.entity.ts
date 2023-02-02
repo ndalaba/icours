@@ -1,5 +1,6 @@
-import {Column, Entity, OneToMany} from "typeorm";
+import {Column, Entity, ManyToMany,JoinTable} from "typeorm";
 import BaseEntity from "../shared/BaseEntity";
+import {Course} from "../course/course.entity";
 
 
 @Entity('classes')
@@ -13,6 +14,10 @@ export default class Classe extends BaseEntity {
 
     @Column({type: "text", nullable: true})
     description: string
+
+    @ManyToMany(() => Course, (course) => course.classes)
+    @JoinTable({name:'classe_course'})
+    courses: Course[]
 
     constructor(classe?: Partial<Classe>) {
         super()

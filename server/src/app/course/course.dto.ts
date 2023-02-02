@@ -1,6 +1,7 @@
 import {IsNotEmpty, IsNotEmptyObject, validate} from "class-validator";
 import Errors from "../../helpers/errors";
 import Subject from "../subject/subject.entity";
+import Classe from "../classes/classe.entity";
 
 export class CourseDto {
     id: number = 0
@@ -19,6 +20,8 @@ export class CourseDto {
 
     @IsNotEmptyObject()
     subject:Subject
+
+    classes:Classe[]
 
     constructor(obj) {
         Object.assign(this, obj)

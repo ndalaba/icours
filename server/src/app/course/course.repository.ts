@@ -21,16 +21,17 @@ export default class CourseRepository {
         return this.findOneBy('slug', slug)
     }
 
-    async findAll(): Promise<Course[]> {
-        return this.getRepository().find({
-            order: {
-                title: "asc",
-                id: "desc"
-            },
-            relations: {
-                subject: true
-            }
-        })
+    async findAll(subject: number = null, classe: number = null, published: number = null): Promise<Course[]> {
+        const query = this.getRepository().createQueryBuilder("course")
+            .leftJoinAndSelect("course.subject", "subject")
+            .leftJoinAndSelect("course.classes", "classes")
+        if (subject !== 0)
+            query.andWhere("course.subject = :subjectId", {"subjectId": subject})
+        if (published !== 2)
+            query.andWhere("course.published = :published", {"published": published})
+        if (classe !== 0)
+            query.andWhere('classes.id = :classeId', {"classeId": classe})
+        return query.take(50).getMany()
     }
 
     async findOrFail(uid: string): Promise<Course> {

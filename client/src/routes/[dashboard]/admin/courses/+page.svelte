@@ -1,6 +1,6 @@
 <script lang="ts">
     import {getRequest} from "$lib/helper/Request";
-    import type {CourseType, SubjectType} from "$lib/type";
+    import type {ClasseType, CourseType, SubjectType} from "$lib/type";
     import {onMount} from "svelte";
     import {activeMenu} from "$lib/helper/layout";
     import CourseList from "./CourseList.svelte";
@@ -8,6 +8,7 @@
 
     let courses: CourseType[] = []
     let subjects: SubjectType[] = []
+    let classes: ClasseType[] = []
     let currentCourse: CourseType = {
         title: '',
         id: 0,
@@ -21,6 +22,7 @@
 
     onMount(() => {
         getSubjects()
+        getClasses()
         getCourses()
         activeMenu("#courses_menu")
         const myOffcanvas = document.getElementById('offcanvasEnd')
@@ -46,6 +48,10 @@
     async function getSubjects() {
         const response = await getRequest("/subjects")
         subjects = response.data
+    }
+    async function getClasses() {
+        const response = await getRequest("/classes")
+        classes = response.data
     }
 
     function setCurrentCourse(event) {
@@ -74,8 +80,8 @@
 
 <div class="page-body">
     <div class="container-xl">
-        <CourseList courses={courses} loading={loading} on:course-update-request={setCurrentCourse} on:course-updated={getCourses} subjects={subjects}/>
+        <CourseList courses={courses} loading={loading} on:course-update-request={setCurrentCourse} on:course-updated={getCourses} subjects={subjects}  classes={classes}/>
         <br>
-        <CourseForm formData={currentCourse} on:course-updated={getCourses} subjects={subjects}/>
+        <CourseForm formData={currentCourse} on:course-updated={getCourses} subjects={subjects} classes={classes}/>
     </div>
 </div>

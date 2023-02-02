@@ -36,8 +36,10 @@ export type CourseType = {
     title: string,
     content: string,
     tag: string,
-    published:boolean,
+    published: boolean,
     subject: SubjectType
+
+    classes?: ClasseType[]
 }
 
 

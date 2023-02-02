@@ -1,33 +1,37 @@
-import { Column, ManyToOne, OneToMany,Entity } from "typeorm";
+import {Column, Entity, ManyToMany, ManyToOne, OneToMany} from "typeorm";
 import BaseEntity from "../shared/BaseEntity";
 import Subject from "../subject/subject.entity";
+import Classe from "../classes/classe.entity";
 
 @Entity('courses')
 export class Course extends BaseEntity {
 
-    @Column({ type: "varchar" })
+    @Column({type: "varchar"})
     title: string
 
-    @Column({ type: "varchar" })
+    @Column({type: "varchar"})
     slug: string
 
-    @Column({ type: "varchar", nullable: true })
+    @Column({type: "varchar", nullable: true})
     tag: string
 
-    @Column({ type: "text" })
+    @Column({type: "text"})
     content: string
 
-    @Column({ type: 'tinyint', default: false })
+    @Column({type: 'tinyint', default: false})
     published: boolean
 
-    @Column({ type: "int", default: 0 })
+    @Column({type: "int", default: 0})
     views: number
 
     @ManyToOne(() => Subject, (subject) => subject.courses)
     subject: Subject
 
-    @OneToMany(()=>Chapter,(chapter)=>chapter.course)
-    chapters:Chapter[]
+    @OneToMany(() => Chapter, (chapter) => chapter.course)
+    chapters: Chapter[]
+
+    @ManyToMany(() => Classe, (classe) => classe.courses)
+    classes: Classe[]
 
     constructor(course: Partial<Course>) {
         super()
@@ -38,22 +42,22 @@ export class Course extends BaseEntity {
 @Entity('chapters')
 export class Chapter extends BaseEntity {
 
-    @Column({ type: "varchar" })
+    @Column({type: "varchar"})
     title: string
 
-    @Column({ type: "varchar" })
+    @Column({type: "varchar"})
     slug: string
 
-    @Column({ type: "varchar", nullable: true })
+    @Column({type: "varchar", nullable: true})
     tag: string
 
-    @Column({ type: "text" })
+    @Column({type: "text"})
     content: string
 
-    @Column({ type: 'tinyint', default: false })
+    @Column({type: 'tinyint', default: false})
     published: boolean
 
-    @Column({ type: "int", default: 0 })
+    @Column({type: "int", default: 0})
     views: number
 
     @ManyToOne(() => Course, (course) => course.chapters)

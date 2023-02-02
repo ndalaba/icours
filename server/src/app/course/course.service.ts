@@ -19,6 +19,7 @@ export const createCourse = async (courseDto: CourseDto): Promise<Response> => {
             course.id = 0
             course.uid = generateUid()
             course.slug = slugify(course.title)
+            course.classes = courseDto.classes
             course = await courseRepository.save(course)
             response.addData("course", course)
         }
@@ -43,6 +44,7 @@ export const updateCourse = async (courseDto: CourseDto): Promise<Response> => {
             course.published = courseDto.published
             course.subject = courseDto.subject
             course.content = courseDto.content
+            course.classes = courseDto.classes
             course = await courseRepository.save(course)
             response.addData("course", course)
         }
@@ -52,8 +54,11 @@ export const updateCourse = async (courseDto: CourseDto): Promise<Response> => {
     }
 }
 
-export const getCourses = async (): Promise<Response> => {
-    const courses = await courseRepository.findAll()
+export const getCourses = async (subject: any, classe: any, published: any): Promise<Response> => {
+    const subjectId = subject !== undefined ? +subject : 0
+    const classeId = classe !== undefined ? +classe : 0
+    const isPublished = published !== undefined ? +published : 2
+    const courses = await courseRepository.findAll(subjectId, classeId, +isPublished)
     return new Response().addData("courses", courses)
 }
 
