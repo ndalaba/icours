@@ -5,11 +5,12 @@
           </span>
         <span class="nav-link-title">ADMINISTRATION</span>
     </a>
-    <div class="dropdown-menu show" data-bs-popper="static">
+    <div class="dropdown-menu show" data-bs-popper="static" id="admin_menu">
         <div class="dropdown-menu-columns">
             <div class="dropdown-menu-column">
-                <a class="dropdown-item" href="/dashboard/admin/subject">MATIÈRES </a>
-                <a class="dropdown-item" href="/dashboard/admin/classes">CLASSES </a>
+                <a class="dropdown-item" id="courses_menu" href="/dashboard/admin/courses">COURS </a>
+                <a class="dropdown-item" id="subjects_menu" href="/dashboard/admin/subjects">MATIÈRES </a>
+                <a class="dropdown-item" id="classes_menu" href="/dashboard/admin/classes">CLASSES </a>
             </div>
         </div>
     </div>

@@ -38,16 +38,20 @@ a {
     /*box-shadow: 0 3px 20px #0000000b;*/
 }
 
+.breadcrumb{font-size: 1.4rem;font-weight: 500}
+.breadcrumb a{color: #616876}
 .breadcrumb-current {
     display: inline;
-    font-size: 1rem;
+    font-size: 1.6rem;
     line-height: 0;
-    font-weight: 500;
+    font-weight: 700;
+    color: #616876
 }
 
 .navbar-dark .navbar-nav .nav-link, .dropdown-item {
     font-size: 1rem
 }
+.offcanvas.offcanvas-end{width: 60%}
 
 @media (min-width: 1400px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {

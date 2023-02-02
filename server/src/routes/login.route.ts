@@ -8,7 +8,6 @@ import auth from "../middleware/auth";
 const router = Router()
 
 router.post('/login', async (req: Request, res: Response) => {
-    console.log(req.body)
     const response = await login(new LoginDto(req.body))
     if (response.hasError())
         return errorResponse(res, response.jsonErrors())

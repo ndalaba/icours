@@ -17,10 +17,7 @@ export class Course extends BaseEntity {
     @Column({ type: "text" })
     content: string
 
-    @Column({ type: 'varchar', nullable: true })
-    image: string
-
-    @Column({ type: 'bit', default: false })
+    @Column({ type: 'tinyint', default: false })
     published: boolean
 
     @Column({ type: "int", default: 0 })
@@ -53,10 +50,7 @@ export class Chapter extends BaseEntity {
     @Column({ type: "text" })
     content: string
 
-    @Column({ type: 'varchar', nullable: true })
-    image: string
-
-    @Column({ type: 'bit', default: false })
+    @Column({ type: 'tinyint', default: false })
     published: boolean
 
     @Column({ type: "int", default: 0 })

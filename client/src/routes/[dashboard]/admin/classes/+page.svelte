@@ -4,6 +4,7 @@
     import {onMount} from "svelte";
     import ClasseForm from "./ClasseForm.svelte";
     import ClasseList from "./ClasseList.svelte";
+    import {activeMenu} from "$lib/helper/layout";
 
     let classes: ClasseType[] = []
     let currentClasse: ClasseType = {name: '', id: 0, description: '', uid: ''};
@@ -11,6 +12,7 @@
 
     onMount(() => {
         getClasses()
+        activeMenu("#classes_menu")
     })
 
     async function getClasses() {

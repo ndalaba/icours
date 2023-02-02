@@ -4,6 +4,7 @@
     import {onMount} from "svelte";
     import SubjectForm from "./SubjectForm.svelte";
     import SubjectList from "./SubjectList.svelte";
+    import {activeMenu} from "$lib/helper/layout";
 
     let subjects: SubjectType[] = []
     let currentSubject: SubjectType = {name: '', id: 0, description: '', image: '', uid: ''};
@@ -11,6 +12,7 @@
 
     onMount(() => {
         getSubjects()
+        activeMenu("#subjects_menu")
     })
 
     async function getSubjects() {
