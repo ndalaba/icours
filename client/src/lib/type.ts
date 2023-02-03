@@ -37,9 +37,18 @@ export type CourseType = {
     content: string,
     tag: string,
     published: boolean,
-    subject: SubjectType
-
+    subject: Partial<SubjectType>
     classes?: ClasseType[]
+}
+
+export type ChapterType = {
+    uid: string,
+    id: number,
+    title: string,
+    content: string,
+    tag: string,
+    published: boolean,
+    course: Partial<CourseType>
 }
 
 

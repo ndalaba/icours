@@ -17,7 +17,8 @@ a {
 
 .btn {
     font-family: inherit;
-    border-radius: .375rem
+    border-radius: .375rem;
+    font-size:1rem
 }
 
 .btn-primary {
@@ -34,20 +35,18 @@ a {
     line-height: 1.5rem;
 }
 
-.card {
-    /*box-shadow: 0 3px 20px #0000000b;*/
-}
-
 .breadcrumb{font-size: 1.4rem;font-weight: 500}
-.breadcrumb a{color: #616876}
+.breadcrumb a{color: #272728}
 .breadcrumb-current {
     display: inline;
     font-size: 1.6rem;
     line-height: 0;
     font-weight: 700;
-    color: #616876
+    color: #272728
 }
-
+.text-black-gray{color: #272728}
+.form-control,.form-select{padding:.65rem .75rem}
+.form-control, .form-label,.form-select{font-size: 1.1rem}
 .navbar-dark .navbar-nav .nav-link, .dropdown-item {
     font-size: 1rem
 }

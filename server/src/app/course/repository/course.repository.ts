@@ -1,5 +1,5 @@
-import {Course} from "./course.entity";
-import DataSource from "../../ormconfig"
+import DataSource from "../../../ormconfig"
+import Course from "../entity/course.entity";
 
 
 export default class CourseRepository {
@@ -35,7 +35,11 @@ export default class CourseRepository {
     }
 
     async findOrFail(uid: string): Promise<Course> {
-        return this.getRepository().findOneByOrFail({uid})
+        const query = this.getRepository().createQueryBuilder("course")
+            .leftJoinAndSelect("course.subject", "subject")
+            .leftJoinAndSelect("course.classes", "classes")
+            .where("course.uid = :uid", {'uid': uid})
+        return query.getOne()
     }
 
     async remove(course: Course) {

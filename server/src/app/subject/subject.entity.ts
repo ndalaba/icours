@@ -1,5 +1,5 @@
 import {Column, Entity, OneToMany} from "typeorm";
-import {Course} from "../course/course.entity";
+import Course from "../course/entity/course.entity";
 import BaseEntity from "../shared/BaseEntity";
 
 

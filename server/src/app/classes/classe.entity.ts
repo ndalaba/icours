@@ -1,6 +1,6 @@
 import {Column, Entity, ManyToMany,JoinTable} from "typeorm";
 import BaseEntity from "../shared/BaseEntity";
-import {Course} from "../course/course.entity";
+import Course from "../course/entity/course.entity";
 
 
 @Entity('classes')

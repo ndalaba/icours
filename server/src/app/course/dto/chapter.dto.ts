@@ -1,12 +1,13 @@
 import {IsNotEmpty, IsNotEmptyObject, validate} from "class-validator";
-import Errors from "../../helpers/errors";
-import Subject from "../subject/subject.entity";
-import Classe from "../classes/classe.entity";
+import Errors from "../../../helpers/errors";
+import {CourseDto} from "./course.dto";
+import Course from "../entity/course.entity";
 
-export class CourseDto {
+
+export class ChapterDto {
     id: number = 0
 
-    uid:string
+    uid: string
 
     @IsNotEmpty()
     title: string
@@ -14,14 +15,13 @@ export class CourseDto {
     @IsNotEmpty()
     content: string
 
-    tag:string
+    @IsNotEmpty()
+    tag: string
 
-    published:boolean
+    published: boolean
 
     @IsNotEmptyObject()
-    subject:Subject
-
-    classes:Classe[]
+    course: Course
 
     constructor(obj) {
         Object.assign(this, obj)

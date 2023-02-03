@@ -1,6 +1,6 @@
 import {Request, Response, Router} from "express";
-import {createClasse, deleteClasse, getClasses, updateClasse} from "../app/classes/classe.service";
-import {ClasseDto} from "../app/classes/classe.dto";
+import {createChapter, deleteChapter, getChapters, updateChapter} from "../app/course/service/chapter.service";
+import {ChapterDto} from "../app/course/dto/chapter.dto";
 import {errorResponse, successResponse} from "../helpers/response";
 import HttpStatusCode from "../helpers/httpStatusCode";
 import logger from "../helpers/logger";
@@ -9,10 +9,10 @@ const router = Router()
 
 router.post('/', async (req: Request, res: Response) => {
     try {
-        const response = await createClasse(new ClasseDto(req.body))
+        const response = await createChapter(new ChapterDto(req.body))
         if (response.hasError())
             return errorResponse(res, response.jsonErrors())
-        return successResponse(res, response.getData("classe"), "Classe created", HttpStatusCode.CREATED)
+        return successResponse(res, response.getData("chapter"), "Chapter created", HttpStatusCode.CREATED)
     } catch (e) {
         logger.error(e)
     }
@@ -20,19 +20,19 @@ router.post('/', async (req: Request, res: Response) => {
 
 router.put('/', async (req: Request, res: Response) => {
     try {
-        const response = await updateClasse(new ClasseDto(req.body))
+        const response = await updateChapter(new ChapterDto(req.body))
         if (response.hasError())
             return errorResponse(res, response.jsonErrors())
-        return successResponse(res, response.getData("classe"), "Classe updated", HttpStatusCode.OK)
+        return successResponse(res, response.getData("chapter"), "Chapter updated", HttpStatusCode.OK)
     } catch (e) {
         logger.error(e)
     }
 })
 
-router.get("/", async (_: Request, res: Response) => {
+router.get("/:courseId", async (req: Request, res: Response) => {
     try {
-        const response = await getClasses()
-        return successResponse(res, response.getData('classes'))
+        const response = await getChapters(req.params.courseId, req.query.published)
+        return successResponse(res, response.getData('chapters'))
     } catch (e) {
         logger.error(e)
     }
@@ -40,7 +40,7 @@ router.get("/", async (_: Request, res: Response) => {
 
 router.delete("/:uid", async (req: Request, res: Response) => {
     try {
-        await deleteClasse(req.params.uid)
+        await deleteChapter(req.params.uid)
         return successResponse(res, [])
     } catch (e) {
         logger.error(e)

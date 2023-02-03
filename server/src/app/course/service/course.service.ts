@@ -1,9 +1,9 @@
-import Response from "../../helpers/response";
-import {CourseDto} from "./course.dto";
-import logger from "../../helpers/logger";
-import {generateUid, slugify} from "../../helpers/string";
-import CourseRepository from "./course.repository";
-import {Course} from "./course.entity";
+import Response from "../../../helpers/response";
+import {CourseDto} from "../dto/course.dto";
+import logger from "../../../helpers/logger";
+import {generateUid, slugify} from "../../../helpers/string";
+import CourseRepository from "../repository/course.repository";
+import Course from "../entity/course.entity";
 
 const courseRepository = new CourseRepository()
 
@@ -60,6 +60,11 @@ export const getCourses = async (subject: any, classe: any, published: any): Pro
     const isPublished = published !== undefined ? +published : 2
     const courses = await courseRepository.findAll(subjectId, classeId, +isPublished)
     return new Response().addData("courses", courses)
+}
+
+export const getCourse = async (uid: string): Promise<Response> => {
+    const course= await courseRepository.findOrFail(uid)
+    return new Response().addData("course", course)
 }
 
 export const deleteCourse = async (uid: string): Promise<Response> => {
