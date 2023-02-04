@@ -65,7 +65,8 @@ a {
 .chat.modal,.modal-backdrop{width: 30%}
 .chat .modal-dialog{max-width: 100%;    height: 100vh;    margin: 0;}
 .chat .modal-content{border-radius: 0;height: 100vh}
-
+.note-editor.note-airframe.fullscreen, .note-editor.note-frame.fullscreen{background-color: #fff}
+.note-btn-group .note-btn{background-color: #f1f5f9;border: none}
 @media (min-width: 1400px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         max-width: 1400px;

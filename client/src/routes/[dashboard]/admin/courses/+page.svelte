@@ -25,9 +25,11 @@
         getClasses()
         getCourses()
         activeMenu("#courses_menu")
+
         const myOffcanvas = document.getElementById('offcanvasEnd')
         myOffcanvas?.addEventListener('hidden.bs.offcanvas', event => {
             document.querySelectorAll<HTMLFormElement>('#offcanvasEnd form').forEach(elt => elt.reset())
+            window?.jquery('.summernote').summernote('code', '');
         })
     })
 

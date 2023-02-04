@@ -2,7 +2,7 @@
     import {hideValidationErrors, showValidationErrors} from "$lib/helper/Errors.js";
     import type {ChapterType, CourseType} from "$lib/type";
     import {PostContentType, postRequest, putRequest} from "$lib/helper/Request";
-    import {createEventDispatcher} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
     import {success} from "$lib/helper/Toaster";
 
     const dispatch = createEventDispatcher()
@@ -11,7 +11,14 @@
     export let formData: ChapterType;
     export let course:CourseType
 
-    $: if (formData?.uid) formTitle = "Modifier le chapitre " + formData?.title
+    $: if (formData?.uid) {
+        formTitle = "Modifier le chapitre " + formData?.title
+        window?.jquery('.summernote').summernote('code', formData?.content);
+    }
+
+    onMount(() => {
+        window?.jquery('.summernote').summernote('code', formData?.content);
+    })
 
     async function handleSubmit(event: SubmitEvent) {
 
@@ -57,14 +64,14 @@
             </div>
 
             <div class="mb-4">
-                <label class="form-label" for="">Status du cours <span class="text-danger">*</span></label>
+                <label class="form-label">Status du cours <span class="text-danger">*</span></label>
                 <div class="d-flex flex-wrap">
                     <div class="form-check me-2">
-                        <input checked={formData.published} class="form-check-input" id="inlineRadio1" name="published" type="radio" value="1">
+                        <input checked={formData.published==1} class="form-check-input" id="inlineRadio1" name="published" type="radio" value="1">
                         <label class="form-check-label" for="inlineRadio1">Publié</label>
                     </div>
                     <div class="form-check me-2">
-                        <input checked={!formData.published} class="form-check-input" id="inlineRadio2" name="published" type="radio" value="0">
+                        <input checked={formData.published==0} class="form-check-input" id="inlineRadio2" name="published" type="radio" value="0">
                         <label class="form-check-label" for="inlineRadio2">Brouillon</label>
                     </div>
                 </div>
@@ -72,7 +79,7 @@
 
             <div class="mb-4">
                 <label class="form-label" for="chapter-content">Contenu</label>
-                <textarea class="form-control" id="chapter-content" name="content" placeholder="Contenu" required rows="7">{formData.content}</textarea>
+                <textarea class="form-control summernote" id="chapter-content" name="content" placeholder="Contenu" required rows="7">{formData.content}</textarea>
             </div>
 
             <div class="row align-items-center mt-4">
