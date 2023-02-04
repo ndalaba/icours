@@ -26,7 +26,7 @@
         activeMenu("#courses_menu")
 
         const myOffcanvas = document.getElementById('offcanvasEnd')
-        myOffcanvas.addEventListener('hidden.bs.offcanvas', event => {
+        myOffcanvas?.addEventListener('hidden.bs.offcanvas', event => {
             currentChapter = {
                 title: '',
                 id: 0,

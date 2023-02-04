@@ -38,7 +38,7 @@
         if (!response.success) {
             return showValidationErrors(response.error, 'course');
         }
-        target.reset()
+        //target.reset()
         success(+data['id'] == 0 ? 'Course ajouté' : 'Course modifié.')
         dispatch('course-updated')
     }

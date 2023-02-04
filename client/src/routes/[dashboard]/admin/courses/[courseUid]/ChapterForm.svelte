@@ -57,7 +57,7 @@
             </div>
 
             <div class="mb-4">
-                <label class="form-label">Status du cours <span class="text-danger">*</span></label>
+                <label class="form-label" for="">Status du cours <span class="text-danger">*</span></label>
                 <div class="d-flex flex-wrap">
                     <div class="form-check me-2">
                         <input checked={formData.published} class="form-check-input" id="inlineRadio1" name="published" type="radio" value="1">
@@ -71,7 +71,7 @@
             </div>
 
             <div class="mb-4">
-                <label class="form-label">Contenu</label>
+                <label class="form-label" for="chapter-content">Contenu</label>
                 <textarea class="form-control" id="chapter-content" name="content" placeholder="Contenu" required rows="7">{formData.content}</textarea>
             </div>
 

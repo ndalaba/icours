@@ -6,6 +6,7 @@
 
     import { SvelteToast } from '@zerodevx/svelte-toast'
     import Alert from "$lib/components/layouts/dashboard/Alert.svelte";
+    import Chat from "$lib/components/layouts/dashboard/Chat.svelte";
 
     const options = {}
 </script>
@@ -18,4 +19,5 @@
         <slot/>
         <Footer/>
     </div>
+    <Chat/>
 </div>

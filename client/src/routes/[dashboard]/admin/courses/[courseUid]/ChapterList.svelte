@@ -8,6 +8,7 @@
     import ListPlaceholder from "$lib/components/layouts/dashboard/ListPlaceholder.svelte";
 
     const dispatch = createEventDispatcher()
+
     export let chapters: ChapterType[] = []
     export let course: CourseType
     export let loading: boolean = true
@@ -33,7 +34,7 @@
     }
 
     function updateChapter(chapter: ChapterType) {
-        document.getElementById('open_canvas').click()
+        document.getElementById('open_canvas')?.click()
         dispatch('chapter-update-request', {data: chapter})
     }
 

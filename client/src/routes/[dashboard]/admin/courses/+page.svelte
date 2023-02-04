@@ -26,16 +26,8 @@
         getCourses()
         activeMenu("#courses_menu")
         const myOffcanvas = document.getElementById('offcanvasEnd')
-        myOffcanvas.addEventListener('hidden.bs.offcanvas', event => {
-            currentCourse = {
-                title: '',
-                id: 0,
-                content: '',
-                tag: "",
-                published: false,
-                uid: '',
-                subject: {id: 0, uid: '', name: ''}
-            }
+        myOffcanvas?.addEventListener('hidden.bs.offcanvas', event => {
+            document.querySelectorAll<HTMLFormElement>('#offcanvasEnd form').forEach(elt => elt.reset())
         })
     })
 
@@ -49,6 +41,7 @@
         const response = await getRequest("/subjects")
         subjects = response.data
     }
+
     async function getClasses() {
         const response = await getRequest("/classes")
         classes = response.data
@@ -80,8 +73,8 @@
 
 <div class="page-body">
     <div class="container-xl">
-        <CourseList courses={courses} loading={loading} on:course-update-request={setCurrentCourse} on:course-updated={getCourses} subjects={subjects}  classes={classes}/>
+        <CourseList classes={classes} courses={courses} loading={loading} on:course-update-request={setCurrentCourse} on:course-updated={getCourses} subjects={subjects}/>
         <br>
-        <CourseForm formData={currentCourse} on:course-updated={getCourses} subjects={subjects} classes={classes}/>
+        <CourseForm classes={classes} formData={currentCourse} on:course-updated={getCourses} subjects={subjects}/>
     </div>
 </div>

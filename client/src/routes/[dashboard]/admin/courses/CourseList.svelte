@@ -117,7 +117,9 @@
                                 <a class="dropdown-item text-danger" on:click|preventDefault={()=>deleteCourse(course.uid)}>Supprimer</a>
                             </div>
                         </div>
-                        <h2 class="mt-0" style="height: 85px"><a href={`/dashboard/admin/courses/${course.uid}`} class="text-black-gray">{course.title}</a></h2>
+                        <h2 class="mt-0" style="height: 85px">
+                            <a href={`/dashboard/admin/courses/${course.uid}`} class="text-black-gray">{course.title}</a>
+                        </h2>
                         <p class="text-muted text-uppercase">
                             <i class="mdi mdi-account-circle"></i>
                             <strong>{course.subject?.name}</strong>

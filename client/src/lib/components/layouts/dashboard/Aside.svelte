@@ -206,6 +206,12 @@
                 {#if isAdmin(authUser.user)}
                     <AdminMenu/>
                 {/if}
+
+                <li>
+                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-scrollable">
+                        Scrollable modal
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
