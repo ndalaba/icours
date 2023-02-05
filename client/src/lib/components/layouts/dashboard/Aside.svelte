@@ -183,36 +183,37 @@
                           <span class="nav-link-icon d-md-none d-lg-inline-block">
                             <svg class="icon" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none" stroke="none"></path><path d="M5 12l-2 0l9 -9l9 9l-2 0"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path></svg>
                           </span>
-                        <span class="nav-link-title">Home</span>
+                        <span class="nav-link-title">Accueil</span>
                     </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-auto-close="false" data-bs-toggle="dropdown" href="#navbar-help" role="button">
-                  <span class="nav-link-icon d-md-none d-lg-inline-block">
-                    <svg class="icon" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none" stroke="none"></path><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M15 15l3.35 3.35"></path><path d="M9 15l-3.35 3.35"></path><path d="M5.65 5.65l3.35 3.35"></path><path d="M18.35 5.65l-3.35 3.35"></path></svg>
-                  </span>
-                        <span class="nav-link-title">
-                    Help
-                  </span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="./docs/">
-                            Documentation
-                        </a>
-
-                    </div>
                 </li>
 
                 {#if isAdmin(authUser.user)}
                     <AdminMenu/>
                 {/if}
 
+
+
+
+
+
+
                 <li>
-                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-scrollable">
-                        Scrollable modal
+                    <a href="#" class="btn btn-primary chat_btn" data-bs-toggle="modal" data-bs-target="#modal-scrollable">
+                       Vous avez des questions
                     </a>
                 </li>
             </ul>
         </div>
     </div>
 </aside>
+
+<style>
+    .chat_btn{
+        position: fixed;
+        bottom: 0;
+        width: 15rem;
+        background-color: #dd0b1f;
+        border-radius: 0;
+
+    }
+</style>

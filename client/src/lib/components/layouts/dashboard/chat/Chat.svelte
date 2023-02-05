@@ -27,7 +27,6 @@
         loading = false
         const modalBody = document.getElementById("chat_body")
         setTimeout(() => modalBody.scrollTop = modalBody.scrollHeight, 4)
-
     }
 </script>
 
@@ -59,9 +58,9 @@
                     <div class="input-group mb-2 w-100">
                         <input autocomplete="off" bind:value={question} class="form-control" name="question" placeholder="Entrer votre texte" style="border-right: none">
 
-                            <button class="input-group-text" style="cursor:pointer; background-color: #fff;" type="submit">
-                                <Send/>
-                            </button>
+                        <button class="input-group-text" style="cursor:pointer; background-color: #fff;" type="submit">
+                            <Send/>
+                        </button>
                     </div>
                 </form>
             </div>

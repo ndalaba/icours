@@ -25,7 +25,7 @@
 
         hideValidationErrors()
         const target = event.target as HTMLFormElement
-        const data = Object.fromEntries((new FormData(target)).entries())
+        let data = Object.fromEntries((new FormData(target)).entries())
 
         let classes = []
         document.getElementsByName<HTMLInputElement>('classes').forEach(elt => {
@@ -33,19 +33,14 @@
                 classes = [...classes, {id: +elt.getAttribute('value')}]
             }
         })
-        const response = +data['id'] == 0 ? await postRequest("/courses", {
-            ...data,
-            classes: classes,
-            subject: {id: +data['subject']}
-        }, PostContentType.JSON) : await putRequest("/courses", {
-            ...data,
-            classes: classes,
-            subject: {id: +data['subject']}
-        }, PostContentType.JSON);
+
+        data = {...data,classes: classes, subject: {id: +data['subject']}, content: window?.jquery('.summernote').summernote('code')}
+
+        const response = +data['id'] == 0 ? await postRequest("/courses", data, PostContentType.JSON) : await putRequest("/courses",data, PostContentType.JSON);
         if (!response.success) {
             return showValidationErrors(response.error, 'course');
         }
-        success(+data['id'] == 0 ? 'Course ajouté' : 'Course modifié.')
+        success(+data['id'] == 0 ? 'Cours ajouté' : 'Cours modifié.')
         dispatch('course-updated')
     }
 </script>
@@ -106,7 +101,7 @@
 
             <div class="mb-4">
                 <label class="form-label">Contenu</label>
-                <textarea class="form-control summernote" id="course-content" name="content" placeholder="Contenu" required rows="7">{formData.content}</textarea>
+                <textarea class="form-control summernote" id="course-content" name="content" placeholder="Contenu">{formData.content}</textarea>
             </div>
 
             <div class="row align-items-center mt-4">
