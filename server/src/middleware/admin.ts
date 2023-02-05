@@ -5,7 +5,6 @@ import User, {Role} from "../app/user/user.entity";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
-        console.log("admin")
 
         const user: User = res.locals.user
 

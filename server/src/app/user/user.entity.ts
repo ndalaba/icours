@@ -1,6 +1,7 @@
 import BaseEntity from "../shared/BaseEntity";
-import { BaseEntity as TOEntity, Column, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity as TOEntity, Column, Entity, Index, JoinColumn,OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Exclude } from "class-transformer"
+import Chat from "../chats/chat.entity";
 
 export class Role {
     public static ROLE_STUDENT = 10
@@ -77,6 +78,9 @@ export default class User extends BaseEntity {
 
     @Column({ nullable: true, length: 150, type: "varchar" })
     photo: string
+
+    @OneToMany(()=>Chat,(chat)=>chat.user)
+    chats:Chat[]
 
     constructor(user?: Partial<User>) {
         super();

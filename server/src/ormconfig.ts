@@ -6,10 +6,11 @@ import * as dotenv from "dotenv"
 import Classe from "./app/classes/classe.entity";
 import Course from "./app/course/entity/course.entity";
 import Chapter from "./app/course/entity/chapter.entity";
+import Chat from "./app/chats/chat.entity";
 
 dotenv.config()
 
-const MODELS = [User, Token, Subject, Course, Chapter, Classe]
+const MODELS = [User, Token, Subject, Course, Chapter, Classe, Chat]
 
 const sqliteOption: DataSourceOptions = {
     type: "sqlite",
@@ -28,7 +29,7 @@ const mysqlOption: DataSourceOptions = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     synchronize: false,
-    logging: process.env.NODE_ENV === "dev",
+    logging: false,//process.env.NODE_ENV === "dev",
     entities: MODELS,
     migrations: ['./build/migrations/*js'],
     subscribers: [],
