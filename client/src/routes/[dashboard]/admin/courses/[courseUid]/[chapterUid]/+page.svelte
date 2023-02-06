@@ -3,9 +3,9 @@
     import type {ChapterType, CourseType} from "$lib/type";
     import {onMount} from "svelte";
     import {activeMenu} from "$lib/helper/layout";
-    import ChapterForm from "./ChapterForm.svelte";
     import {page} from "$app/stores"
-    import Course from "./Course.svelte";
+    import Chapter from "./Chapter.svelte";
+    import ChapterForm from "../ChapterForm.svelte";
 
     let course: CourseType = {
         title: '',
@@ -17,7 +17,6 @@
         subject: {id: 0},
         classes: []
     }
-    let chapters: ChapterType[]
 
     let currentChapter: ChapterType = {
         title: '',
@@ -33,35 +32,18 @@
     onMount(() => {
         getCourse()
         activeMenu("#courses_menu")
-
-        const myOffcanvas = document.getElementById('offcanvasEnd')
-        myOffcanvas?.addEventListener('hidden.bs.offcanvas', event => {
-            currentChapter = {
-                title: '',
-                id: 0,
-                content: '',
-                tag: "",
-                published: false,
-                uid: '',
-                course: course
-            }
-        })
     })
 
     async function getCourse() {
         const response = await getRequest("/courses/" + $page.params.courseUid)
         course = response.data
-        await getChapters()
+        await getChapter()
     }
 
-    async function getChapters() {
-        const response = await getRequest("/chapters/" + course.id)
-        chapters = response.data
+    async function getChapter() {
+        const response = await getRequest("/chapters/" + $page.params.courseUid + "/" + $page.params.chapterUid)
+        currentChapter = response.data
         loading = false
-    }
-
-    function setCurrentChapter(event) {
-        currentChapter = event.detail.data
     }
 
 </script>
@@ -79,9 +61,9 @@
                     <li class="breadcrumb-item"><a href="/dashboard/admin/courses">Cours</a></li>
                     {#if course.id}
                         <li class="breadcrumb-item">{course?.subject?.name}</li>
-                        <li aria-current="page" class="breadcrumb-item active">
+                        <li aria-current="page" class="breadcrumb-item">
                             <h2 class="breadcrumb-current">
-                                <a href={`/dashboard/admin/courses/edit-${course?.uid}`}>{course?.title}</a>
+                                <a href={`/dashboard/admin/courses/${course?.uid}`}>{course?.title}</a>
                             </h2>
                         </li>
                     {/if}
@@ -92,9 +74,10 @@
 </div>
 
 <div class="page-body">
+    <a aria-controls="offcanvasEnd" class="btn btn-outline-secondary d-none" data-bs-toggle="offcanvas" href="#offcanvasEnd" id="open_canvas" role="button">
+    </a>
     <div class="container-xl">
-        <Course chapters={chapters} course={course} loading={loading} on:chapter-update-request={setCurrentChapter} on:chapter-updated={getChapters}/>
-
-        <ChapterForm course={course} formData={currentChapter} on:chapter-updated={getChapters}/>
+        <Chapter chapter={currentChapter} />
+        <ChapterForm course={course} formData={currentChapter} on:chapter-updated={getChapter}/>
     </div>
 </div>

@@ -4,10 +4,12 @@ import {ClasseDto} from "../app/classes/classe.dto";
 import {errorResponse, successResponse} from "../helpers/response";
 import HttpStatusCode from "../helpers/httpStatusCode";
 import logger from "../helpers/logger";
+import auth from "../middleware/auth";
+import admin from "../middleware/admin";
 
 const router = Router()
 
-router.post('/', async (req: Request, res: Response) => {
+router.post('/', auth, admin, async (req: Request, res: Response) => {
     try {
         const response = await createClasse(new ClasseDto(req.body))
         if (response.hasError())
@@ -18,7 +20,7 @@ router.post('/', async (req: Request, res: Response) => {
     }
 })
 
-router.put('/', async (req: Request, res: Response) => {
+router.put('/',auth, admin,  async (req: Request, res: Response) => {
     try {
         const response = await updateClasse(new ClasseDto(req.body))
         if (response.hasError())
@@ -38,7 +40,7 @@ router.get("/", async (_: Request, res: Response) => {
     }
 })
 
-router.delete("/:uid", async (req: Request, res: Response) => {
+router.delete("/:uid",auth, admin,  async (req: Request, res: Response) => {
     try {
         await deleteClasse(req.params.uid)
         return successResponse(res, [])

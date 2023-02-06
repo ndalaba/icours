@@ -1,16 +1,16 @@
 body {
     font-family: Jost, sans-serif;
-    font-size: 1rem
+    font-size: 1.1rem
 }
 
 a {
     cursor: pointer;
 }
-
+.btn .icon{margin: 0}
 .page-title {
     font-weight: 500;
 }
-
+.card-header{display: unset}
 .is_invalid {
     border-color: #d63939;
 }
@@ -42,7 +42,7 @@ a {
     display: inline;
     font-size: 1.6rem;
     line-height: 0;
-    font-weight: 700;
+    font-weight: 300;
     color: #272728
 }
 .text-black-gray{color: #272728}
@@ -72,3 +72,4 @@ a {
         max-width: 1400px;
     }
 }
+.markdown{font-size: 1.23rem}

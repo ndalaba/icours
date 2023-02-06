@@ -1,6 +1,5 @@
 import {IsNotEmpty, IsNotEmptyObject, validate} from "class-validator";
 import Errors from "../../../helpers/errors";
-import {CourseDto} from "./course.dto";
 import Course from "../entity/course.entity";
 
 
@@ -14,10 +13,7 @@ export class ChapterDto {
 
     @IsNotEmpty()
     content: string
-
-    @IsNotEmpty()
     tag: string
-
     published: boolean
 
     @IsNotEmptyObject()

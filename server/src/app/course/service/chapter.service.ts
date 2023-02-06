@@ -59,6 +59,11 @@ export const getChapters = async (course: any, published: any): Promise<Response
     return new Response().addData("chapters", chapters)
 }
 
+export const getChapter = async (uid: any): Promise<Response> => {
+    const chapter = await chapterRepository.findOrFail(uid)
+    return new Response().addData("chapter", chapter)
+}
+
 export const deleteChapter = async (uid: string): Promise<Response> => {
     try {
         const chapter = await chapterRepository.findOrFail(uid)

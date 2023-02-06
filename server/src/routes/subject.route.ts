@@ -5,10 +5,12 @@ import {errorResponse, successResponse} from "../helpers/response";
 import HttpStatusCode from "../helpers/httpStatusCode";
 import {upload} from "../helpers/fileHelper";
 import logger from "../helpers/logger";
+import auth from "../middleware/auth";
+import admin from "../middleware/admin";
 
 const router = Router()
 
-router.post('/', upload("subjects").single('image'), async (req: Request, res: Response) => {
+router.post('/', auth, admin, upload("subjects").single('image'), async (req: Request, res: Response) => {
     try {
         const body = req.file !== undefined ? {...req.body, image: "subjects/" + req.file?.filename} : req.body
         const response = await createSubject(new SubjectDto(body))
@@ -20,7 +22,7 @@ router.post('/', upload("subjects").single('image'), async (req: Request, res: R
     }
 })
 
-router.put('/', upload("subjects").single('image'), async (req: Request, res: Response) => {
+router.put('/', auth, admin, upload("subjects").single('image'), async (req: Request, res: Response) => {
     try {
         const body = req.file !== undefined ? {...req.body, image: "subjects/" + req.file?.filename} : req.body
         const response = await updateSubject(new SubjectDto(body))
@@ -41,7 +43,7 @@ router.get("/", async (_: Request, res: Response) => {
     }
 })
 
-router.delete("/:uid", async (req: Request, res: Response) => {
+router.delete("/:uid", auth, admin, async (req: Request, res: Response) => {
     try {
         await deleteSubject(req.params.uid)
         return successResponse(res, [])

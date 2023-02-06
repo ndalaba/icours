@@ -14,11 +14,11 @@ export default (app) => {
 
     app.use('/api/auth', [loginRoutes, passwordRoutes, registerRoutes])
     app.use('/api/users', userRoutes)
-    app.use('/api/subjects', auth, admin, subjectRoute)
-    app.use('/api/classes', auth, admin, classeRoute)
+    app.use('/api/subjects', subjectRoute)
+    app.use('/api/classes', classeRoute)
     app.use('/api/courses', auth, admin, courseRoute)
     app.use('/api/chapters', auth, admin, chapterRoute)
-    app.use('/api/chats', auth,  chatRoute)
+    app.use('/api/chats', auth, chatRoute)
 
     return app
 }

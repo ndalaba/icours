@@ -1,8 +1,3 @@
-<script lang="ts">
-
-</script>
-
-
 <svelte:head>
     <title>I-Cours - Tableau de bord</title>
 </svelte:head>

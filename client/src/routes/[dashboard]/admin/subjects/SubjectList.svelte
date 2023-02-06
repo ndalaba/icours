@@ -12,7 +12,6 @@
 
     const dispatch = createEventDispatcher()
     export let subjects: SubjectType[] = []
-    export let loading: boolean = true
 
     let filteredSubjects: SubjectType[]
     let search: string = ""
@@ -60,7 +59,7 @@
         </div>
     </div> <!-- end card-body-->
 </div>
-{#if loading}
+{#if !subjects.length}
     <ListPlaceholder/>
 {:else}
     {#each filteredSubjects as subject }

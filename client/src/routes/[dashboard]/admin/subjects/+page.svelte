@@ -5,20 +5,17 @@
     import SubjectForm from "./SubjectForm.svelte";
     import SubjectList from "./SubjectList.svelte";
     import {activeMenu} from "$lib/helper/layout";
+    import {SubjectStore} from "$lib/store";
 
     let subjects: SubjectType[] = []
     let currentSubject: SubjectType = {name: '', id: 0, description: '', image: '', uid: ''};
-    let loading: boolean = true
 
     onMount(() => {
-        getSubjects()
         activeMenu("#subjects_menu")
     })
 
     async function getSubjects() {
-        const response = await getRequest("/subjects")
-        subjects = response.data
-        loading = false
+        getRequest('/subjects').then(response => SubjectStore.set(response.data))
     }
 
     function setCurrentSubject(event) {
@@ -48,7 +45,7 @@
     <div class="container-xl">
         <div class="row g-4">
             <div class="col-md-6">
-                <SubjectList loading={loading} on:subject-update-request={setCurrentSubject} on:subject-updated={getSubjects} subjects={subjects}/>
+                <SubjectList on:subject-update-request={setCurrentSubject} on:subject-updated={getSubjects} subjects={$SubjectStore}/>
             </div>
             <div class="col-md-6">
                 <SubjectForm formData={currentSubject} on:subject-updated={getSubjects}/>

@@ -5,7 +5,7 @@
     import ListPlaceholder from "$lib/components/layouts/dashboard/ListPlaceholder.svelte";
     import Plus from "$lib/components/icons/Plus.svelte";
     import {deleteRequest} from "$lib/helper/Request";
-    import {createEventDispatcher} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
     import {SERVER_UPLOAD_PATH} from "$lib/helper/Constants.js";
     import {success} from "$lib/helper/Toaster";
     import {alert} from "$lib/helper/alert";
@@ -60,7 +60,7 @@
         </div>
     </div> <!-- end card-body-->
 </div>
-{#if loading}
+{#if !classes.length}
     <ListPlaceholder/>
 {:else}
     {#each filteredClasses as classe }

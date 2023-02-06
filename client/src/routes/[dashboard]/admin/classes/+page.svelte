@@ -5,20 +5,17 @@
     import ClasseForm from "./ClasseForm.svelte";
     import ClasseList from "./ClasseList.svelte";
     import {activeMenu} from "$lib/helper/layout";
+    import {ClasseStore} from "$lib/store";
 
     let classes: ClasseType[] = []
     let currentClasse: ClasseType = {name: '', id: 0, description: '', uid: ''};
-    let loading: boolean = true
 
     onMount(() => {
-        getClasses()
         activeMenu("#classes_menu")
     })
 
     async function getClasses() {
-        const response = await getRequest("/classes")
-        classes = response.data
-        loading = false
+        getRequest('/classes').then(response => ClasseStore.set(response.data))
     }
 
     function setCurrentClasse(event) {
@@ -48,7 +45,7 @@
     <div class="container-xl">
         <div class="row g-4">
             <div class="col-md-6">
-                <ClasseList loading={loading} on:classe-update-request={setCurrentClasse} on:classe-updated={getClasses} classes={classes}/>
+                <ClasseList on:classe-update-request={setCurrentClasse} on:classe-updated={getClasses} classes={$ClasseStore}/>
             </div>
             <div class="col-md-6">
                 <ClasseForm formData={currentClasse} on:classe-updated={getClasses}/>
