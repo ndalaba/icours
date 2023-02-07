@@ -1,7 +1,18 @@
 import BaseEntity from "../shared/BaseEntity";
-import { BaseEntity as TOEntity, Column, Entity, Index, JoinColumn,OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Exclude } from "class-transformer"
+import {
+    BaseEntity as TOEntity,
+    Column,
+    Entity,
+    Index,
+    JoinColumn,
+    ManyToOne,
+    OneToMany,
+    OneToOne,
+    PrimaryGeneratedColumn
+} from "typeorm";
+import {Exclude} from "class-transformer"
 import Chat from "../chats/chat.entity";
+import Course from "../course/entity/course.entity";
 
 export class Role {
     public static ROLE_STUDENT = 10
@@ -36,36 +47,36 @@ export class Gender {
 @Entity("users")
 export default class User extends BaseEntity {
 
-    @Column({ nullable: false, length: 150, name: "first_name", type: "varchar" })
+    @Column({nullable: false, length: 150, name: "first_name", type: "varchar"})
     firstName: string
 
-    @Column({ nullable: false, length: 150, name: "last_name", type: "varchar" })
+    @Column({nullable: false, length: 150, name: "last_name", type: "varchar"})
     lastName: string
 
-    @Column({ nullable: false, length: 100, unique: true, type: "varchar" })
+    @Column({nullable: false, length: 100, unique: true, type: "varchar"})
     @Index()
     email: string
 
     @Index()
-    @Column({ nullable: false, length: 50, unique: true, type: "varchar" })
+    @Column({nullable: false, length: 50, unique: true, type: "varchar"})
     phone: string
 
-    @Column({ nullable: false, type: "smallint" })
+    @Column({nullable: false, type: "smallint"})
     role: number = Role.ROLE_STUDENT
 
-    @Column({ nullable: true, type: "tinyint" })
+    @Column({nullable: true, type: "tinyint"})
     gender: number
 
-    @Column({ name: "birth_day", nullable: true })
+    @Column({name: "birth_day", nullable: true})
     birthDay: Date
 
-    @Column({ type: "text", nullable: true })
+    @Column({type: "text", nullable: true})
     address: string
 
-    @Column({ type: "tinyint" })
+    @Column({type: "tinyint"})
     active: boolean = false
 
-    @Column({ name: "last_login", nullable: true, type: "datetime" })
+    @Column({name: "last_login", nullable: true, type: "datetime"})
     lastLogin: Date
 
     @Exclude()
@@ -73,14 +84,17 @@ export default class User extends BaseEntity {
     token: Partial<Token>
 
     @Exclude()
-    @Column({ nullable: false, length: 100, type: "varchar" })
+    @Column({nullable: false, length: 100, type: "varchar"})
     password: string
 
-    @Column({ nullable: true, length: 150, type: "varchar" })
+    @Column({nullable: true, length: 150, type: "varchar"})
     photo: string
 
-    @OneToMany(()=>Chat,(chat)=>chat.user)
-    chats:Chat[]
+    @OneToMany(() => Chat, (chat) => chat.user)
+    chats: Chat[]
+
+    @ManyToOne(() => Course, (course) => course.user)
+    courses: Course[]
 
     constructor(user?: Partial<User>) {
         super();
@@ -110,14 +124,14 @@ export class Token extends TOEntity {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({ type: "varchar" })
+    @Column({type: "varchar"})
     token: string
 
-    @Column({ name: "expire_date", type: "datetime" })
+    @Column({name: "expire_date", type: "datetime"})
     expireDate: Date
 
     @OneToOne(() => User, (user) => user.token)
-    @JoinColumn({ name: "user_id" })
+    @JoinColumn({name: "user_id"})
     user: User
 
     constructor(obj: Partial<Token>) {

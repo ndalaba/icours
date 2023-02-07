@@ -23,7 +23,6 @@
         title: '',
         id: 0,
         content: '',
-        tag: "",
         published: false,
         uid: '',
         course: {id: 0}
@@ -40,7 +39,6 @@
                 title: '',
                 id: 0,
                 content: '',
-                tag: "",
                 published: false,
                 uid: '',
                 course: course

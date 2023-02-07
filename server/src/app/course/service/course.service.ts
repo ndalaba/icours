@@ -4,6 +4,7 @@ import logger from "../../../helpers/logger";
 import {generateUid, slugify} from "../../../helpers/string";
 import CourseRepository from "../repository/course.repository";
 import Course from "../entity/course.entity";
+import User from "../../user/user.entity";
 
 const courseRepository = new CourseRepository()
 
@@ -31,13 +32,16 @@ export const createCourse = async (courseDto: CourseDto): Promise<Response> => {
 
 export const updateCourse = async (courseDto: CourseDto): Promise<Response> => {
     try {
+        let course = await courseRepository.findOrFail(courseDto.uid)
+        if (!course.canEdit(courseDto.user))
+            throw new Error("Action not allowed")
+
         const validation = await courseDto.validate()
         const response = new Response(new Map<string, any>(), validation.getErrors())
 
         const valid = !validation.hasError()
 
         if (valid) {
-            let course = await courseRepository.findOrFail(courseDto.uid)
             course.slug = slugify(courseDto.title)
             course.title = courseDto.title
             course.tag = courseDto.tag
@@ -63,13 +67,16 @@ export const getCourses = async (subject: any, classe: any, published: any): Pro
 }
 
 export const getCourse = async (uid: string): Promise<Response> => {
-    const course= await courseRepository.findOrFail(uid)
+    const course = await courseRepository.findOrFail(uid)
     return new Response().addData("course", course)
 }
 
-export const deleteCourse = async (uid: string): Promise<Response> => {
+export const deleteCourse = async (uid: string, user: User): Promise<Response> => {
     try {
         const course = await courseRepository.findOrFail(uid)
+        if (!course.canEdit(user))
+            throw new Error("Action not allowed")
+
         //TODO if course doesn't have course delete otherwise keep
         await courseRepository.remove(course)
         return new Response()

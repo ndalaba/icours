@@ -1,4 +1,5 @@
 <script lang="ts">
+    import {fly} from "svelte/transition";
     import {deleteRequest, getRequest} from "$lib/helper/Request";
     import type {CourseType} from "$lib/type";
     import {onMount} from "svelte";
@@ -9,6 +10,7 @@
     import ListPlaceholder from "$lib/components/layouts/dashboard/ListPlaceholder.svelte";
     import {ClasseStore, SubjectStore} from "$lib/store.js";
     import Trash from "$lib/components/icons/Trash.svelte";
+    import {removeObjectWithUid} from "$lib/helper/function";
 
     let courses: CourseType[] = []
     let loading: boolean = true
@@ -31,7 +33,8 @@
             callable: function () {
                 deleteRequest('/courses/' + uid).then(async _ => {
                     success(`Course supprimé.`)
-                    await getCourses()
+                    filteredCourses = removeObjectWithUid(filteredCourses, uid)
+                    //await getCourses()
                 })
             }
         })
@@ -133,9 +136,10 @@
                 <tr>
                     <th>Titre</th>
                     <th>Matière</th>
+                    <th>Auteur</th>
                     <th>Classes</th>
                     <th>Status</th>
-                    <th class="w-1"></th>
+                    <th></th>
                 </tr>
                 </thead>
 
@@ -156,13 +160,16 @@
                     </tr>
                 {:else}
                     <tbody>
-                    {#each filteredCourses as course }
-                        <tr>
+                    {#each filteredCourses as course,index (course)}
+                        <tr transition:fly="{{x:-100, duration:400}}">
                             <td>
                                 <a href={`/admin/courses/${course.uid}`} class="text-black-gray">{course.title}</a>
                             </td>
                             <td class="text-muted">
                                 {course.subject.name}
+                            </td>
+                            <td class="text-muted">
+                                {course.user.firstName}
                             </td>
                             <td class="text-muted">
                                 {#each course.classes as classe}

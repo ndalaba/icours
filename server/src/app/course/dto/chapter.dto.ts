@@ -1,6 +1,7 @@
 import {IsNotEmpty, IsNotEmptyObject, validate} from "class-validator";
 import Errors from "../../../helpers/errors";
 import Course from "../entity/course.entity";
+import User from "../../user/user.entity";
 
 
 export class ChapterDto {
@@ -17,6 +18,9 @@ export class ChapterDto {
 
     @IsNotEmptyObject()
     course: Course
+
+    @IsNotEmptyObject()
+    user: User
 
     constructor(obj) {
         Object.assign(this, obj)

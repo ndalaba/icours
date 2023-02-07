@@ -25,6 +25,7 @@ export default class CourseRepository {
         const query = this.getRepository().createQueryBuilder("course")
             .leftJoinAndSelect("course.subject", "subject")
             .leftJoinAndSelect("course.classes", "classes")
+            .leftJoinAndSelect("course.user", "user")
         if (subject !== 0)
             query.andWhere("course.subject = :subjectId", {"subjectId": subject})
         if (published !== 2)
@@ -38,6 +39,7 @@ export default class CourseRepository {
         const query = this.getRepository().createQueryBuilder("course")
             .leftJoinAndSelect("course.subject", "subject")
             .leftJoinAndSelect("course.classes", "classes")
+            .leftJoinAndSelect("course.user", "user")
             .where("course.uid = :uid", {'uid': uid})
         return query.getOne()
     }

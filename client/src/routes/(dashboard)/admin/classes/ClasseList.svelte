@@ -3,7 +3,6 @@
     import Trash from "$lib/components/icons/Trash.svelte";
     import Edit from "$lib/components/icons/Edit.svelte";
     import ListPlaceholder from "$lib/components/layouts/dashboard/ListPlaceholder.svelte";
-    import Plus from "$lib/components/icons/Plus.svelte";
     import {deleteRequest} from "$lib/helper/Request";
     import {createEventDispatcher} from "svelte";
     import {success} from "$lib/helper/Toaster";
@@ -39,25 +38,14 @@
 
 </script>
 
-<div class="card mb-2">
-    <div class="card-body">
-        <div class="row justify-content-between">
-            <div class="col-auto">
-                <form class="mb-2 mb-sm-0">
-                    <label class="visually-hidden" for="search">Search</label>
-                    <input bind:value={search} class="form-control" id="search" placeholder="Rechercher..." type="search">
-                </form>
-            </div>
-            <div class="col-sm-3">
-                <div class="text-sm-end">
-                    <button class="btn btn-ghost-primary" type="button">
-                        <Plus/>
-                        Ajouter
-                    </button>
-                </div>
-            </div><!-- end col-->
+<div class="mb-2">
+    <div class="row justify-content-between">
+        <div class="col-12">
+            <form class="mb-2 mb-sm-0 search-form">
+                <input bind:value={search} class="form-control" id="search" placeholder="Rechercher..." type="search">
+            </form>
         </div>
-    </div> <!-- end card-body-->
+    </div>
 </div>
 {#if !classes.length}
     <ListPlaceholder/>
@@ -84,7 +72,7 @@
                             <a class="m-lg-2" on:click|preventDefault={()=>updateClasse(classe)}>
                                 <Edit/>
                             </a>
-                            <a class="m-lg-2" on:click|preventDefault={()=>deleteClasse(classe.uid)}>
+                            <a class="m-lg-2 text-red" on:click|preventDefault={()=>deleteClasse(classe.uid)}>
                                 <Trash/>
                             </a>
                         </div>

@@ -15,7 +15,9 @@ const router = Router()
 
 router.post('/', async (req: Request, res: Response) => {
     try {
-        const response = await createChapter(new ChapterDto(req.body))
+        let dto= new ChapterDto(req.body)
+        dto.user = res.locals.user
+        const response = await createChapter(dto)
         if (response.hasError())
             return errorResponse(res, response.jsonErrors())
         return successResponse(res, response.getData("chapter"), "Chapter created", HttpStatusCode.CREATED)
@@ -26,7 +28,9 @@ router.post('/', async (req: Request, res: Response) => {
 
 router.put('/', async (req: Request, res: Response) => {
     try {
-        const response = await updateChapter(new ChapterDto(req.body))
+        let dto= new ChapterDto(req.body)
+        dto.user = res.locals.user
+        const response = await updateChapter(dto)
         if (response.hasError())
             return errorResponse(res, response.jsonErrors())
         return successResponse(res, response.getData("chapter"), "Chapter updated", HttpStatusCode.OK)
@@ -55,7 +59,7 @@ router.get("/:courseId/:chapterUid", async (req: Request, res: Response) => {
 
 router.delete("/:uid", async (req: Request, res: Response) => {
     try {
-        await deleteChapter(req.params.uid)
+        await deleteChapter(req.params.uid,res.locals.user)
         return successResponse(res, [])
     } catch (e) {
         logger.error(e)

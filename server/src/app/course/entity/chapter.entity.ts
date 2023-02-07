@@ -1,6 +1,7 @@
-import {Column, Entity,  ManyToOne} from "typeorm";
+import {Column, Entity, ManyToOne} from "typeorm";
 import Course from "./course.entity";
 import BaseEntity from "../../shared/BaseEntity";
+import User from "../../user/user.entity";
 
 
 @Entity('chapters')
@@ -27,5 +28,10 @@ export default class Chapter extends BaseEntity {
     constructor(course: Partial<Course>) {
         super()
         Object.assign(this, course)
+    }
+
+    canEdit(user: User) {
+        return user.isAdmin() || user.is(this.course.user);
+
     }
 }

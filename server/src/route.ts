@@ -16,7 +16,7 @@ export default (app) => {
     app.use('/api/users', userRoutes)
     app.use('/api/subjects', subjectRoute)
     app.use('/api/classes', classeRoute)
-    app.use('/api/courses', auth, admin, courseRoute)
+    app.use('/api/courses', courseRoute)
     app.use('/api/chapters', auth, admin, chapterRoute)
     app.use('/api/chats', auth, chatRoute)
 

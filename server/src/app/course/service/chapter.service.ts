@@ -4,6 +4,7 @@ import logger from "../../../helpers/logger";
 import {generateUid, slugify} from "../../../helpers/string";
 import ChapterRepository from "../repository/chapter.repository";
 import Chapter from "../entity/chapter.entity";
+import User from "../../user/user.entity";
 
 const chapterRepository = new ChapterRepository()
 
@@ -30,13 +31,16 @@ export const createChapter = async (chapterDto: ChapterDto): Promise<Response> =
 
 export const updateChapter = async (chapterDto: ChapterDto): Promise<Response> => {
     try {
+        let chapter = await chapterRepository.findOrFail(chapterDto.uid)
+        if (!chapter.canEdit(chapterDto.user))
+            throw new Error("Action not allowed")
+
         const validation = await chapterDto.validate()
         const response = new Response(new Map<string, any>(), validation.getErrors())
 
         const valid = !validation.hasError()
 
         if (valid) {
-            let chapter = await chapterRepository.findOrFail(chapterDto.uid)
             chapter.slug = slugify(chapterDto.title)
             chapter.title = chapterDto.title
             chapter.published = chapterDto.published
@@ -63,9 +67,11 @@ export const getChapter = async (uid: any): Promise<Response> => {
     return new Response().addData("chapter", chapter)
 }
 
-export const deleteChapter = async (uid: string): Promise<Response> => {
+export const deleteChapter = async (uid: string, user: User): Promise<Response> => {
     try {
         const chapter = await chapterRepository.findOrFail(uid)
+        if (!chapter.canEdit(user))
+            throw new Error("Action not allowed")
         await chapterRepository.remove(chapter)
         return new Response()
     } catch (e) {

@@ -39,7 +39,7 @@
         showNotification = false;
         target?.reset();
         userStore.set({authenticated: response.success, user: response.data, loading: false});
-        await goto('/');
+        await goto('/admin');
     }
 
     async function sendValidationEmail() {
@@ -136,7 +136,7 @@
                     </div>
 
                     <div class="ms-auto">
-                        <a class="text-gray-800 collapsed" href="/compte/reinitialisation-mot-de-passe">Mot de passe oublié?</a>
+                        <a class="text-gray-800 collapsed" href="/reinitialisation-mot-de-passe">Mot de passe oublié?</a>
                     </div>
                 </div>
 

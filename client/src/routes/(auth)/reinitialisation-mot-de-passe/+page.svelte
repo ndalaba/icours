@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../theme.min.css'
+	import '../../theme.min.css'
 	import {showValidationErrors} from '$lib/helper/Errors';
 	import {PostContentType, postRequest} from '$lib/helper/Request';
 	import Notification from '$lib/components/layouts/front/Notification.svelte';
@@ -27,7 +27,7 @@
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb breadcrumb-scroll justify-content-center">
 				<li class="breadcrumb-item">
-					<a class="text-gray-800" href="/">Accueil </a>
+					<a class="text-gray-800" href="/client/static">Accueil </a>
 				</li>
 				<li class="breadcrumb-item text-gray-800 active" aria-current="page">Mot de passe oublié</li>
 			</ol>

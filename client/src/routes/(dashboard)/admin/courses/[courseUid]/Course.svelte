@@ -1,4 +1,5 @@
 <script lang="ts">
+    import {fly} from "svelte/transition";
     import type {ChapterType, CourseType} from "$lib/type";
     import {deleteRequest} from "$lib/helper/Request";
     import {createEventDispatcher} from "svelte";
@@ -8,6 +9,7 @@
     import ListPlaceholder from "$lib/components/layouts/dashboard/ListPlaceholder.svelte";
     import Trash from "$lib/components/icons/Trash.svelte";
     import {goto} from "$app/navigation";
+    import {removeObjectWithUid} from "$lib/helper/function";
 
     const dispatch = createEventDispatcher()
 
@@ -32,8 +34,8 @@
             description: "Supprimer ce chapitre",
             callable: function () {
                 deleteRequest('/chapters/' + uid).then(_ => {
-                    dispatch('chapter-updated')
                     success(`Chapitre supprimé.`)
+                    chapters = removeObjectWithUid(chapters, uid);
                 })
             }
         })
@@ -107,8 +109,8 @@
                         {#if loading}
                             <ListPlaceholder/>
                         {:else}
-                            {#each chapters as chapter }
-                                <div class="border-bottom border-color-20 py-3 d-md-flex align-items-center">
+                            {#each chapters as chapter,index(chapter.id)}
+                                <div transition:fly="{{x:-100, duration:400}}" class="border-bottom border-color-20 py-3 d-md-flex align-items-center">
                                     <div class="d-flex align-items-center me-auto mb-4 mb-md-0" style="width: 76%">
                                         <div class="text-secondary d-flex">
                                             <span class={`badge ${chapter.published ? 'bg-teal' : 'bg-danger'}`}>{chapter.published ? 'Publié' : 'Brouillon'}</span>
