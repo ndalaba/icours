@@ -1,6 +1,6 @@
 <script lang="ts">
     import {deleteRequest} from "$lib/helper/Request";
-    import {afterUpdate, createEventDispatcher} from "svelte";
+    import {createEventDispatcher} from "svelte";
     import {success} from "$lib/helper/Toaster";
     import {alert} from "$lib/helper/alert";
     import Edit from "$lib/components/icons/Edit.svelte";
@@ -35,7 +35,7 @@
             callable: function () {
                 deleteRequest('/chapters/' + uid).then(async _ => {
                     success(`Chapitre supprimé.`)
-                    await goto(`/dashboard/admin/courses/${chapter.course.uid}`)
+                    await goto(`/admin/courses/${chapter.course.uid}`)
                 })
             }
         })

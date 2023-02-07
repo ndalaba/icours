@@ -56,7 +56,7 @@
             return showValidationErrors(response.error, 'course');
         }
         success(+data['id'] == 0 ? 'Cours ajouté' : 'Cours modifié.')
-        await goto(`/dashboard/admin/courses/${response.data.uid}`)
+        await goto(`/admin/courses/${response.data.uid}`)
     }
 
 </script>
@@ -64,16 +64,16 @@
     <title>I-Cours - {title}</title>
 </svelte:head>
 
-<form class="row" enctype="multipart/form-data" id="course" on:submit|preventDefault={handleSubmit}>
+<form enctype="multipart/form-data" id="course" on:submit|preventDefault={handleSubmit}>
     <div class="page-header d-print-none">
-        <div class="container-xl">
+        <div class="container-fluid">
             <div class="row g-2 align-items-center">
                 <div class="col">
                     <h2 class="page-title">{title.toUpperCase()}</h2>
                 </div>
                 <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
-                        <a class="btn btn-ghost-danger" href="/dashboard/admin/courses">Annuler</a>
+                        <a class="btn btn-ghost-danger" href="/admin/courses">Annuler</a>
                         <button class="btn btn-primary d-none d-sm-inline-block" type="submit">
                             Enregistrer
                         </button>
@@ -84,7 +84,7 @@
     </div>
 
     <div class="page-body">
-        <div class="container-xl">
+        <div class="container-fluid">
             <div class="row">
                 <input class="d-none" name="id" type="number" value={course?.id}>
                 <input class="d-none" name="uid" value={course?.uid}>

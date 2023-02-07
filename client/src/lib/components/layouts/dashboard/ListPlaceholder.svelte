@@ -1,4 +1,3 @@
-<div class="card">
     <ul class="list-group list-group-flush placeholder-glow">
         <li class="list-group-item">
             <div class="row align-items-center">
@@ -31,4 +30,3 @@
             </div>
         </li>
     </ul>
-</div>

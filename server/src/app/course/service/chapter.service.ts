@@ -39,7 +39,6 @@ export const updateChapter = async (chapterDto: ChapterDto): Promise<Response> =
             let chapter = await chapterRepository.findOrFail(chapterDto.uid)
             chapter.slug = slugify(chapterDto.title)
             chapter.title = chapterDto.title
-            chapter.tag = chapterDto.tag
             chapter.published = chapterDto.published
             chapter.course = chapterDto.course
             chapter.content = chapterDto.content

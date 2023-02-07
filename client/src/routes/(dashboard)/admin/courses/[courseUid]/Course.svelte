@@ -53,7 +53,7 @@
             callable: function () {
                 deleteRequest('/courses/' + uid).then(async _ => {
                     success(`Course supprimé.`)
-                    await goto('/dashboard/admin/courses')
+                    await goto('/admin/courses')
                 })
             }
         })
@@ -79,7 +79,7 @@
                                 {/each}
                             </div>
                             <div class="col-2">
-                                <a class="btn btn-outline-secondary me-1" href={`/dashboard/admin/courses/edit-${course?.uid}`}>
+                                <a class="btn btn-outline-secondary me-1" href={`/admin/courses/edit-${course?.uid}`}>
                                     <Edit/>
                                 </a>
                                 <a class="btn btn-outline-danger" on:click|preventDefault={()=>deleteCourse(course?.uid)}>
@@ -114,7 +114,7 @@
                                             <span class={`badge ${chapter.published ? 'bg-teal' : 'bg-danger'}`}>{chapter.published ? 'Publié' : 'Brouillon'}</span>
                                         </div>
                                         <div class="ms-2">
-                                            <a href={`/dasboard/admin/courses/${course.uid}/${chapter.uid}`} class="text-black">{chapter.title}</a>
+                                            <a href={`/admin/courses/${course.uid}/${chapter.uid}`} class="text-black">{chapter.title}</a>
                                         </div>
                                     </div>
 

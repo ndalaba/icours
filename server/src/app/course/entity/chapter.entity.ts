@@ -12,9 +12,6 @@ export default class Chapter extends BaseEntity {
     @Column({type: "varchar"})
     slug: string
 
-    @Column({type: "varchar", nullable: true})
-    tag: string
-
     @Column({type: "text"})
     content: string
 

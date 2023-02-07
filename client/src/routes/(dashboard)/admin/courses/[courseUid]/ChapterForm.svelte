@@ -54,11 +54,6 @@
             </div>
 
             <div class="mb-4">
-                <label class="form-label" for="chapter-tag">Tag</label>
-                <input class="form-control" id="chapter-tag" name="tag" placeholder="ex : esclavage, aliénation" type="text" value={formData.tag}>
-            </div>
-
-            <div class="mb-4">
                 <label class="form-label">Status du cours <span class="text-danger">*</span></label>
                 <div class="d-flex flex-wrap">
                     <div class="form-check me-2">

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import '../theme.min.css'
+    import '../../theme.min.css'
     import {goto} from '$app/navigation';
     import Eye from '$lib/components/icons/Eye.svelte';
     import EyeOff from '$lib/components/icons/EyeOff.svelte';
@@ -66,7 +66,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-scroll justify-content-center">
                 <li class="breadcrumb-item">
-                    <a class="text-gray-800" href="/">Accueil </a>
+                    <a class="text-gray-800" href="/client/static">Accueil </a>
                 </li>
                 <li aria-current="page" class="breadcrumb-item text-gray-800 active">Connexion</li>
             </ol>

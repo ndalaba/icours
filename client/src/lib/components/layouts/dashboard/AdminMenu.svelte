@@ -8,9 +8,9 @@
     <div class="dropdown-menu show" data-bs-popper="static" id="admin_menu">
         <div class="dropdown-menu-columns">
             <div class="dropdown-menu-column">
-                <a class="dropdown-item" id="courses_menu" href="/dashboard/admin/courses">Cours </a>
-                <a class="dropdown-item" id="subjects_menu" href="/dashboard/admin/subjects">Matières </a>
-                <a class="dropdown-item" id="classes_menu" href="/dashboard/admin/classes">Classes </a>
+                <a class="dropdown-item" id="courses_menu" href="/admin/courses">Cours </a>
+                <a class="dropdown-item" id="subjects_menu" href="/admin/subjects">Matières </a>
+                <a class="dropdown-item" id="classes_menu" href="/admin/classes">Classes </a>
             </div>
         </div>
     </div>

@@ -57,13 +57,13 @@
         <div class="row g-2 align-items-center">
             <div class="col">
                 <ol aria-label="breadcrumbs" class="breadcrumb breadcrumb-arrows">
-                    <li class="breadcrumb-item"><a href="/dashboard/admin">Tableau de bord</a></li>
-                    <li class="breadcrumb-item"><a href="/dashboard/admin/courses">Cours</a></li>
+                    <li class="breadcrumb-item"><a href="/admin">Tableau de bord</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/courses">Cours</a></li>
                     {#if course.id}
                         <li class="breadcrumb-item">{course?.subject?.name}</li>
                         <li aria-current="page" class="breadcrumb-item">
                             <h2 class="breadcrumb-current">
-                                <a href={`/dashboard/admin/courses/${course?.uid}`}>{course?.title}</a>
+                                <a href={`/admin/courses/${course?.uid}`}>{course?.title}</a>
                             </h2>
                         </li>
                     {/if}

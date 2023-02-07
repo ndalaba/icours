@@ -5,8 +5,7 @@
     import ListPlaceholder from "$lib/components/layouts/dashboard/ListPlaceholder.svelte";
     import Plus from "$lib/components/icons/Plus.svelte";
     import {deleteRequest} from "$lib/helper/Request";
-    import {createEventDispatcher, onMount} from "svelte";
-    import {SERVER_UPLOAD_PATH} from "$lib/helper/Constants.js";
+    import {createEventDispatcher} from "svelte";
     import {success} from "$lib/helper/Toaster";
     import {alert} from "$lib/helper/alert";
 

@@ -46,7 +46,6 @@ export type ChapterType = {
     id: number,
     title: string,
     content: string,
-    tag: string,
     published: boolean,
     course: Partial<CourseType>
 }

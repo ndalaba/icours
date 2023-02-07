@@ -8,6 +8,7 @@
     import Edit from "$lib/components/icons/Edit.svelte";
     import ListPlaceholder from "$lib/components/layouts/dashboard/ListPlaceholder.svelte";
     import {ClasseStore, SubjectStore} from "$lib/store.js";
+    import Trash from "$lib/components/icons/Trash.svelte";
 
     let courses: CourseType[] = []
     let loading: boolean = true
@@ -19,11 +20,6 @@
     onMount(() => {
         getCourses()
         activeMenu("#courses_menu")
-        const myOffcanvas = document.getElementById('offcanvasEnd')
-        myOffcanvas?.addEventListener('hidden.bs.offcanvas', event => {
-            document.querySelectorAll<HTMLFormElement>('#offcanvasEnd form').forEach(elt => elt.reset())
-            window?.jquery('.summernote').summernote('code', '');
-        })
     })
 
     function deleteCourse(uid: string) {
@@ -59,11 +55,11 @@
 </svelte:head>
 
 <div class="page-header d-print-none">
-    <div class="container-xl">
+    <div class="container-fluid">
         <div class="row g-2 align-items-center">
             <div class="col">
                 <ol aria-label="breadcrumbs" class="breadcrumb breadcrumb-arrows">
-                    <li class="breadcrumb-item"><a href="/dashboard/admin">Tableau de bord</a></li>
+                    <li class="breadcrumb-item"><a href="/admin">Tableau de bord</a></li>
                     <li aria-current="page" class="breadcrumb-item active">
                         <h2 class="breadcrumb-current"><a href="/">Liste cours</a></h2>
                     </li>
@@ -74,12 +70,20 @@
 </div>
 
 <div class="page-body">
-    <div class="container-xl">
+    <div class="container-fluid">
         <div class="row mb-4">
             <div class="col-12">
                 <div class="row justify-content-between">
-                    <div class="col-md-9">
-                        <form class="d-flex flex-wrap align-items-center" on:submit|preventDefault={findCourses}>
+                    <div class="col-md-3">
+                        <div class="text-md-start mt-3 mt-md-0">
+                            <a class="btn btn-primary d-none d-sm-inline-block" href="/admin/courses/edit-0">
+                                <Edit/>
+                                Ajouter un cours
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-9 text-md-end">
+                        <form class="d-flex flex-wrap align-items-center search-form" on:submit|preventDefault={findCourses}>
                             <div class="me-3 w-50">
                                 <input bind:value={search} class="form-control my-1 my-md-0" id="search" placeholder="Rechercher..." type="search">
                             </div>
@@ -119,51 +123,69 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-3">
-                        <div class="text-md-end mt-3 mt-md-0">
-                            <a class="btn btn-primary d-none d-sm-inline-block" href="/dashboard/admin/courses/edit-0">
-                                <Edit/>
-                                Ajouter un cours
-                            </a>
-                        </div>
-                    </div><!-- end col-->
                 </div> <!-- end row -->
             </div><!-- end col-->
         </div>
 
-        <div class="row">
-            {#if loading}
-                <ListPlaceholder/>
-            {:else}
-                {#each filteredCourses as course }
-                    <div class="col-lg-3 mb-3">
-                        <div class="card project-box">
-                            <div class="card-body" style="padding: 15px;background-image: url('/img/bg.svg')">
-                                <div class="dropdown float-end">
-                                    <a aria-expanded="false" class="dropdown-toggle card-drop arrow-none" data-bs-toggle="dropdown" href="#">
-                                        <i class="mdi mdi-dots-horizontal m-0 text-muted h3"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href={`/dashboard/admin/courses/edit-${course.uid}`}>Modifier</a>
-                                        <a class="dropdown-item text-danger" on:click|preventDefault={()=>deleteCourse(course.uid)}>Supprimer</a>
-                                    </div>
-                                </div>
-                                <h2 class="mt-0" style="height: 85px">
-                                    <a href={`/dashboard/admin/courses/${course.uid}`} class="text-black-gray">{course.title}</a>
-                                </h2>
-                                <p class="text-muted text-uppercase">
-                                    <i class="mdi mdi-account-circle"></i>
-                                    <strong>{course.subject?.name}</strong>
-                                    <span style="float: right" class={`badge ${course.published ? 'bg-teal' : 'bg-danger'}`}>{course.published ? 'Publié' : 'Brouillon'}</span>
-                                </p>
+        <div class="table-responsive">
+            <table class="table table-vcenter card-table table-striped">
+                <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Matière</th>
+                    <th>Classes</th>
+                    <th>Status</th>
+                    <th class="w-1"></th>
+                </tr>
+                </thead>
+
+                {#if loading}
+                    <tr>
+                        <td>
+                            <ListPlaceholder/>
+                        </td>
+                        <td>
+                            <ListPlaceholder/>
+                        </td>
+                        <td>
+                            <ListPlaceholder/>
+                        </td>
+                        <td>
+                            <ListPlaceholder/>
+                        </td>
+                    </tr>
+                {:else}
+                    <tbody>
+                    {#each filteredCourses as course }
+                        <tr>
+                            <td>
+                                <a href={`/admin/courses/${course.uid}`} class="text-black-gray">{course.title}</a>
+                            </td>
+                            <td class="text-muted">
+                                {course.subject.name}
+                            </td>
+                            <td class="text-muted">
                                 {#each course.classes as classe}
                                     <span class="badge bg-blue m-1">{classe.name}</span>
                                 {/each}
-                            </div>
-                        </div> <!-- end card box-->
-                    </div><!-- end col-->
-                {/each}
-            {/if}
+                            </td>
+                            <td class="text-muted">
+                                <span class={`badge ${course.published ? 'bg-teal' : 'bg-danger'}`}>{course.published ? 'Publié' : 'Brouillon'}</span>
+                            </td>
+                            <td>
+                                <a href={`/admin/courses/edit-${course.uid}`}>
+                                    <Edit/>
+                                </a>
+                                <a class="text-danger" on:click|preventDefault={()=>deleteCourse(course.uid)}>
+                                    <Trash/>
+                                </a>
+                            </td>
+                        </tr>
+                    {/each}
+                    </tbody>
+                {/if}
+
+            </table>
         </div>
     </div>
 </div>

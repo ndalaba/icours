@@ -32,7 +32,7 @@
         <div class="row g-2 align-items-center">
             <div class="col">
                 <ol aria-label="breadcrumbs" class="breadcrumb breadcrumb-arrows">
-                    <li class="breadcrumb-item"><a href="/dashboard/admin">Tableau de bord</a></li>
+                    <li class="breadcrumb-item"><a href="/admin">Tableau de bord</a></li>
                     <li aria-current="page" class="breadcrumb-item active">
                         <h2 class="breadcrumb-current"><a href="/">Liste matières</a></h2>
                     </li>

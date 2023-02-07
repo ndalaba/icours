@@ -13,7 +13,6 @@ export class ChapterDto {
 
     @IsNotEmpty()
     content: string
-    tag: string
     published: boolean
 
     @IsNotEmptyObject()
