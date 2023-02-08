@@ -13,7 +13,7 @@ export default class ChapterRepository {
 
     async findOneBy(key: string, value: any): Promise<Chapter> {
         if (value == undefined) return null
-        return await this.getRepository().findOne({where: {[key]: value}})
+        return await this.getRepository().findOne({where: {[key]: value}, relations: ['course','course.subject']})
     }
 
     async findOneBySlug(slug: string): Promise<Chapter> {

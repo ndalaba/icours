@@ -2,7 +2,7 @@ import {Request, Response, Router} from "express";
 import {
     createChapter,
     deleteChapter,
-    getChapter,
+    getChapter, getChapterBySlug,
     getChapters,
     updateChapter
 } from "../app/course/service/chapter.service";
@@ -10,12 +10,14 @@ import {ChapterDto} from "../app/course/dto/chapter.dto";
 import {errorResponse, successResponse} from "../helpers/response";
 import HttpStatusCode from "../helpers/httpStatusCode";
 import logger from "../helpers/logger";
+import auth from "../middleware/auth";
+import editor from "../middleware/editor";
 
 const router = Router()
 
-router.post('/', async (req: Request, res: Response) => {
+router.post('/', auth, editor, async (req: Request, res: Response) => {
     try {
-        let dto= new ChapterDto(req.body)
+        let dto = new ChapterDto(req.body)
         dto.user = res.locals.user
         const response = await createChapter(dto)
         if (response.hasError())
@@ -26,9 +28,9 @@ router.post('/', async (req: Request, res: Response) => {
     }
 })
 
-router.put('/', async (req: Request, res: Response) => {
+router.put('/', auth, editor, async (req: Request, res: Response) => {
     try {
-        let dto= new ChapterDto(req.body)
+        let dto = new ChapterDto(req.body)
         dto.user = res.locals.user
         const response = await updateChapter(dto)
         if (response.hasError())
@@ -48,6 +50,16 @@ router.get("/:courseId", async (req: Request, res: Response) => {
     }
 })
 
+router.get("/chapter/slug/:slug", async (req: Request, res: Response) => {
+    try {
+        const response = await getChapterBySlug(req.params.slug)
+        return successResponse(res, response.getData('chapter'))
+    } catch (e) {
+        logger.error(e)
+    }
+})
+
+
 router.get("/:courseId/:chapterUid", async (req: Request, res: Response) => {
     try {
         const response = await getChapter(req.params.chapterUid)
@@ -57,9 +69,10 @@ router.get("/:courseId/:chapterUid", async (req: Request, res: Response) => {
     }
 })
 
-router.delete("/:uid", async (req: Request, res: Response) => {
+
+router.delete("/:uid", auth, editor, async (req: Request, res: Response) => {
     try {
-        await deleteChapter(req.params.uid,res.locals.user)
+        await deleteChapter(req.params.uid, res.locals.user)
         return successResponse(res, [])
     } catch (e) {
         logger.error(e)

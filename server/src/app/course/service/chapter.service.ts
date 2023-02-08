@@ -67,6 +67,11 @@ export const getChapter = async (uid: any): Promise<Response> => {
     return new Response().addData("chapter", chapter)
 }
 
+export const getChapterBySlug = async (slug: string): Promise<Response> => {
+    const chapter = await chapterRepository.findOneBySlug(slug)
+    return new Response().addData("chapter", chapter)
+}
+
 export const deleteChapter = async (uid: string, user: User): Promise<Response> => {
     try {
         const chapter = await chapterRepository.findOrFail(uid)

@@ -8,7 +8,6 @@ import courseRoute from "./routes/courses.route";
 import chapterRoute from "./routes/chapters.route";
 import chatRoute from "./routes/chats.route";
 import auth from "./middleware/auth";
-import admin from "./middleware/admin";
 
 export default (app) => {
 
@@ -17,7 +16,7 @@ export default (app) => {
     app.use('/api/subjects', subjectRoute)
     app.use('/api/classes', classeRoute)
     app.use('/api/courses', courseRoute)
-    app.use('/api/chapters', auth, admin, chapterRoute)
+    app.use('/api/chapters', chapterRoute)
     app.use('/api/chats', auth, chatRoute)
 
     return app

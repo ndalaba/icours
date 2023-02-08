@@ -2,16 +2,17 @@
     import type {PageData} from './$types';
     import type {ChapterType, CourseType} from "$lib/type";
     import ListPlaceholder from "$lib/components/layouts/dashboard/ListPlaceholder.svelte";
-    import Chapters from "./Chapters.svelte";
+    import Chapters from "../Chapters.svelte";
 
     export let data: PageData;
-    let course: CourseType = data?.course as CourseType
+    let chapter: ChapterType = data?.chapter as ChapterType
     let chapters: ChapterType[] = data?.chapters as ChapterType[]
+    let course: CourseType = chapter?.course as CourseType
 
 </script>
 
 <svelte:head>
-    <title>{course?.title}</title>
+    <title>{chapter?.title} - {course?.title}</title>
 </svelte:head>
 <div class="course-detail">
     <div class="page-header d-print-none">
@@ -19,13 +20,15 @@
             <div class="row g-2 align-items-center">
                 <div class="col">
                     <ol aria-label="breadcrumbs" class="breadcrumb breadcrumb-arrows">
-                        <li class="breadcrumb-item"><a href="/cours">Cours</a></li>
                         <li class="breadcrumb-item">
                             <a href={`/cours/${course?.subject?.slug}`}>{course?.subject?.name}</a>
                         </li>
+                        <li class="breadcrumb-item">
+                            <a href={`/cours/${course?.subject?.slug}/${course?.slug}`}>{course?.title}</a>
+                        </li>
                         <li aria-current="page" class="breadcrumb-item active">
                             <h2 class="breadcrumb-current">
-                                {course?.title}
+                                {chapter?.title}
                             </h2>
                         </li>
                     </ol>
@@ -43,12 +46,12 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-10">
-                                            <span class="pe-3">{course?.title?.toUpperCase()}</span>
+                                            <span class="pe-3">{chapter?.title.toUpperCase()}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body markdown p-4">
-                                    {@html course?.content}
+                                    {@html chapter?.content}
                                 </div>
                             </div>
                         </div>

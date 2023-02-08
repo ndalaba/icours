@@ -36,6 +36,7 @@ export type CourseType = {
     uid: string,
     id: number,
     title: string,
+    slug?: string,
     content: string,
     tag: string,
     published: boolean,
