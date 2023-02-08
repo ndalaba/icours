@@ -1,5 +1,12 @@
 import {Request, Response, Router} from "express";
-import {createCourse, deleteCourse, getCourse, getCourses, updateCourse} from "../app/course/service/course.service";
+import {
+    createCourse,
+    deleteCourse,
+    getCourse,
+    getCourseBySlug,
+    getCourses,
+    updateCourse
+} from "../app/course/service/course.service";
 import {CourseDto} from "../app/course/dto/course.dto";
 import {errorResponse, successResponse} from "../helpers/response";
 import HttpStatusCode from "../helpers/httpStatusCode";
@@ -47,6 +54,15 @@ router.get("/", async (req: Request, res: Response) => {
 router.get("/:uid", async (req: Request, res: Response) => {
     try {
         const response = await getCourse(req.params.uid as string)
+        return successResponse(res, response.getData('course'))
+    } catch (e) {
+        logger.error(e)
+    }
+})
+
+router.get("/course/:slug", async (req: Request, res: Response) => {
+    try {
+        const response = await getCourseBySlug(req.params.slug as string)
         return successResponse(res, response.getData('course'))
     } catch (e) {
         logger.error(e)

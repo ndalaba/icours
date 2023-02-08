@@ -6,6 +6,7 @@ body {
 a {
     cursor: pointer;
 }
+.avatar{background-color: transparent}
 .btn .icon{margin: 0}
 .page-title {
     font-weight: 500;
@@ -14,6 +15,7 @@ a {
 .is_invalid {
     border-color: #d63939;
 }
+
 
 .btn {
     font-family: inherit;

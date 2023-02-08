@@ -71,13 +71,20 @@ export const getCourse = async (uid: string): Promise<Response> => {
     return new Response().addData("course", course)
 }
 
+export const getCourseBySlug = async (slug: string): Promise<Response> => {
+    const course = await courseRepository.findOneBySlug(slug)
+    return new Response().addData("course", course)
+}
+
 export const deleteCourse = async (uid: string, user: User): Promise<Response> => {
     try {
         const course = await courseRepository.findOrFail(uid)
         if (!course.canEdit(user))
             throw new Error("Action not allowed")
 
-        //TODO if course doesn't have course delete otherwise keep
+        const chaptersCount = await courseRepository.countChapters(course.id)
+        if (chaptersCount)
+            return new Response().addError("course", "Ce cours a des chapitres associés.")
         await courseRepository.remove(course)
         return new Response()
     } catch (e) {

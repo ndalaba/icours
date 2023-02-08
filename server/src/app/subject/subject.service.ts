@@ -33,7 +33,7 @@ export const createSubject = async (subjectDto: SubjectDto): Promise<Response> =
             subject.image = subjectDto.image
             subject = await subjectRepository.save(subject)
             response.addData("subject", subject)
-        }else{
+        } else {
             if (subjectDto.image !== undefined) {
                 remove(subjectDto.image)
             }
@@ -64,7 +64,7 @@ export const updateSubject = async (subjectDto: SubjectDto): Promise<Response> =
             }
             subject = await subjectRepository.save(subject)
             response.addData("subject", subject)
-        }else{
+        } else {
             if (subjectDto.image !== undefined) {
                 remove(subjectDto.image)
             }
@@ -81,10 +81,17 @@ export const getSubjects = async (): Promise<Response> => {
     return new Response().addData("subjects", subjects)
 }
 
+export const getSubject = async (slug: string): Promise<Response> => {
+    const subject = await subjectRepository.findOneBySlug(slug)
+    return new Response().addData("subject", subject)
+}
+
 export const deleteSubject = async (uid: string): Promise<Response> => {
     try {
         const subject = await subjectRepository.findOrFail(uid)
-        //TODO if subject doesn't have course delete otherwise keep
+        const coursesCount = await subjectRepository.countCourses(subject.id)
+        if (coursesCount)
+            return new Response().addError("subject", "Cette matière a des cours associés.")
         remove(subject.image)
         await subjectRepository.remove(subject)
         return new Response()

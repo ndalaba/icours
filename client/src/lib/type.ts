@@ -18,6 +18,8 @@ export type SubjectType = {
     uid: string,
     id: number,
     name: string,
+
+    slug?: string,
     description?: string,
     image?: string
 }

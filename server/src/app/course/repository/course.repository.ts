@@ -1,5 +1,6 @@
 import DataSource from "../../../ormconfig"
 import Course from "../entity/course.entity";
+import Chapter from "../entity/chapter.entity";
 
 
 export default class CourseRepository {
@@ -14,7 +15,12 @@ export default class CourseRepository {
 
     async findOneBy(key: string, value: any): Promise<Course> {
         if (value == undefined) return null
-        return await this.getRepository().findOne({where: {[key]: value}})
+        return await this.getRepository().findOne({
+            where: {[key]: value},
+            relations: {
+                subject: true
+            }
+        })
     }
 
     async findOneBySlug(slug: string): Promise<Course> {
@@ -42,6 +48,14 @@ export default class CourseRepository {
             .leftJoinAndSelect("course.user", "user")
             .where("course.uid = :uid", {'uid': uid})
         return query.getOne()
+    }
+
+    async countChapters(course: number) {
+        return DataSource.getRepository(Chapter)
+            .createQueryBuilder("chapter")
+            .select("COUNT(chapter.id)")
+            .where("chapter.course = :course", {'course': course})
+            .getCount()
     }
 
     async remove(course: Course) {

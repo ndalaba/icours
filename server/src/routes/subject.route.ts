@@ -1,5 +1,5 @@
 import {Request, Response, Router} from "express";
-import {createSubject, deleteSubject, getSubjects, updateSubject} from "../app/subject/subject.service";
+import {createSubject, deleteSubject, getSubject, getSubjects, updateSubject} from "../app/subject/subject.service";
 import {SubjectDto} from "../app/subject/subject.dto";
 import {errorResponse, successResponse} from "../helpers/response";
 import HttpStatusCode from "../helpers/httpStatusCode";
@@ -38,6 +38,15 @@ router.get("/", async (_: Request, res: Response) => {
     try {
         const response = await getSubjects()
         return successResponse(res, response.getData('subjects'))
+    } catch (e) {
+        logger.error(e)
+    }
+})
+
+router.get("/:slug", async (req: Request, res: Response) => {
+    try {
+        const response = await getSubject(req.params.slug)
+        return successResponse(res, response.getData('subject'))
     } catch (e) {
         logger.error(e)
     }

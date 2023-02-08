@@ -1,5 +1,6 @@
 import Subject from "./subject.entity";
 import DataSource from "../../ormconfig"
+import Course from "../course/entity/course.entity";
 
 
 export default class SubjectRepository {
@@ -36,6 +37,14 @@ export default class SubjectRepository {
 
     async findOrFail(uid: string): Promise<Subject> {
         return this.getRepository().findOneByOrFail({uid})
+    }
+
+    async countCourses(subject: number) {
+        return DataSource.getRepository(Course)
+            .createQueryBuilder("course")
+            .select("COUNT(course.id)")
+            .where("course.subject = :subject", {'subject': subject})
+            .getCount()
     }
 
     async remove(subject: Subject) {
