@@ -66,7 +66,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-scroll justify-content-center">
                 <li class="breadcrumb-item">
-                    <a class="text-gray-800" href="/client/static">Accueil </a>
+                    <a class="text-gray-800" href="/">Accueil </a>
                 </li>
                 <li aria-current="page" class="breadcrumb-item text-gray-800 active">Connexion</li>
             </ol>

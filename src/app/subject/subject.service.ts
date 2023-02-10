@@ -42,7 +42,7 @@ export const createSubject = async (subjectDto: SubjectDto): Promise<Response> =
         return response
     } catch (e) {
         logger.error(`Create new Subject : "${subjectDto.name}" failed:` + e)
-        return new Response().addData('server', "Server error")
+        return new Response().addError('server', "Server error")
     }
 }
 
@@ -73,7 +73,7 @@ export const updateSubject = async (subjectDto: SubjectDto): Promise<Response> =
         return response
     } catch (e) {
         logger.error(`Updating a Subject "${subjectDto.name}" failed:` + e)
-        return new Response().addData('server', "Server error")
+        return new Response().addError('server', "Server error")
     }
 }
 
@@ -83,7 +83,7 @@ export const getSubjects = async (): Promise<Response> => {
         return new Response().addData("subjects", subjects)
     } catch (e) {
         logger.error(`Get subjects failed: ${e}`)
-        return new Response().addData('server', "Server error")
+        return new Response().addError('server', "Server error")
     }
 }
 
@@ -93,7 +93,7 @@ export const getSubject = async (slug: string): Promise<Response> => {
         return new Response().addData("subject", subject)
     } catch (e) {
         logger.error(`Get subject "${slug}" failed: ${e}`)
-        return new Response().addData('server', "Server error")
+        return new Response().addError('server', "Server error")
     }
 }
 
@@ -108,6 +108,6 @@ export const deleteSubject = async (uid: string): Promise<Response> => {
         return new Response()
     } catch (e) {
         logger.error(`Delete subject "${uid}" failed: ${e}`)
-        return new Response().addData('server', "Server error")
+        return new Response().addError('server', "Server error")
     }
 }

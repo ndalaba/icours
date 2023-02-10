@@ -8,6 +8,8 @@ import * as cookieParser from "cookie-parser"
 import trim from "./middleware/trim"
 import route from "./route";
 
+import {handler} from "../../client/build/handler.js"
+
 dotenv.config()
 
 let app = express()
@@ -23,6 +25,7 @@ app.use(cors({
 }))
 
 app.use('/static', express.static(path.join(__dirname, 'static')))
+app.use(handler)
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'twig');

@@ -1,4 +1,4 @@
-import type {PageLoad} from './$types';
+import type {PageLoad} from '../../../../../../.svelte-kit/types/src/routes';
 import {getRequest} from "$lib/helper/Request";
 
 export const load = (async ({params}) => {

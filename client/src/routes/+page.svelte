@@ -40,13 +40,13 @@
 
 					<!-- Buttons -->
 					<a
-						href="./course-list-v1.html"
+						href="./"
 						class="btn btn-wide btn-slide slide-primary shadow mb-4 mb-md-0 me-md-5"
 						data-aos-duration="200"
 						data-aos="fade-up">GET STARTED</a
 					>
 					<a
-						href="./course-list-v1.html"
+						href="./"
 						class="btn btn-primary btn-wide lift d-none d-lg-inline-block"
 						data-aos-duration="200"
 						data-aos="fade-up">VIEW COURSES</a
@@ -67,7 +67,7 @@
 					</p>
 				</div>
 				<div class="col-md-auto">
-					<a href="./course-list-v6.html" class="d-flex align-items-center fw-medium">
+					<a href="/" class="d-flex align-items-center fw-medium">
 						Browse All
 						<div class="ms-2 d-flex">
 							<!-- Icon -->
@@ -92,7 +92,7 @@
 				<div class="col mb-md-6 mb-4 px-2 px-md-4">
 					<!-- Card -->
 					<a
-						href="./course-list-v6.html"
+						href="/"
 						class="card bg-lavender hover-gradient-1 rounded-lg p-md-5 p-3 h-210p text-center lift"
 					>
 						<!-- Image -->
@@ -110,7 +110,7 @@
 				<div class="col mb-md-6 mb-4 px-2 px-md-4">
 					<!-- Card -->
 					<a
-						href="./course-list-v6.html"
+						href="/"
 						class="card bg-lavender hover-gradient-1 rounded-lg p-md-5 p-3 h-210p text-center lift"
 					>
 						<!-- Image -->
@@ -128,7 +128,7 @@
 				<div class="col mb-md-6 mb-4 px-2 px-md-4">
 					<!-- Card -->
 					<a
-						href="./course-list-v6.html"
+						href="/"
 						class="card bg-lavender hover-gradient-1 rounded-lg p-md-5 p-3 h-210p text-center lift"
 					>
 						<!-- Image -->
@@ -146,7 +146,7 @@
 				<div class="col mb-md-6 mb-4 px-2 px-md-4">
 					<!-- Card -->
 					<a
-						href="./course-list-v6.html"
+						href="/"
 						class="card bg-lavender hover-gradient-1 rounded-lg p-md-5 p-3 h-210p text-center lift"
 					>
 						<!-- Image -->
@@ -164,7 +164,7 @@
 				<div class="col mb-md-6 mb-4 px-2 px-md-4">
 					<!-- Card -->
 					<a
-						href="./course-list-v6.html"
+						href="/"
 						class="card bg-lavender hover-gradient-1 rounded-lg p-md-5 p-3 h-210p text-center lift"
 					>
 						<!-- Image -->
@@ -182,7 +182,7 @@
 				<div class="col d-xl-none d-wd-block mb-md-6 mb-4 px-2 px-md-4">
 					<!-- Card -->
 					<a
-						href="./course-list-v6.html"
+						href="/"
 						class="card bg-lavender hover-gradient-1 rounded-lg p-md-5 p-3 h-210p text-center lift"
 					>
 						<!-- Image -->

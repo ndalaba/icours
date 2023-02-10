@@ -11,8 +11,12 @@ export async function load() {
             user: response.data,
             loading: false
         })
-        getRequest('/subjects').then(response => SubjectStore.set(response.data))
-        getRequest('/classes').then(response => ClasseStore.set(response.data))
+        getRequest('/subjects').then(response => {
+            if (response.success) SubjectStore.set(response.data)
+        })
+        getRequest('/classes').then(response => {
+            if (response.success) ClasseStore.set(response.data)
+        })
     } catch (e) {
         console.error(e)
     }

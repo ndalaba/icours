@@ -33,7 +33,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-scroll justify-content-center">
                 <li class="breadcrumb-item">
-                    <a class="text-gray-800" href="/client/static" title={APP_NAME}>Accueil</a>
+                    <a class="text-gray-800" href="/" title={APP_NAME}>Accueil</a>
                 </li>
                 <li class="breadcrumb-item text-gray-800 active" aria-current="page">
                     Inscription

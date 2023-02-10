@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {PageData} from './$types';
+    import type {PageData} from '../../../../../../.svelte-kit/types/src/routes';
     import type {ChapterType, CourseType} from "$lib/type";
     import ListPlaceholder from "$lib/components/layouts/dashboard/ListPlaceholder.svelte";
     import Chapters from "../Chapters.svelte";

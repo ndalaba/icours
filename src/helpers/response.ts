@@ -27,7 +27,7 @@ export default class Response extends Errors {
     }
 }
 
-export const errorResponse = (res: ExpressResponse, data: any, message: string = "Validation errors", code: number = HttpStatusCode.BAD_REQUEST, status: boolean = false) => {
+export const errorResponse = (res: ExpressResponse, data: any, message: string = "", code: number = HttpStatusCode.BAD_REQUEST, status: boolean = false) => {
     return res.status(code).json({
         success: status,
         message,

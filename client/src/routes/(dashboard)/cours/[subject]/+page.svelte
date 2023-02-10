@@ -1,11 +1,10 @@
 <script lang="ts">
-    import type {PageData} from './$types';
+    import type { PageData } from '../../../../../.svelte-kit/types/src/routes';
     import type {CourseType, SubjectType} from "$lib/type";
 
     export let data: PageData;
     let subject: SubjectType = data?.subject as SubjectType
     let courses: CourseType[] = data?.courses as CourseType[]
-
 </script>
 
 <svelte:head>
@@ -49,5 +48,7 @@
     </div>
 </div>
 <style>
-    .col-md-3, .col-xl-3{width: 20%}
+    .col-md-3, .col-xl-3 {
+        width: 20%
+    }
 </style>

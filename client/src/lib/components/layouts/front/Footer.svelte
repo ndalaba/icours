@@ -76,42 +76,42 @@
 						<!-- List -->
 						<ul class="list-unstyled text-gray-800 font-size-sm-alone mb-6 mb-md-8 mb-lg-0">
 							<li class="mb-3">
-								<a href="./about-v1.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Our Company
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./about-v2.html" class="text-reset">
+								<a href="/" class="text-reset">
 									About Us
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./contact-us.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Contact Us
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./contact-us.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Community
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./course-list-v1.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Student Perks
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./blog-grid-v1.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Blog
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./pricing.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Affiliate Program
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./contact-us.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Careers
 								</a>
 							</li>
@@ -148,47 +148,47 @@
 						<!-- List -->
 						<ul class="list-unstyled text-gray-800 font-size-sm-alone mb-6 mb-md-8 mb-lg-0">
 							<li class="mb-3">
-								<a href="./course-list-v2.html" class="text-reset">
+								<a href="/" class="text-reset">
 									HTML
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./course-list-v2.html" class="text-reset">
+								<a href="/" class="text-reset">
 									CSS
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./course-list-v6.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Design
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./course-list-v5.html" class="text-reset">
+								<a href="/" class="text-reset">
 									JavaScript
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./course-list-v4.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Ruby
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./course-list-v1.html" class="text-reset">
+								<a href="/" class="text-reset">
 									PHP
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./course-list-v3.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Android
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./course-list-v4.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Development Tools
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./course-list-v6.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Business
 								</a>
 							</li>
@@ -225,32 +225,32 @@
 						<!-- List -->
 						<ul class="list-unstyled text-gray-800 font-size-sm-alone mb-0">
 							<li class="mb-3">
-								<a href="./lesson-single-v1.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Web Design
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./lesson-single-v2.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Web Development
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./lesson-single-v1.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Rails Development
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./lesson-single-v2.html" class="text-reset">
+								<a href="/" class="text-reset">
 									PHP Development
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./lesson-single-v1.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Android Development
 								</a>
 							</li>
 							<li class="mb-3">
-								<a href="./lesson-single-v2.html" class="text-reset">
+								<a href="/" class="text-reset">
 									Starting a Business
 								</a>
 							</li>
@@ -316,19 +316,19 @@
 					<div class="ms-xl-auto d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-center">
 						<ul class="navbar-nav flex-row flex-wrap font-size-sm-alone mb-3 mb-md-0 mx-n4 justify-content-center justify-content-lg-start order-1 order-md-0">
 							<li class="nav-item py-2 py-md-0 px-0 border-top-0">
-								<a href="./index.html" class="nav-link px-4 fw-normal text-gray-800">Home</a>
+								<a href="/" class="nav-link px-4 fw-normal text-gray-800">Home</a>
 							</li>
 							<li class="nav-item py-2 py-md-0 px-0 border-top-0">
-								<a href="./terms-of-service.html" class="nav-link px-4 fw-normal text-gray-800">Site Map</a>
+								<a href="/" class="nav-link px-4 fw-normal text-gray-800">Site Map</a>
 							</li>
 							<li class="nav-item py-2 py-md-0 px-0 border-top-0">
-								<a href="./terms-of-service.html" class="nav-link px-4 fw-normal text-gray-800">Privacy policy</a>
+								<a href="/" class="nav-link px-4 fw-normal text-gray-800">Privacy policy</a>
 							</li>
 							<li class="nav-item py-2 py-md-0 px-0 border-top-0">
-								<a href="./terms-of-service.html" class="nav-link px-4 fw-normal text-gray-800">Web Use Policy</a>
+								<a href="/" class="nav-link px-4 fw-normal text-gray-800">Web Use Policy</a>
 							</li>
 							<li class="nav-item py-2 py-md-0 px-0 border-top-0">
-								<a href="./terms-of-service.html" class="nav-link px-4 fw-normal text-gray-800">Cookie Policy</a>
+								<a href="/" class="nav-link px-4 fw-normal text-gray-800">Cookie Policy</a>
 							</li>
 						</ul>
 					</div>

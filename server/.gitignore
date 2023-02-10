@@ -1,8 +1,0 @@
-node_modules/
-build/
-tmp/
-temp/
-.env
-app_log.log
-db.sqlite
-/src/static/upload/

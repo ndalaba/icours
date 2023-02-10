@@ -1,6 +1,6 @@
 <script>
-   import {SubjectStore} from "$lib/store";
-   import {SERVER_UPLOAD_PATH} from "$lib/helper/Constants";
+   import {SubjectStore} from "$lib/store.ts";
+   import {SERVER_UPLOAD_PATH} from "$lib/helper/Constants.ts";
 </script>
 
 <svelte:head>
