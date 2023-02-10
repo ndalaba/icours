@@ -35,6 +35,7 @@ export const createClasse = async (classeDto: ClasseDto): Promise<Response> => {
         return response
     } catch (e) {
         logger.error(`Create new Classe : "${classeDto.name}" failed:` + e)
+        return new Response().addError('server', "Server error")
     }
 }
 
@@ -57,21 +58,27 @@ export const updateClasse = async (classeDto: ClasseDto): Promise<Response> => {
         return response
     } catch (e) {
         logger.error(`Updating a Classe "${classeDto.name}" failed:` + e)
+        return new Response().addError('server', "Server error")
     }
 }
 
 export const getClasses = async (): Promise<Response> => {
-    const classes = await classeRepository.findAll()
-    return new Response().addData("classes", classes)
+    try {
+        const classes = await classeRepository.findAll()
+        return new Response().addData("classes", classes)
+    } catch (e) {
+        logger.error(`Get Classes failed:` + e)
+        return new Response().addError('server', "Server error")
+    }
 }
 
 export const deleteClasse = async (uid: string): Promise<Response> => {
     try {
         const classe = await classeRepository.findOrFail(uid)
-        //TODO if classe doesn't have course delete otherwise keep
         await classeRepository.remove(classe)
         return new Response()
     } catch (e) {
         logger.error(`Delete classe "${uid}" failed: ${e}`)
+        return new Response().addError('server', "Server error")
     }
 }

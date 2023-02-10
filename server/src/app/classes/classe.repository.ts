@@ -1,5 +1,6 @@
 import Classe from "./classe.entity";
 import DataSource from "../../ormconfig"
+import Course from "../course/entity/course.entity";
 
 
 export default class ClasseRepository {

@@ -31,23 +31,26 @@ const isEmailValid = async (email: string, response: Response): Promise<boolean>
 }
 
 export const register = async (createUserDto: CreateUserDto): Promise<Response> => {
-    logger.info(`Register a new user`)
+    try{
+        const validation = await createUserDto.validate()
+        const response = new Response(new Map<string, any>(), validation.getErrors())
 
-    const validation = await createUserDto.validate()
-    const response = new Response(new Map<string, any>(), validation.getErrors())
+        const valid = !validation.hasError()
+        const emailIsValid = await isEmailValid(createUserDto.email, response)
+        const phoneIsValid = await isPhoneValid(createUserDto.phone, response)
 
-    const valid = !validation.hasError()
-    const emailIsValid = await isEmailValid(createUserDto.email, response)
-    const phoneIsValid = await isPhoneValid(createUserDto.phone, response)
+        if (valid && emailIsValid && phoneIsValid) {
+            let user = new User(createUserDto)
+            user.password = await bcrypt.hash(user.password, 6)
+            user = await userRepository.save(user)
+            let token = new Token({ token: generateUid(), user, expireDate: dayjs().add(24, "hour").toDate() })
+            token = await tokenRepository.save(token)
+            response.addData("user", user).addData("token", token)
+        }
 
-    if (valid && emailIsValid && phoneIsValid) {
-        let user = new User(createUserDto)
-        user.password = await bcrypt.hash(user.password, 6)
-        user = await userRepository.save(user)
-        let token = new Token({ token: generateUid(), user, expireDate: dayjs().add(24, "hour").toDate() })
-        token = await tokenRepository.save(token)
-        response.addData("user", user).addData("token", token)
+        return response
+    }catch (e) {
+        logger.error(`Register a new user ${e.message}`)
+        return new Response().addError('server',"Server error")
     }
-
-    return response
 }

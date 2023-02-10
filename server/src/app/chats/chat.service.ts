@@ -33,14 +33,20 @@ export const createChat = async (chatDto: ChatDto): Promise<Response> => {
         return response.addData('chat', chat)
     } catch (e) {
         logger.error(`Create new Chat : "${chatDto.question}" failed:` + e)
+        return new Response().addError('server', "Server error")
     }
 
 }
 
 
 export const getChats = async (user: User): Promise<Response> => {
-    const chats = await chatRepository.findAll(user.id)
-    return new Response().addData("chats", chats)
+    try {
+        const chats = await chatRepository.findAll(user.id)
+        return new Response().addData("chats", chats)
+    } catch (e) {
+        logger.error(`failed to get errors: ${e.message}`)
+        return new Response().addError('server', "Server error")
+    }
 }
 
 export const deleteChat = async (uid: string): Promise<Response> => {
@@ -50,5 +56,6 @@ export const deleteChat = async (uid: string): Promise<Response> => {
         return new Response()
     } catch (e) {
         logger.error(`Delete chat "${uid}" failed: ${e}`)
+        return new Response().addError('server', "server error")
     }
 }

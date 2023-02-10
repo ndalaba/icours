@@ -27,6 +27,7 @@ export const createCourse = async (courseDto: CourseDto): Promise<Response> => {
         return response
     } catch (e) {
         logger.error(`Create new Course : "${courseDto.title}" failed:` + e)
+        return new Response().addError('error', "Server error")
     }
 }
 
@@ -55,25 +56,41 @@ export const updateCourse = async (courseDto: CourseDto): Promise<Response> => {
         return response
     } catch (e) {
         logger.error(`Updating a Course "${courseDto.title}" failed:` + e)
+        return new Response().addError('error', "Server error")
     }
 }
 
 export const getCourses = async (subject: any, classe: any, published: any): Promise<Response> => {
-    const subjectId = subject !== undefined ? +subject : 0
-    const classeId = classe !== undefined ? +classe : 0
-    const isPublished = published !== undefined ? +published : 2
-    const courses = await courseRepository.findAll(subjectId, classeId, +isPublished)
-    return new Response().addData("courses", courses)
+    try {
+        const subjectId = subject !== undefined ? +subject : 0
+        const classeId = classe !== undefined ? +classe : 0
+        const isPublished = published !== undefined ? +published : 2
+        const courses = await courseRepository.findAll(subjectId, classeId, +isPublished)
+        return new Response().addData("courses", courses)
+    } catch (e) {
+        logger.error(`Get courses failed: ${e}`)
+        return new Response().addError('error', "Server error")
+    }
 }
 
 export const getCourse = async (uid: string): Promise<Response> => {
-    const course = await courseRepository.findOrFail(uid)
-    return new Response().addData("course", course)
+    try {
+        const course = await courseRepository.findOrFail(uid)
+        return new Response().addData("course", course)
+    } catch (e) {
+        logger.error(`Get course "${uid}" failed: ${e}`)
+        return new Response().addError('error', "Server error")
+    }
 }
 
 export const getCourseBySlug = async (slug: string): Promise<Response> => {
-    const course = await courseRepository.findOneBySlug(slug)
-    return new Response().addData("course", course)
+    try {
+        const course = await courseRepository.findOneBySlug(slug)
+        return new Response().addData("course", course)
+    } catch (e) {
+        logger.error(`Get course "${slug}" failed: ${e}`)
+        return new Response().addError('error', "Server error")
+    }
 }
 
 export const deleteCourse = async (uid: string, user: User): Promise<Response> => {
@@ -89,5 +106,6 @@ export const deleteCourse = async (uid: string, user: User): Promise<Response> =
         return new Response()
     } catch (e) {
         logger.error(`Delete course "${uid}" failed: ${e}`)
+        return new Response().addError('error', "Server error")
     }
 }

@@ -1,18 +1,17 @@
 import logger from "../../helpers/logger";
 import Response from "../../helpers/response";
-import { LoginDto } from "../user/user.dto";
+import {LoginDto} from "../user/user.dto";
 import * as bcrypt from "bcrypt"
 import * as jwt from "jsonwebtoken"
-import { UserRepository } from "../user/user.repository";
+import {UserRepository} from "../user/user.repository";
 
 export const login = async (loginDto: LoginDto, userRepository = new UserRepository()): Promise<Response> => {
-    try{
+    try {
         const validation = await loginDto.validate()
         const response = new Response(new Map<string, any>(), validation.getErrors())
         const valid = !validation.hasError()
 
-        if (!valid)
-            return response
+        if (!valid) return response
 
         const user = await userRepository.findOneByEmail(loginDto.email)
 
@@ -27,11 +26,11 @@ export const login = async (loginDto: LoginDto, userRepository = new UserReposit
         user.lastLogin = new Date()
         await userRepository.save(user)
 
-        response.addData('token', token)
-        response.addData('user', user)
+        response.addData('token', token).addData('user', user)
 
         return response
-    }catch (e) {
+    } catch (e) {
         logger.error(`Error login user : ${loginDto.email}`)
+        return new Response().addError('server', "Server error")
     }
 }

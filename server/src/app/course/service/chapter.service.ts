@@ -26,6 +26,7 @@ export const createChapter = async (chapterDto: ChapterDto): Promise<Response> =
         return response
     } catch (e) {
         logger.error(`Create new Chapter : "${chapterDto.title}" failed:` + e)
+        return new Response().addData('server', "Server error")
     }
 }
 
@@ -52,19 +53,28 @@ export const updateChapter = async (chapterDto: ChapterDto): Promise<Response> =
         return response
     } catch (e) {
         logger.error(`Updating a Chapter "${chapterDto.title}" failed:` + e)
+        return new Response().addData('server', "Server error")
     }
 }
 
 export const getChapters = async (course: any, published: any): Promise<Response> => {
-    const courseId = course !== undefined ? +course : 0
-    const isPublished = published !== undefined ? +published : 2
-    const chapters = await chapterRepository.findAll(courseId, isPublished)
-    return new Response().addData("chapters", chapters)
+    try {
+        const courseId = course !== undefined ? +course : 0
+        const isPublished = published !== undefined ? +published : 2
+        const chapters = await chapterRepository.findAll(courseId, isPublished)
+        return new Response().addData("chapters", chapters)
+    } catch (e) {
+        return new Response().addData('server', "Server error")
+    }
 }
 
 export const getChapter = async (uid: any): Promise<Response> => {
-    const chapter = await chapterRepository.findOrFail(uid)
-    return new Response().addData("chapter", chapter)
+    try {
+        const chapter = await chapterRepository.findOrFail(uid)
+        return new Response().addData("chapter", chapter)
+    } catch (e) {
+        return new Response().addData('server', "Server error")
+    }
 }
 
 export const getChapterBySlug = async (slug: string): Promise<Response> => {
@@ -81,5 +91,6 @@ export const deleteChapter = async (uid: string, user: User): Promise<Response> 
         return new Response()
     } catch (e) {
         logger.error(`Delete chapter "${uid}" failed: ${e}`)
+        return new Response().addData('server', "Server error")
     }
 }
