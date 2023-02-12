@@ -1,38 +1,34 @@
 import Response from "../../helpers/response";
-import logger from "../../helpers/logger";
 import User from "./user.entity";
 import {NotAllowedError} from "../../helpers/errors";
+import {UserRepository} from "./user.repository";
+import {tryCatch} from "../../helpers/functions";
 
-
-export const remove = async (uid: string, current: User): Promise<Response> => {
-    try {
-        const user = await User.findOneByOrFail({uid})
-        if (!current.canManage(user))
-            throw new NotAllowedError("Operation not allowed")
-        await user.remove()
-        return new Response()
-    } catch (e) {
-        logger.error(`Delete user by uid: ${uid} (${e.message})`)
-        return new Response().addError("server", "Server Error")
+export class UserService {
+    constructor(private readonly repository = new UserRepository()) {
     }
-}
 
-export const find = async (uid: string): Promise<Response> => {
-    try {
-        const user = await User.findOneByOrFail({uid})
-        return new Response().addData("user", user)
-    } catch (e) {
-        logger.error(`Get user by uid: ${uid} (${e.message})`)
-        return new Response().addError("server", "Server Error")
+    async remove(uid: string, current: User): Promise<Response> {
+        return tryCatch(async _ => {
+            const user = await this.repository.findOneByOrFail(uid)
+            if (!current.canManage(user))
+                throw new NotAllowedError("Operation not allowed")
+            await user.remove()
+            return new Response()
+        }, uid)
     }
-}
 
-export const findAll = async (): Promise<Response> => {
-    try {
-        const users = await User.find()
-        return new Response().addData("users", users)
-    } catch (e) {
-        logger.error(`Get users (${e.message})`)
-        return new Response().addError("server", "Server Error")
+    async find(uid: string): Promise<Response> {
+        return tryCatch(async _ => {
+            const user = await this.repository.findOneByOrFail(uid)
+            return new Response().addData("user", user)
+        }, uid)
+    }
+
+    async findAll(): Promise<Response> {
+        return tryCatch(async _ => {
+            const users = await this.repository.findAll()
+            return new Response().addData("users", users)
+        })
     }
 }

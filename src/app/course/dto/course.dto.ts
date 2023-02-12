@@ -1,8 +1,8 @@
 import {IsNotEmpty, IsNotEmptyObject, validate} from "class-validator";
 import Errors from "../../../helpers/errors";
-import Subject from "../../subject/subject.entity";
 import Classe from "../../classes/classe.entity";
 import User from "../../user/user.entity";
+import Subject from "../../subject/subject.entity";
 
 export class CourseDto {
     id: number = 0

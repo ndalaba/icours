@@ -1,100 +1,86 @@
 import Response from "../../../helpers/response";
 import {ChapterDto} from "../dto/chapter.dto";
-import logger from "../../../helpers/logger";
 import {generateUid, slugify} from "../../../helpers/string";
 import ChapterRepository from "../repository/chapter.repository";
 import Chapter from "../entity/chapter.entity";
 import User from "../../user/user.entity";
+import {tryCatch} from "../../../helpers/functions";
 
-const chapterRepository = new ChapterRepository()
 
-export const createChapter = async (chapterDto: ChapterDto): Promise<Response> => {
-    try {
-        const validation = await chapterDto.validate()
-        const response = new Response(new Map<string, any>(), validation.getErrors())
-
-        const valid = !validation.hasError()
-
-        if (valid) {
-            let chapter = new Chapter(chapterDto)
-            chapter.id = 0
-            chapter.uid = generateUid()
-            chapter.slug = slugify(chapter.title)
-            chapter = await chapterRepository.save(chapter)
-            response.addData("chapter", chapter)
-        }
-        return response
-    } catch (e) {
-        logger.error(`Create new Chapter : "${chapterDto.title}" failed:` + e)
-        return new Response().addError('server', "Server error")
+export class ChapterService {
+    constructor(private readonly chapterRepository = new ChapterRepository()) {
     }
-}
 
-export const updateChapter = async (chapterDto: ChapterDto): Promise<Response> => {
-    try {
-        let chapter = await chapterRepository.findOrFail(chapterDto.uid)
-        if (!chapter.canEdit(chapterDto.user))
-            throw new Error("Action not allowed")
 
-        const validation = await chapterDto.validate()
-        const response = new Response(new Map<string, any>(), validation.getErrors())
+    async createChapter(chapterDto: ChapterDto): Promise<Response> {
+        return tryCatch(async _ => {
+            const validation = await chapterDto.validate()
+            const response = new Response(new Map<string, any>(), validation.getErrors())
 
-        const valid = !validation.hasError()
-
-        if (valid) {
-            chapter.slug = slugify(chapterDto.title)
-            chapter.title = chapterDto.title
-            chapter.published = chapterDto.published
-            chapter.course = chapterDto.course
-            chapter.content = chapterDto.content
-            chapter = await chapterRepository.save(chapter)
-            response.addData("chapter", chapter)
-        }
-        return response
-    } catch (e) {
-        logger.error(`Updating a Chapter "${chapterDto.title}" failed:` + e)
-        return new Response().addError('server', "Server error")
+            if (!validation.hasError()) {
+                let chapter = new Chapter(chapterDto)
+                chapter.id = 0
+                chapter.uid = generateUid()
+                chapter.slug = slugify(chapter.title)
+                chapter = await this.chapterRepository.save(chapter)
+                response.addData("chapter", chapter)
+            }
+            return response
+        }, chapterDto.title)
     }
-}
 
-export const getChapters = async (course: any, published: any): Promise<Response> => {
-    try {
-        const courseId = course !== undefined ? +course : 0
-        const isPublished = published !== undefined ? +published : 2
-        const chapters = await chapterRepository.findAll(courseId, isPublished)
-        return new Response().addData("chapters", chapters)
-    } catch (e) {
-        return new Response().addError('server', "Server error")
+    async updateChapter(chapterDto: ChapterDto): Promise<Response> {
+        return tryCatch(async _ => {
+            let chapter = await this.chapterRepository.findOrFail(chapterDto.uid)
+            if (!chapter.canEdit(chapterDto.user))
+                throw new Error("Action not allowed")
+
+            const validation = await chapterDto.validate()
+            const response = new Response(new Map<string, any>(), validation.getErrors())
+
+            if (!validation.hasError()) {
+                chapter.slug = slugify(chapterDto.title)
+                chapter.title = chapterDto.title
+                chapter.published = chapterDto.published
+                chapter.course = chapterDto.course
+                chapter.content = chapterDto.content
+                chapter = await this.chapterRepository.save(chapter)
+                response.addData("chapter", chapter)
+            }
+            return response
+        }, chapterDto.title)
     }
-}
 
-export const getChapter = async (uid: any): Promise<Response> => {
-    try {
-        const chapter = await chapterRepository.findOrFail(uid)
-        return new Response().addData("chapter", chapter)
-    } catch (e) {
-        return new Response().addError('server', "Server error")
+    async getChapters(course: any, published: any): Promise<Response> {
+        return tryCatch(async _ => {
+            const courseId = course !== undefined ? +course : 0
+            const isPublished = published !== undefined ? +published : 2
+            const chapters = await this.chapterRepository.findAll(courseId, isPublished)
+            return new Response().addData("chapters", chapters)
+        })
     }
-}
 
-export const getChapterBySlug = async (slug: string): Promise<Response> => {
-    try {
-        const chapter = await chapterRepository.findOneBySlug(slug)
-        return new Response().addData("chapter", chapter)
-    } catch (e) {
-        return new Response().addError('server', "Server error")
+    async getChapter(uid: any): Promise<Response> {
+        return tryCatch(async _ => {
+            const chapter = await this.chapterRepository.findOrFail(uid)
+            return new Response().addData("chapter", chapter)
+        }, uid)
     }
-}
 
-export const deleteChapter = async (uid: string, user: User): Promise<Response> => {
-    try {
-        const chapter = await chapterRepository.findOrFail(uid)
-        if (!chapter.canEdit(user))
-            throw new Error("Action not allowed")
-        await chapterRepository.remove(chapter)
-        return new Response()
-    } catch (e) {
-        logger.error(`Delete chapter "${uid}" failed: ${e}`)
-        return new Response().addError('server', "Server error")
+    async getChapterBySlug(slug: string): Promise<Response> {
+        return tryCatch(async _ => {
+            const chapter = await this.chapterRepository.findOneBySlug(slug)
+            return new Response().addData("chapter", chapter)
+        }, slug)
+    }
+
+    async deleteChapter(uid: string, user: User): Promise<Response> {
+        return tryCatch(async _ => {
+            const chapter = await this.chapterRepository.findOrFail(uid)
+            if (!chapter.canEdit(user))
+                throw new Error("Action not allowed")
+            await this.chapterRepository.remove(chapter)
+            return new Response()
+        }, uid)
     }
 }

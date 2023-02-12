@@ -1,6 +1,6 @@
-import Subject from "./subject.entity";
 import DataSource from "../../ormconfig"
 import Course from "../course/entity/course.entity";
+import Subject from "./subject.entity";
 
 
 export default class SubjectRepository {

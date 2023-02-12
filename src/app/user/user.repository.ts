@@ -1,4 +1,4 @@
-import User, { Token } from "./user.entity";
+import User, {Token} from "./user.entity";
 import DataSource from "../../ormconfig"
 
 
@@ -15,7 +15,7 @@ export class UserRepository {
     async findOneBy(key: string, value: any): Promise<User> {
         if (value == undefined || value == null)
             return null
-        return await this.getRepository().findOne({ where: { [key]: value } })
+        return await this.getRepository().findOne({where: {[key]: value}})
     }
 
     async findOneByEmail(email: string): Promise<User> {
@@ -24,6 +24,14 @@ export class UserRepository {
 
     async findOneByPhone(phone: string): Promise<User> {
         return this.findOneBy('phone', phone)
+    }
+
+    async findOneByOrFail(uid: string): Promise<User> {
+        return this.getRepository().findOneByOrFail({uid})
+    }
+
+    async findAll() {
+        return this.getRepository().find()
     }
 }
 
@@ -42,15 +50,15 @@ export class TokenRepository {
         if (token == undefined || token == null)
             return null
         return await this.getRepository().findOne({
-            where: { token },
-            relations: { user: true }
+            where: {token},
+            relations: {user: true}
         })
     }
 
     async findOneByUser(user: User): Promise<Token> {
         return await this.getRepository().findOne({
-            where: { user: user.id },
-            relations: { user: true }
+            where: {user: user.id},
+            relations: {user: true}
         })
     }
 }

@@ -1,23 +1,23 @@
-import loginRoutes from "./routes/login.route"
-import registerRoutes from "./routes/register.route"
-import passwordRoutes from "./routes/password.route"
-import userRoutes from "./routes/user.route"
-import subjectRoute from "./routes/subject.route";
-import classeRoute from "./routes/classes.route";
-import courseRoute from "./routes/courses.route";
-import chapterRoute from "./routes/chapters.route";
-import chatRoute from "./routes/chats.route";
 import auth from "./middleware/auth";
+import {SubjectController} from "./routes/subject.controller";
+import {UserController} from "./routes/user.contorller";
+import {ClasseController} from "./routes/classes.controller";
+import {CourseController} from "./routes/courses.controller";
+import {ChapterController} from "./routes/chapters.controller";
+import {ChatController} from "./routes/chats.controller";
+import {LoginController} from "./routes/login.controller";
+import {PasswordController} from "./routes/password.controller";
+import {RegisterController} from "./routes/register.controller";
 
 export default (app) => {
 
-    app.use('/api/auth', [loginRoutes, passwordRoutes, registerRoutes])
-    app.use('/api/users', userRoutes)
-    app.use('/api/subjects', subjectRoute)
-    app.use('/api/classes', classeRoute)
-    app.use('/api/courses', courseRoute)
-    app.use('/api/chapters', chapterRoute)
-    app.use('/api/chats', auth, chatRoute)
+    app.use('/api/auth', [new LoginController().routes(), new PasswordController().routes(), new RegisterController().routes()])
+    app.use('/api/users', new UserController().routes())
+    app.use('/api/subjects', new SubjectController().routes())
+    app.use('/api/classes', new ClasseController().routes())
+    app.use('/api/courses', new CourseController().routes())
+    app.use('/api/chapters', new ChapterController().routes())
+    app.use('/api/chats', auth, new ChatController().routes())
 
     return app
 }

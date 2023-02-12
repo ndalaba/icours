@@ -1,84 +1,76 @@
 import Response from "../../helpers/response";
 import {ClasseDto} from "./classe.dto";
-import logger from "../../helpers/logger";
 import {generateUid, slugify} from "../../helpers/string";
-import ClasseRepository from "./classe.repository";
 import Classe from "./classe.entity";
+import ClasseRepository from "./classe.repository";
+import {tryCatch} from "../../helpers/functions";
 
-const classeRepository = new ClasseRepository()
 
-const isClasseValid = async (classeDto: ClasseDto, response: Response): Promise<boolean> => {
-    const existingClasse = await classeRepository.findOneByName(classeDto.name)
-    if (existingClasse && existingClasse.id != classeDto.id) {
-        response.addError("name", "Classe déjà enregistrée.")
-        return false
+export class ClasseService {
+    constructor(private readonly repository = new ClasseRepository()) {
     }
-    return true
-}
 
-export const createClasse = async (classeDto: ClasseDto): Promise<Response> => {
-    try {
-        const validation = await classeDto.validate()
-        const response = new Response(new Map<string, any>(), validation.getErrors())
+    async createClasse(classeDto: ClasseDto): Promise<Response> {
+        return tryCatch(async _ => {
+            const validation = await classeDto.validate()
+            const response = new Response(new Map<string, any>(), validation.getErrors())
 
-        const valid = !validation.hasError()
-        const classeIsValid = await isClasseValid(classeDto, response)
+            const valid = !validation.hasError()
+            const classeIsValid = await this.isClasseValid(classeDto, response)
 
-        if (valid && classeIsValid) {
-            let classe = new Classe(classeDto)
-            classe.id = 0
-            classe.uid = generateUid()
-            classe.slug = slugify(classe.name)
-            classe = await classeRepository.save(classe)
-            response.addData("classe", classe)
+            if (valid && classeIsValid) {
+                let classe = new Classe(classeDto)
+                classe.id = 0
+                classe.uid = generateUid()
+                classe.slug = slugify(classe.name)
+                classe = await this.repository.save(classe)
+                response.addData("classe", classe)
+            }
+            return response
+        }, classeDto.name)
+    }
+
+    async updateClasse(classeDto: ClasseDto): Promise<Response> {
+        return tryCatch(async _ => {
+            const validation = await classeDto.validate()
+            const response = new Response(new Map<string, any>(), validation.getErrors())
+
+            const valid = !validation.hasError()
+            const classeIsValid = await this.isClasseValid(classeDto, response)
+
+            if (valid && classeIsValid) {
+                let classe = await this.repository.findOrFail(classeDto.uid)
+                classe.slug = slugify(classeDto.name)
+                classe.name = classeDto.name
+                classe.description = classeDto.description
+                classe = await this.repository.save(classe)
+                response.addData("classe", classe)
+            }
+            return response
+        }, classeDto.name)
+    }
+
+    async getClasses(): Promise<Response> {
+        return tryCatch(async _ => {
+            const classes = await this.repository.findAll()
+            return new Response().addData("classes", classes)
+        })
+    }
+
+    async deleteClasse(uid: string): Promise<Response> {
+        return tryCatch(async _ => {
+            const classe = await this.repository.findOrFail(uid)
+            await this.repository.remove(classe)
+            return new Response()
+        }, uid)
+    }
+
+    async isClasseValid(classeDto: ClasseDto, response: Response): Promise<boolean> {
+        const existingClasse = await this.repository.findOneByName(classeDto.name)
+        if (existingClasse && existingClasse.id != classeDto.id) {
+            response.addError("name", "Classe déjà enregistrée.")
+            return false
         }
-        return response
-    } catch (e) {
-        logger.error(`Create new Classe : "${classeDto.name}" failed:` + e)
-        return new Response().addError('server', "Server error")
-    }
-}
-
-export const updateClasse = async (classeDto: ClasseDto): Promise<Response> => {
-    try {
-        const validation = await classeDto.validate()
-        const response = new Response(new Map<string, any>(), validation.getErrors())
-
-        const valid = !validation.hasError()
-        const classeIsValid = await isClasseValid(classeDto, response)
-
-        if (valid && classeIsValid) {
-            let classe = await classeRepository.findOrFail(classeDto.uid)
-            classe.slug = slugify(classeDto.name)
-            classe.name = classeDto.name
-            classe.description = classeDto.description
-            classe = await classeRepository.save(classe)
-            response.addData("classe", classe)
-        }
-        return response
-    } catch (e) {
-        logger.error(`Updating a Classe "${classeDto.name}" failed:` + e)
-        return new Response().addError('server', "Server error")
-    }
-}
-
-export const getClasses = async (): Promise<Response> => {
-    try {
-        const classes = await classeRepository.findAll()
-        return new Response().addData("classes", classes)
-    } catch (e) {
-        logger.error(`Get Classes failed:` + e)
-        return new Response().addError('server', "Server error")
-    }
-}
-
-export const deleteClasse = async (uid: string): Promise<Response> => {
-    try {
-        const classe = await classeRepository.findOrFail(uid)
-        await classeRepository.remove(classe)
-        return new Response()
-    } catch (e) {
-        logger.error(`Delete classe "${uid}" failed: ${e}`)
-        return new Response().addError('server', "Server error")
+        return true
     }
 }

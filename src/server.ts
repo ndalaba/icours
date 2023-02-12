@@ -1,9 +1,9 @@
 import "reflect-metadata"
-import app from "./app"
 import DataSource from "./ormconfig"
 import logger from "./helpers/logger";
+import {bootstrap} from "./bootstrap";
 
-app.listen(process.env.PORT, async () => {
+bootstrap().listen(process.env.PORT, async () => {
     logger.info(`Express server running on http://localhost:${process.env.PORT}`)
     try {
         await DataSource.initialize();

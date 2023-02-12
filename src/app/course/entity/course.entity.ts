@@ -1,9 +1,9 @@
 import {Column, Entity, ManyToMany, ManyToOne, OneToMany} from "typeorm";
 import BaseEntity from "../../shared/BaseEntity";
-import Subject from "../../subject/subject.entity";
 import Classe from "../../classes/classe.entity";
 import Chapter from "./chapter.entity";
 import User from "../../user/user.entity";
+import Subject from "../../subject/subject.entity";
 
 @Entity('courses')
 export default class Course extends BaseEntity {
