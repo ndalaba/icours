@@ -53,7 +53,6 @@ export type ChapterType = {
     course: Partial<CourseType>
 }
 
-
 export enum Role {
     ROLE_STUDENT = 10,
     ROLE_PARENT = 20,

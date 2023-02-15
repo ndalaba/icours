@@ -2,7 +2,7 @@
     import Send from "$lib/components/icons/Send.svelte";
     import Question from "$lib/components/layouts/dashboard/chat/Question.svelte";
     import Response from "$lib/components/layouts/dashboard/chat/Response.svelte";
-    import {userStore} from "$lib/store";
+    import {UserStore} from "$lib/store";
     import {PostContentType, postRequest} from "$lib/helper/Request";
 
     type ChatType = {
@@ -14,7 +14,7 @@
     let question = ""
     let loading = false;
     let chats: ChatType[] = []
-    let user = $userStore.user
+    let user = $UserStore.user
 
     async function handleSubmit() {
         loading = true

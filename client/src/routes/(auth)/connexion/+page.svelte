@@ -7,12 +7,12 @@
     import {APP_NAME} from '$lib/helper/Constants';
     import {hasValidationError, showValidationErrors} from '$lib/helper/Errors';
     import {PostContentType, postRequest} from '$lib/helper/Request';
-    import {userStore} from '$lib/store';
+    import {UserStore} from '$lib/store';
     import type {UserStoreType} from '$lib/type';
 
     let user: UserStoreType = {authenticated: false, user: undefined, loading: true};
 
-    userStore.subscribe((value) => {
+    UserStore.subscribe((value) => {
         user = value;
         if (value.authenticated) goto('/');
     });
@@ -38,7 +38,7 @@
         }
         showNotification = false;
         target?.reset();
-        userStore.set({authenticated: response.success, user: response.data, loading: false});
+        UserStore.set({authenticated: response.success, user: response.data, loading: false});
         await goto('/admin');
     }
 
