@@ -1,12 +1,16 @@
 <script setup lang="ts">
-  const props = defineProps({
-    notificationType:{type:String, default(){return "success"}},
-    message:String,
-    show:Boolean
-  })
+const props = defineProps({
+  notificationType: {
+    type: String,
+    default() {
+      return "success"
+    }
+  },
+  message: String,
+})
 </script>
-<template v-if="props.show">
+<template>
   <div :class="`alert alert-${props.notificationType}`" role="alert">
-    {{ message }}
+    {{ props.message }}
   </div>
 </template>

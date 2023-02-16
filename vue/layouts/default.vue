@@ -1,11 +1,10 @@
 <script setup lang="ts">
-  import "../tabler.min.css"
-  import "../app.css"
+  import "~/assets/app.css"
 
-  import Alert from "~/components/layouts/dashboard/Alert.vue";
-  import Aside from "~/components/layouts/dashboard/Aside.vue";
-  import Footer from "~/components/layouts/dashboard/Footer.vue";
-  import Chat from "~/components/layouts/dashboard/chat/Chat.vue";
+  import Alert from "~/components/layouts/default/Alert.vue";
+  import Aside from "~/components/layouts/default/Aside.vue";
+  import Footer from "~/components/layouts/default/Footer.vue";
+  import Chat from "~/components/layouts/default/chat/Chat.vue";
 
 </script>
 

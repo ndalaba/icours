@@ -20,6 +20,10 @@ async function handleSubmit(event: SubmitEvent) {
   showNotification.value = true
   target?.reset()
 }
+
+definePageMeta({
+  layout: "auth",
+});
 </script>
 
 <template>
@@ -47,7 +51,7 @@ async function handleSubmit(event: SubmitEvent) {
   <div class="container mb-11">
     <div class="row gx-0">
       <div class="col-md-7 col-xl-4 mx-auto">
-        <Notification :message="'Pour finaliser votre inscription veuillez consulter le message qui vient de vous être envoyé dans votre boite mail'" :show="showNotification"/>
+        <Notification :message="'Pour finaliser votre inscription veuillez consulter le message qui vient de vous être envoyé dans votre boite mail'" v-if="showNotification"/>
 
         <form class="mb-5" id="register" @submit.prevent="handleSubmit" method="post">
           <div class="form-group mb-5">
@@ -83,7 +87,7 @@ async function handleSubmit(event: SubmitEvent) {
 
         <!-- Text -->
         <p class="mb-0 font-size-sm text-center">
-          Vous avez déjà un compte <a class="text-underline" href="/connexion">Se connecter</a>
+          Vous avez déjà un compte <NuxtLink class="text-underline" href="/connexion">Se connecter</NuxtLink>
         </p>
       </div>
     </div>
