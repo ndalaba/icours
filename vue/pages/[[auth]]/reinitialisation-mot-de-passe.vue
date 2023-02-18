@@ -60,7 +60,6 @@ definePageMeta({
           <button class="btn btn-block btn-primary" type="submit"> RÉCUPÉRER MOT DE PASSE</button>
         </form>
 
-        <!-- Text -->
         <p class="mb-0 font-size-sm text-center">
           Vous vous souvenez de votre mot de passe <NuxtLink class="text-underline" href="/connexion">Connexion</NuxtLink>
         </p>

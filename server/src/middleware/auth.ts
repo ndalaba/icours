@@ -8,7 +8,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.cookies.token
 
-        if (!token) return next()
+        if (!token)            return next()
 
         const  email : any = jwt.verify(token, process.env.SECRET_KEY!)
 

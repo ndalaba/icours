@@ -7,6 +7,10 @@ import {PostContentType, postRequest} from '~/utils/Request';
 import {UserStore} from '@/composables/store';
 import {APP_NAME} from "~/utils/Constants";
 
+console.log(UserStore.authenticated)
+onMounted(()=>{
+  console.log(UserStore.authenticated)
+})
 if (UserStore.authenticated) navigateTo('/')
 
 const showPassword = ref<boolean>(false)

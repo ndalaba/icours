@@ -1,6 +1,6 @@
 import type {SubjectType} from "$lib/type";
-import type {PageLoad} from '../../../../.svelte-kit/types/src/routes';
 import {getRequest} from "$lib/helper/Request";
+import type { PageLoad } from './$types';
 
 export const load = (async ({params}) => {
     let subject: SubjectType

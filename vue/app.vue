@@ -6,11 +6,11 @@ try {
   const response = await getRequest('/auth/me')
   UserStore.setAuthenticated(response.success && response.data != undefined).setUser(response.data).setLoading(false)
 
-  getRequest('/subjects').then(response => {
-    if (response.success) SubjectStore.setSubjects(response.data)
+  getRequest('/subjects').then(res => {
+    if (res.success) SubjectStore.setSubjects(res.data)
   })
-  getRequest('/classes').then(response => {
-    if (response.success) ClasseStore.setClasses(response.data)
+  getRequest('/classes').then(res => {
+    if (res.success) ClasseStore.setClasses(res.data)
   })
 } catch (e) {
   console.error(e)

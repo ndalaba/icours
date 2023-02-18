@@ -4,6 +4,7 @@ const props= defineProps({
   width:{type:Number,default(){return 44}},
   height:{type:Number,default(){return 44}}
 })
+
 </script>
 <template>
 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-text" :width="props.width" :height="props.height" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

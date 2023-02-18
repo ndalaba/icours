@@ -27,7 +27,7 @@ import {UserStore} from '@/composables/store';</script>
             <li class="nav-item" v-if="UserStore.authenticated">
               <a href="/cours" class="nav-link">{{ UserStore?.user?.firstName }}</a>
             </li>
-            <li v-else class="nav-item"><a href="/connexion" class="nav-link">Connexion</a></li>
+            <li v-else class="nav-item"><NuxtLink href="/connexion" class="nav-link">Connexion</NuxtLink></li>
           </template>
         </ul>
       </div>

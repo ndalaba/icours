@@ -13,7 +13,7 @@
         <div class="col-12 col-lg-auto mt-3 mt-lg-0">
           <ul class="list-inline list-inline-dots mb-0">
             <li class="list-inline-item">
-              Copyright © {new Date().getFullYear()}
+              Copyright © {{new Date().getFullYear()}}
               <a href="/" class="link-secondary">I-COURS</a>.
               Tout droit reservé.
             </li>

@@ -1,20 +1,25 @@
-type AlertType = {
-    title: string,
-    description: string,
+
+export type Options = {
+    title?: string,
+    description?: string,
     actionLabel?: string,
-    callable?: Function,
-    show: boolean,
-    update: (options: AlertType) => AlertType,
+    show?: boolean,
+    callable: Function
+}
+
+type AlertType = Options & {
+    update: (options: Options) => AlertType,
     setVisible: (visible: boolean) => AlertType,
 }
 
-export const alertStore = reactive({
+
+export const alertStore = reactive<AlertType>({
     title: '',
     description: '',
     actionLabel: '',
     show: false,
-    callable: undefined,
-    update(options: AlertType) {
+    callable: Function,
+    update(options: Options) {
         this.title = options.title
         this.callable = options.callable
         this.description = options.description
@@ -25,9 +30,9 @@ export const alertStore = reactive({
         this.show = visible
         return this
     }
-} as AlertType)
+})
 
-export function alert(options: AlertType) {
+export function alert(options: Options) {
     alertStore.update(options).setVisible(true)
 }
 

@@ -1,10 +1,15 @@
 <script setup lang="ts">
-  import "~/assets/app.css"
+import "~/assets/app.css"
 
-  import Alert from "~/components/layouts/default/Alert.vue";
-  import Aside from "~/components/layouts/default/Aside.vue";
-  import Footer from "~/components/layouts/default/Footer.vue";
-  import Chat from "~/components/layouts/default/chat/Chat.vue";
+import Alert from "~/components/layouts/default/Alert.vue";
+import Aside from "~/components/layouts/default/Aside.vue";
+import Footer from "~/components/layouts/default/Footer.vue";
+import Chat from "~/components/layouts/default/chat/Chat.vue";
+
+onMounted(() => {
+  document.querySelectorAll('.dropdown-menu').forEach(elt => elt.classList.remove('show'))
+  document.querySelector('#admin_menu')?.classList.add("show")
+})
 
 </script>
 
