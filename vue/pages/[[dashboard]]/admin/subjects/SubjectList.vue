@@ -6,11 +6,11 @@ import ListPlaceholder from "~/components/layouts/default/ListPlaceholder.vue";
 import {deleteRequest} from "~/utils/Request";
 import {success} from "~/utils/Toaster";
 import {alert} from "~/utils/alert";
+import {SubjectStore} from "~/composables/store";
 
 const emit = defineEmits(['subjectUpdated', "subjectUpdateRequest"])
-const {subjects} = defineProps<{ 'subjects': SubjectType[] }>()
 
-const filteredSubjects = computed(() => subjects.filter(subject => subject.name.toLowerCase().includes(search.value.toLowerCase())))
+const filteredSubjects = computed(() => SubjectStore.subjects?.filter(subject => subject.name.toLowerCase().includes(search.value.toLowerCase())))
 const search = ref("")
 
 function deleteSubject(uid: string) {
@@ -18,7 +18,7 @@ function deleteSubject(uid: string) {
     actionLabel: "Envoyer",
     show: false,
     title: "Suppression",
-    description: "Supprimer cet élément",
+    description: "Supprimer cet élément?",
     callable: function () {
       deleteRequest('/subjects/' + uid).then(_ => {
         emit('subjectUpdated')
@@ -43,7 +43,7 @@ function updateSubject(subject: SubjectType) {
       </div>
     </div>
   </div>
-  <ListPlaceholder v-if="!subjects.length"/>
+  <ListPlaceholder v-if="!SubjectStore.subjects?.length"/>
   <template v-else>
     <div class="card mb-2" v-for="subject in filteredSubjects">
       <div class="card-body">
@@ -52,7 +52,7 @@ function updateSubject(subject: SubjectType) {
             <div class="d-flex align-items-start">
               <img :alt="subject.name" class="d-flex align-self-center me-3 rounded-4" height="64" :src="SERVER_UPLOAD_PATH + subject.image">
               <div class="w-100">
-                <h4 class="mt-0 mt-3 font-16">{subject.name}</h4>
+                <h4 class="mt-0 mt-3 font-16">{{subject.name}}</h4>
               </div>
             </div>
           </div>

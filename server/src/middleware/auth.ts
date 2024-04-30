@@ -8,16 +8,16 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.cookies.token
 
-        if (!token)            return next()
+        if (!token) return next()
 
-        const  email : any = jwt.verify(token, process.env.SECRET_KEY!)
+        const email: any = jwt.verify(token, process.env.SECRET_KEY!)
 
         const user = await new UserRepository().findOneByEmail(email)
 
         if (!user) throw new Error('Unauthenticated')
 
         res.locals.user = user
-        
+
         return next()
 
     } catch (error) {

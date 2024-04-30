@@ -1,4 +1,4 @@
-import type {User, UserStoreType} from "./type";
+import type {SubjectType, User, UserStoreType} from "./type";
 
 export const UserStore = reactive({
     authenticated: false,

@@ -35,7 +35,7 @@ export default class ClasseRepository {
         })
     }
 
-    async findOrFail(uid: string): Promise<Classe> {
+    async findOrFail(uid: string): Promise<Classe> { 
         return this.getRepository().findOneByOrFail({uid})
     }
 

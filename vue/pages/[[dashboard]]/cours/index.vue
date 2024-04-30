@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {SubjectStore} from "@/composables/store";
-import {SERVER_UPLOAD_PATH} from "~/utils/Constants.ts";</script>
+import {SERVER_UPLOAD_PATH} from "~/utils/Constants.ts";
+</script>
 <template>
   <Head>
     <Title>I-Cours - Programme cours</Title>
@@ -39,5 +40,7 @@ import {SERVER_UPLOAD_PATH} from "~/utils/Constants.ts";</script>
         </div>
       </div>
     </div>
+
+
   </div>
 </template>

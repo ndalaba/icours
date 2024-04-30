@@ -22,7 +22,7 @@ export function bootstrap() {
         credentials: true,
         origin: process.env.CLIENT_PATH.split('|')
     }))
-console.log(process.env.CLIENT_PATH.split('|'))
+
     app.use('/static', express.static(path.join(__dirname, 'static')))
 
     app.set('views', path.join(__dirname, 'views'));

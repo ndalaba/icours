@@ -1,13 +1,13 @@
 import auth from "./middleware/auth";
-import {SubjectController} from "./controllers/subject.controller";
-import {UserController} from "./controllers/user.contorller";
-import {ClasseController} from "./controllers/classes.controller";
-import {CourseController} from "./controllers/courses.controller";
-import {ChapterController} from "./controllers/chapters.controller";
-import {ChatController} from "./controllers/chats.controller";
-import {LoginController} from "./controllers/login.controller";
-import {PasswordController} from "./controllers/password.controller";
-import {RegisterController} from "./controllers/register.controller";
+import { SubjectController } from "./controllers/subject.controller";
+import { UserController } from "./controllers/user.contorller";
+import { ClasseController } from "./controllers/classes.controller";
+import { CourseController } from "./controllers/courses.controller";
+import { ChapterController } from "./controllers/chapters.controller";
+import { ChatController } from "./controllers/chats.controller";
+import { LoginController } from "./controllers/login.controller";
+import { PasswordController } from "./controllers/password.controller";
+import { RegisterController } from "./controllers/register.controller";
 
 export default (app) => {
 

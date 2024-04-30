@@ -14,12 +14,12 @@ async function handleSubmit(event: SubmitEvent) {
   hideValidationErrors()
   const target = event.target as HTMLFormElement
   const data = new FormData(target)
-  const response = +data?.get('id') == 0 ? await postRequest("/subjects", data) : await putRequest("/subjects", data);
+  const response = +data?.get('id') === 0 ? await postRequest("/subjects", data) : await putRequest("/subjects", data);
   if (!response.success) {
     return showValidationErrors(response.error, 'subject');
   }
   target.reset()
-  success(+data?.get('id') == 0 ? 'Matière ajoutée' : 'Matière modifiée.')
+  success(+data?.get('id') === 0 ? 'Matière ajoutée' : 'Matière modifiée.')
   emit('subjectUpdated')
 }
 </script>

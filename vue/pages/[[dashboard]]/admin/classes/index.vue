@@ -3,6 +3,7 @@ import {ClasseType} from "~/composables/type";
 import {ClasseStore} from "~/composables/store";
 import ClasseList from "~/pages/[[dashboard]]/admin/classes/ClasseList.vue";
 import ClasseForm from "~/pages/[[dashboard]]/admin/classes/ClasseForm.vue";
+import {activeMenu} from "~/utils/layout";
 
 const classes = ref<ClasseType[]>([])
 const currentClasse = ref<ClasseType>({name: '', id: 0, description: '', uid: ''})
@@ -39,7 +40,7 @@ const setCurrentClasse = (data: ClasseType) => currentClasse.value = data
     <div class="container-xl">
       <div class="row g-4">
         <div class="col-md-6">
-          <ClasseList @classe-update-request="setCurrentClasse" @classe-updated="getClasses" :classes="ClasseStore.classes"/>
+          <ClasseList @classe-update-request="setCurrentClasse" @classe-updated="getClasses"/>
         </div>
         <div class="col-md-6">
           <ClasseForm :formData="currentClasse" @classe-updated="getClasses"/>

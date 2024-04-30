@@ -3,20 +3,19 @@ import Edit from "~/components/icons/Edit.vue"
 import Trash from "~/components/icons/Trash.vue"
 import {ClasseType} from "~/composables/type";
 import ListPlaceholder from "~/components/layouts/default/ListPlaceholder.vue";
+import {ClasseStore} from "~/composables/store";
 
 const emit = defineEmits(['classeUpdated', "classeUpdateRequest"])
-const {classes} = defineProps<{ classes: ClasseType[] }>()
-
 const search = ref('')
 
-const filteredClasses = computed(() => classes.filter(classe => classe.name.toLowerCase().includes(search.value.toLowerCase())))
+const filteredClasses = computed(() => ClasseStore.classes.filter(classe => classe.name.toLowerCase().includes(search.value.toLowerCase())))
 
 function deleteClasse(uid: string) {
   alert({
     actionLabel: "Envoyer",
     show: false,
     title: "Suppression",
-    description: "Supprimer cet élément",
+    description: "Supprimer cet élément?",
     callable: function () {
       deleteRequest('/classes/' + uid).then(_ => {
         emit('classeUpdated')
@@ -41,7 +40,7 @@ function updateClasse(classe: ClasseType) {
       </div>
     </div>
   </div>
-  <ListPlaceholder v-if="!classes.length"/>
+  <ListPlaceholder v-if="!ClasseStore.classes.length"/>
   <template v-else>
     <div class="card mb-2" v-for="classe in filteredClasses">
       <div class="card-body">

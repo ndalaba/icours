@@ -14,14 +14,14 @@ export class CourseController {
     routes() {
 
         this.router.post('/', auth, editor, async (req: Request, res: Response) => {
-            let dto = new CourseDto(req.body)
+            const dto = new CourseDto(req.body)
             dto.user = res.locals.user
             const response = await this.courseService.createCourse(dto)
             return response.hasError() ? errorResponse(res, response.jsonErrors()) : successResponse(res, response.getData("course"), "Course created", HttpStatusCode.CREATED)
         })
 
         this.router.put('/', auth, editor, async (req: Request, res: Response) => {
-            let dto = new CourseDto(req.body)
+            const dto = new CourseDto(req.body)
             dto.user = res.locals.user
             const response = await this.courseService.updateCourse(dto)
             return response.hasError() ? errorResponse(res, response.jsonErrors()) : successResponse(res, response.getData("course"), "Course updated", HttpStatusCode.OK)

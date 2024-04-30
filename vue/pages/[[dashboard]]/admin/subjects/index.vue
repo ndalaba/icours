@@ -48,7 +48,7 @@ function setCurrentSubject(data: SubjectType) {
     <div class="container-xl">
       <div class="row g-4">
         <div class="col-md-6">
-          <SubjectList @subject-update-request="setCurrentSubject" @subject-updated="getSubjects" :subjects="SubjectStore.subjects"/>
+          <SubjectList @subject-update-request="setCurrentSubject" @subject-updated="getSubjects" />
         </div>
         <div class="col-md-6">
           <SubjectForm :formData="currentSubject" @subject-updated="getSubjects"/>

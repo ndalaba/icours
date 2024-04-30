@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {ClasseType} from "~/composables/type";
+import {success} from "~/utils/Toaster";
 
 const emit = defineEmits(["classeUpdated"])
 
@@ -35,7 +36,7 @@ async function handleSubmit(event: SubmitEvent) {
       </div>
       <div class="mb-3">
         <label class="form-label" for="classe-description">Description</label>
-        <textarea class="form-control" id="classe-description" name="description" rows="3" v-model="formData.description"></textarea>
+        <textarea class="form-control" id="classe-description" name="description" rows="3" :value="formData.description"></textarea>
       </div>
 
     </div>

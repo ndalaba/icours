@@ -2,18 +2,38 @@ body {
     font-family: Jost, sans-serif;
     font-size: 1.1rem
 }
-.page-wrapper{padding: 0 1rem}
+#__nuxt{display: contents}
+.page-wrapper {
+    padding: 0 1rem
+}
+
 a {
     cursor: pointer;
 }
-.avatar{background-color: transparent}
-.btn .icon{margin: 0}
+
+.avatar {
+    background-color: transparent; box-shadow: none;
+}
+
+.btn .icon {
+    margin: 0
+}
+
 .page-title {
     font-weight: 500;
 }
-.card-header{display: unset}
+
+.card-header {
+    display: unset
+}
+
 .is_invalid {
     border-color: #d63939;
+}
+
+aside {
+    background-color: #ffffffc7 !important;
+    overflow: auto !important;
 }
 
 /*.course-detail {
@@ -29,8 +49,8 @@ a {
 .btn {
     font-family: inherit;
     border-radius: .375rem;
-    font-size:1rem;
-    border: none!important;
+    font-size: 1rem;
+    border: none !important;
     box-shadow: none;
 }
 
@@ -42,16 +62,34 @@ a {
     font-size: 1rem;
     font-family: inherit
 }
-.search-form .form-control,.search-form .btn ,.search-form .form-select{border: none}
-.form-select,.form-control{color: #272728;font-family: inherit}
-.markdown>table, .table{background-color: #fff}
+
+.search-form .form-control, .search-form .btn, .search-form .form-select {
+    border: none
+}
+
+.form-select, .form-control {
+    color: #272728;
+    font-family: inherit
+}
+
+.markdown > table, .table {
+    background-color: #fff
+}
+
 .markdown > table thead th, .table thead th {
     font-size: 0.8rem;
     line-height: 1.5rem;
 }
 
-.breadcrumb{font-size: 1.4rem;font-weight: 500}
-.breadcrumb a{color: #272728}
+.breadcrumb {
+    font-size: 1.4rem;
+    font-weight: 500
+}
+
+.breadcrumb a {
+    color: #272728
+}
+
 .breadcrumb-current {
     display: inline;
     font-size: 1.6rem;
@@ -59,34 +97,79 @@ a {
     font-weight: 300;
     color: #272728
 }
-.text-black-gray{color: #272728}
-.form-control,.form-select{padding:.65rem .75rem}
-.form-control, .form-label,.form-select{font-size: 1.1rem}
+
+.text-black-gray {
+    color: #272728
+}
+
+/*.form-control,.form-select{padding:.65rem .75rem}*/
+.form-control, .form-label, .form-select {
+    font-size: 1.1rem
+}
+
 .navbar-dark .navbar-nav .nav-link, .dropdown-item {
     font-size: 1.2rem
 }
-.offcanvas.offcanvas-end{width: 60%}
+
+.offcanvas.offcanvas-end {
+    width: 60%
+}
+
 .offcanvas-backdrop {
     all: unset;
     position: fixed;
     top: 0;
-    right: 0!important;
+    right: 0 !important;
     z-index: 1040;
     width: 88%;
     height: 100vh;
     background-color: #1d273b;
 }
-.chat.modal,.modal-backdrop{width: 30%}
-.chat .modal-dialog{max-width: 100%;    height: 100vh;    margin: 0;}
-.chat .modal-content{border-radius: 0;height: 100vh}
-.note-editor.note-airframe.fullscreen, .note-editor.note-frame.fullscreen{background-color: #fff}
+
+.chat.modal, .modal-backdrop {
+    width: 30%
+}
+
+.chat .modal-dialog {
+    max-width: 100%;
+    height: 100vh;
+    margin: 0;
+}
+
+.chat .modal-content {
+    border-radius: 0;
+    height: 100vh
+}
+
+.note-editor.note-airframe.fullscreen, .note-editor.note-frame.fullscreen {
+    background-color: #fff
+}
 
 @media (min-width: 1400px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         max-width: 1400px;
     }
 }
-.card,.table-responsive{border: none;box-shadow: 0 3px 20px #0000000b}
-.markdown{font-size: 1.23rem}
-.card-table tbody tr:first-child td, .card-table tbody tr:first-child th, .card-table tfoot tr:first-child td, .card-table tfoot tr:first-child th, .card-table thead tr:first-child td, .card-table thead tr:first-child th{border: none}
-tbody, td, tfoot, th, thead, tr{border: none}
+
+.card, .table-responsive {
+    border: none;
+    box-shadow: 0 3px 20px #0000000b
+}
+
+.markdown {
+    font-size: 1.23rem
+}
+
+.card-table tbody tr:first-child td, .card-table tbody tr:first-child th, .card-table tfoot tr:first-child td, .card-table tfoot tr:first-child th, .card-table thead tr:first-child td, .card-table thead tr:first-child th {
+    border: none
+}
+
+tbody, td, tfoot, th, thead, tr {
+    border: none
+}
+
+@media (min-width: 992px) {
+    .navbar-vertical.navbar-expand-lg .navbar-collapse .dropdown-menu .dropdown-item.active, .navbar-vertical.navbar-expand-lg .navbar-collapse .dropdown-menu .dropdown-item:active {
+        background: #f1f5f9;
+    }
+}

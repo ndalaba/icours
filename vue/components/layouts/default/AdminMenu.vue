@@ -8,11 +8,9 @@
     </a>
     <div class="dropdown-menu show" data-bs-popper="static" id="admin_menu">
       <div class="dropdown-menu-columns">
-        <div class="dropdown-menu-column">
           <NuxtLink class="dropdown-item" id="courses_menu" href="/admin/courses">Cours</NuxtLink>
           <NuxtLink class="dropdown-item" id="subjects_menu" href="/admin/subjects">Matières</NuxtLink>
           <NuxtLink class="dropdown-item" id="classes_menu" href="/admin/classes">Classes</NuxtLink>
-        </div>
       </div>
     </div>
   </li>

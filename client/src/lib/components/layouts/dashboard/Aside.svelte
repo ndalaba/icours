@@ -14,7 +14,7 @@
 
 </script>
 
-<aside class="navbar navbar-vertical navbar-expand-lg navbar-transparent">
+<aside class="navbar navbar-vertical navbar-expand-lg">
     <div class="container-fluid">
         <button aria-controls="sidebar-menu" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#sidebar-menu" data-bs-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
@@ -49,8 +49,6 @@
                 {#if isAdmin(authUser.user)}
                     <AdminMenu/>
                 {/if}
-
-
                 <li>
                     <a class="btn btn-primary chat_btn" data-bs-target="#modal-scrollable" data-bs-toggle="modal" href="#">
                         Vous avez des questions

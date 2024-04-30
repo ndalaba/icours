@@ -5,7 +5,6 @@ import CourseRepository from "../repository/course.repository";
 import Course from "../entity/course.entity";
 import User from "../../user/user.entity";
 import {tryCatch} from "../../../helpers/functions";
-import logger from "../../../helpers/logger";
 
 
 export class CourseService {
